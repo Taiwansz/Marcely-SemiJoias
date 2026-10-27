@@ -1,0 +1,36 @@
+# Ambientes Virtuais e Dependencias
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Builds e Bundles
+dist/
+build/
+.next/
+out/
+
+# Variaveis de Ambiente e Segredos
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Sistema Operacional e Editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Artefatos Temporarios de Teste e Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.playwright/
+test-results/
+playwright-report/
