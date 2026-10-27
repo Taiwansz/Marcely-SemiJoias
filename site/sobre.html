@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre a Marca &amp; Lookbook Editorial | Marcely Oliveira Semi-Joias Finas</title>
+  <meta name="description" content="Conheça a história e o ateliê autoral de Marcely Oliveira em São Paulo. Joalheria contemporânea com banho de 10 a 15 milésimos de Ouro 18k, nano-cerâmica e lookbook exclusivo.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#0D0D0E",
+            secondary: "#745A2E",
+            accent: "#D4AF37",
+            "accent-gold": "#D4AF37",
+            surface: "#FBFBFA",
+            "surface-container-low": "#F6F3EE",
+            "surface-container": "#F0EDE9",
+            "surface-container-high": "#EBE8E3",
+            "surface-container-highest": "#E5E2DD",
+            "surface-container-lowest": "#FFFFFF",
+            "on-surface": "#1C1C19",
+            "on-surface-variant": "#787571",
+            "outline-variant": "#D0C4BE",
+            error: "#BA1A1A"
+          },
+          fontFamily: {
+            serif: ["Bodoni Moda", "Georgia", "serif"],
+            sans: ["Plus Jakarta Sans", "Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Custom Design System & Liquid Glass Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="concierge.css">
+</head>
+<body class="bg-[#FBFBFA] font-sans text-on-surface antialiased overflow-x-hidden">
+
+  <!-- Announcement Bar -->
+  <div class="bg-[#0D0D0E] text-[#FBFBFA] py-2 px-4 text-center text-[11px] font-sans tracking-[0.2em] uppercase">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <span class="hidden md:inline-block text-[#D4AF37]">Ateliê Privé Jardins • São Paulo</span>
+      <span class="mx-auto md:mx-0">Frete Cortesia nas compras acima de R$ 300 &nbsp;|&nbsp; 5% de desconto no Pix</span>
+      <span class="hidden md:inline-block text-[#D4AF37]">Garantia Vitalícia no Banho</span>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 liquid-glass-nav transition-all duration-300">
+    <div class="h-20 max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="assets/logo.png" alt="Marcely Oliveira Atelier" class="h-9 w-auto object-contain transition-transform group-hover:scale-105">
+        <span class="font-serif text-2xl tracking-wider text-primary font-medium">Marcely</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest text-on-surface-variant">
+        <a href="index.html" class="hover:text-primary transition-colors">Início</a>
+        <a href="catalogo.html" class="hover:text-primary transition-colors">Catálogo Completo</a>
+        <a href="catalogo.html?cat=diamon" class="hover:text-primary transition-colors text-secondary">Coleção Diamon</a>
+        <a href="catalogo.html?cat=aneis" class="hover:text-primary transition-colors">Anéis</a>
+        <a href="catalogo.html?cat=colares" class="hover:text-primary transition-colors">Colares &amp; Chokers</a>
+        <a href="sobre.html" class="text-primary font-bold border-b border-primary pb-0.5">Sobre a Marca</a>
+        <a href="#lookbook" class="hover:text-primary transition-colors">Lookbook</a>
+      </nav>
+
+      <!-- Header Action Icons -->
+      <div class="flex items-center gap-3">
+        <!-- Wishlist Link -->
+        <a href="catalogo.html" class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container relative" title="Favoritos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-count-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-secondary text-white rounded-full text-[9px] font-bold flex items-center justify-center" style="display:none;">0</span>
+        </a>
+
+        <!-- Cart Drawer Trigger -->
+        <button type="button" onclick="window.MarcelyApp.openCart()" class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container relative" title="Abrir Sacola de Compras">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count-badge absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#0D0D0E] text-[#D4AF37] rounded-full text-[9px] font-bold flex items-center justify-center" style="display:none;">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO EDITORIAL SOBRE
+       ========================================================================== -->
+  <section id="aboutStorySection" class="relative w-full overflow-hidden bg-[#F6F3EE] py-20 px-4 md:px-8 border-b border-subtle">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Text Column -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="inline-flex items-center gap-2 text-secondary text-xs uppercase tracking-widest font-semibold">
+          <span class="w-8 h-px bg-secondary"></span>
+          <span>Edição Monográfica • Vol. IV</span>
+        </div>
+        
+        <h1 class="font-serif text-4xl md:text-5xl text-primary leading-tight">
+          A Arte da Joalheria Contemporânea
+        </h1>
+
+        <p class="text-base text-on-surface-variant leading-relaxed font-light">
+          Uma ode visual ao minimalismo escultural, onde a nobreza do Ouro 18k e a precisão do talhe lapidado revelam a essência da mulher confiante e atemporal.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a href="#lookbook" class="btn-luxury-primary">
+            Explorar Lookbook
+          </a>
+          <a href="#infografico" class="btn-luxury-outline">
+            Ver Infográfico Comparativo
+          </a>
+        </div>
+
+        <!-- Micro-stats -->
+        <div class="pt-6 flex items-center gap-8 border-t border-subtle">
+          <div>
+            <p class="font-serif text-2xl font-bold text-primary">100%</p>
+            <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Hipoalergênico</p>
+          </div>
+          <div class="w-px h-8 bg-outline-variant"></div>
+          <div>
+            <p class="font-serif text-2xl font-bold text-primary">10–15 µ</p>
+            <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Ouro 18k Nobre</p>
+          </div>
+          <div class="w-px h-8 bg-outline-variant"></div>
+          <div>
+            <p class="font-serif text-2xl font-bold text-primary">Jardins, SP</p>
+            <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Ateliê Autoral</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Atelier Image Column -->
+      <div class="lg:col-span-6 relative">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-surface-container relative">
+          <img src="assets/products/prod_31649088.jpg" alt="Ateliê Marcely Oliveira em São Paulo" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
+          
+          <div class="absolute bottom-6 left-6 right-6 p-4 liquid-glass-light rounded-xl">
+            <p class="text-xs text-secondary uppercase tracking-widest font-semibold">Moodboard Oficial</p>
+            <p class="font-serif text-lg text-primary font-medium mt-0.5">Identidade, Toque &amp; Proporção Escultural</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION: A HISTÓRIA DO ATELIÊ & MARCELY OLIVEIRA
+       ========================================================================== -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 py-24 space-y-16">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-5 relative">
+        <div class="aspect-[4/5] rounded-2xl overflow-hidden shadow-xl bg-surface-container">
+          <img src="assets/products/item_8205190e522f48af8a561e7a9e741663.jpg" alt="Caixa e Embalagem de Veludo Marcely Oliveira" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 space-y-6">
+        <span class="text-xs font-semibold text-secondary uppercase tracking-widest">Origem &amp; Filosofia</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-primary leading-tight">
+          Nascida da Recusa à Efemeridade.
+        </h2>
+        
+        <p class="text-base text-on-surface-variant leading-relaxed">
+          Marcely Oliveira fundou a marca com uma convicção inegociável: joias não devem ser descartáveis nem presas a modismos passageiros. Inspirada pela arquitetura brutalista suíça e pelo conceito de <em>Quiet Luxury</em>, a maison combina a tradição da ourivesaria clássica com a engenharia química alemã de banhos nobres.
+        </p>
+
+        <p class="text-base text-on-surface-variant leading-relaxed">
+          Cada peça que deixa o Ateliê nos Jardins em São Paulo recebe até 15 milésimos de ouro 18k e banho de ródio nobre, selados por um verniz nano-cerâmico termofixo. O resultado é uma peça com densidade de toque idêntica ao ouro maciço, brilho cintilante que resiste aos anos e pureza 100% hipoalergênica.
+        </p>
+
+        <div class="pt-4 grid grid-cols-2 gap-6 border-t border-subtle">
+          <div>
+            <h4 class="font-serif text-lg text-primary font-medium">Design Autoral</h4>
+            <p class="text-xs text-on-surface-variant mt-1">Linhas assimétricas e proporção áurea em cada curva.</p>
+          </div>
+          <div>
+            <h4 class="font-serif text-lg text-primary font-medium">Microcravação Suíça</h4>
+            <p class="text-xs text-on-surface-variant mt-1">Zircônias 5A fixadas individualmente à mão.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==========================================================================
+       SECTION: INFOGRÁFICO COMPARATIVO (SEMI-JOIA MARCELY VS BIJUTERIA COMUM)
+       ========================================================================== -->
+  <section id="infografico" class="w-full bg-[#F6F3EE] py-24 px-4 md:px-8 border-y border-subtle">
+    <div class="max-w-7xl mx-auto space-y-12">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="text-xs font-semibold text-secondary uppercase tracking-widest">Engenharia Molecular de Banho</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-primary">Marcely Oliveira vs. Bijuteria Comum</h2>
+        <p class="text-sm text-on-surface-variant">
+          Entenda a diferença estrutural entre uma semi-joia de alta costura com garantia vitalícia e o mercado de acessórios descartáveis.
+        </p>
+      </div>
+
+      <!-- Comparative Table / Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Column 1: Semi-Joia Marcely Oliveira (Padrão Ouro) -->
+        <div class="liquid-glass-card p-8 rounded-2xl border-2 border-accent/40 shadow-xl relative overflow-hidden bg-white">
+          <div class="absolute top-0 right-0 bg-[#0D0D0E] text-[#D4AF37] px-4 py-1 text-[10px] font-bold uppercase tracking-wider rounded-bl-xl">
+            Padrão Alta Joalheria
+          </div>
+
+          <div class="space-y-6">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-secondary font-serif text-sm italic font-bold">
+                MO
+              </div>
+              <div>
+                <h3 class="font-serif text-xl font-bold text-primary">Marcely Semi-Joia Fina</h3>
+                <span class="text-xs text-secondary font-semibold">Ateliê Autoral Jardins</span>
+              </div>
+            </div>
+
+            <ul class="space-y-4 text-xs">
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">10 a 15 Milésimos de Ouro 18k</strong>
+                  <span class="text-on-surface-variant">Camada espessa de ouro real garantindo peso e cor idênticos à joia maciça.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Blindagem Nano-Cerâmica Alemã</strong>
+                  <span class="text-on-surface-variant">Polímero cerâmico curado em estufa que impede oxidação por suor e perfume.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">100% Livre de Níquel e Chumbo</strong>
+                  <span class="text-on-surface-variant">Liga base de cobre nobre totalmente hipoalergênica, segura para peles sensíveis.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Zircônias 5A Lapidação Suíça</strong>
+                  <span class="text-on-surface-variant">Facetação brilhante de 57 facetas com dispersão de luz equivalente a diamantes raros.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-secondary text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Garantia Vitalícia no Banho</strong>
+                  <span class="text-on-surface-variant">Acompanha certificado numerado e suporte integral de polimento do ateliê.</span>
+                </div>
+              </li>
+            </ul>
+
+            <div class="pt-4 border-t border-subtle">
+              <a href="catalogo.html" class="btn-luxury-primary w-full text-center">
+                Ver Coleção Banhada a 15µ
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Bijuteria Comum de Mercado -->
+        <div class="liquid-glass-card p-8 rounded-2xl border border-subtle shadow-sm bg-surface-container-low/50">
+          <div class="space-y-6">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant font-serif text-sm">
+                X
+              </div>
+              <div>
+                <h3 class="font-serif text-xl font-medium text-primary">Bijuteria Comum de Varejo</h3>
+                <span class="text-xs text-on-surface-variant">Fabricação em Massa</span>
+              </div>
+            </div>
+
+            <ul class="space-y-4 text-xs">
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-error/20 text-error flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Banho Flash (Menos de 1 milésimo)</strong>
+                  <span class="text-on-surface-variant">Pintura química superficial que desbota e descasca em menos de 3 semanas de uso.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-error/20 text-error flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Ausência de Verniz Protetor</strong>
+                  <span class="text-on-surface-variant">Metal exposto a umidade e pH da pele, provocando manchas esverdeadas no corpo.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-error/20 text-error flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Contém Níquel Alergênico</strong>
+                  <span class="text-on-surface-variant">Causa coceira, dermatite de contato e inflamações no lóbulo da orelha.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-error/20 text-error flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Vidro Colado ou Acrílico Opaco</strong>
+                  <span class="text-on-surface-variant">Pedras coladas com cola branca comum que caem e perdem o brilho rapidamente.</span>
+                </div>
+              </li>
+
+              <li class="flex items-start gap-3">
+                <div class="w-5 h-5 rounded-full bg-error/20 text-error flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <div>
+                  <strong class="text-primary block text-sm">Zero Garantia de Durabilidade</strong>
+                  <span class="text-on-surface-variant">Descarte inevitável e frustração após poucos usos.</span>
+                </div>
+              </li>
+            </ul>
+
+            <div class="pt-4 border-t border-subtle">
+              <p class="text-[11px] text-center text-on-surface-variant">
+                Opte pela consciência do Quiet Luxury que atravessa gerações.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION: LOOKBOOK EDITORIAL 2025
+       ========================================================================== -->
+  <section id="lookbook" class="max-w-7xl mx-auto px-4 md:px-8 py-24 space-y-12">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <span class="text-xs font-semibold text-secondary uppercase tracking-widest">Catálogo Visual Monográfico</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-primary mt-1">Lookbook 2025: Proporção &amp; Luz</h2>
+      </div>
+      <p class="text-sm text-on-surface-variant max-w-md">
+        Capturas em luz natural com foco na mineralidade do ouro 18k e nos reflexos das lapidações Diamon.
+      </p>
+    </div>
+
+    <!-- Editorial Masonry / Bento Gallery -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Lookbook 1 -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4] bg-surface-container">
+        <img src="assets/products/item_d1ce602e244e499591d18900bf696892.jpg" alt="Pulseira Gotas de Luz Cristal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-white">
+          <span class="text-[10px] uppercase tracking-widest text-[#D4AF37]">Look 01 • Coleção Diamon</span>
+          <h4 class="font-serif text-lg font-medium">Pulseira Gotas de Luz</h4>
+          <p class="text-xs text-white/80 mt-1">Banho de 10 milésimos sobre corrente veneziana.</p>
+        </div>
+      </div>
+
+      <!-- Lookbook 2 -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4] bg-surface-container">
+        <img src="assets/products/item_c8a753d1f9464a829c22b981e7ec4380.jpg" alt="Escapulário Sacred Cruz & Coração Pavê" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-white">
+          <span class="text-[10px] uppercase tracking-widest text-[#D4AF37]">Look 02 • Coleção Diamon</span>
+          <h4 class="font-serif text-lg font-medium">Escapulário Sacred Pavê</h4>
+          <p class="text-xs text-white/80 mt-1">Microcravação suíça em relevo barroco.</p>
+        </div>
+      </div>
+
+      <!-- Lookbook 3 -->
+      <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4] bg-surface-container">
+        <img src="assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg" alt="Ear Cuff Multi-Aros Espiralados" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-white">
+          <span class="text-[10px] uppercase tracking-widest text-[#D4AF37]">Look 03 • Coleção Diamon</span>
+          <h4 class="font-serif text-lg font-medium">Ear Cuff Espiralado</h4>
+          <p class="text-xs text-white/80 mt-1">Acabamento espelhado em ródio nobre sem furo.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lookbook CTA -->
+    <div class="text-center pt-8">
+      <a href="catalogo.html" class="btn-luxury-primary px-8 py-3.5 text-xs tracking-widest">
+        Ver Todas as 58 Peças do Lookbook no Catálogo
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER LUXO COMPLETO
+       ========================================================================== -->
+  <footer class="bg-[#0D0D0E] text-[#FBFBFA] pt-16 pb-12 px-4 md:px-8 mt-20">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-white/10">
+      
+      <!-- Brand & Story -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <img src="assets/logo.png" alt="Marcely Oliveira" class="h-8 w-auto invert">
+          <span class="font-serif text-2xl tracking-wider text-white">Marcely</span>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          Ateliê de joalheria contemporânea e semi-joias finas. Desenvolvidas com banho de até 15 milésimos de ouro 18k, ródio nobre e zircônias de lapidação suíça 5A.
+        </p>
+        <p class="text-xs text-[#D4AF37]">
+          São Paulo, Jardins • Atendimento com Hora Marcada
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="space-y-3">
+        <h4 class="font-serif text-sm uppercase tracking-wider text-[#D4AF37]">Navegação</h4>
+        <ul class="space-y-2 text-xs text-on-surface-variant">
+          <li><a href="index.html" class="hover:text-white transition-colors">Página Inicial</a></li>
+          <li><a href="catalogo.html" class="hover:text-white transition-colors">Catálogo Completo</a></li>
+          <li><a href="catalogo.html?cat=diamon" class="hover:text-white transition-colors">Coleção Diamon 2025</a></li>
+          <li><a href="sobre.html" class="hover:text-white transition-colors">História do Ateliê</a></li>
+          <li><a href="#lookbook" class="hover:text-white transition-colors">Lookbook Editorial</a></li>
+        </ul>
+      </div>
+
+      <!-- Security & Policies -->
+      <div class="space-y-3">
+        <h4 class="font-serif text-sm uppercase tracking-wider text-[#D4AF37]">Excelência &amp; Suporte</h4>
+        <ul class="space-y-2 text-xs text-on-surface-variant">
+          <li>Garantia Vitalícia no Banho</li>
+          <li>Certificado de Autenticidade Numerado</li>
+          <li>Envio Seguro com Rastreamento</li>
+          <li>Embalagem de Veludo Nobre</li>
+          <li>Política de Troca em até 30 dias</li>
+        </ul>
+      </div>
+
+      <!-- Payment & Pix -->
+      <div class="space-y-4">
+        <h4 class="font-serif text-sm uppercase tracking-wider text-[#D4AF37]">Pagamentos Seguros</h4>
+        <p class="text-xs text-on-surface-variant">
+          Pix com 5% de desconto imediato ou Cartão de Crédito em até 6x sem juros.
+        </p>
+        <div class="flex items-center gap-2 pt-2">
+          <span class="px-3 py-1 bg-white/10 text-white rounded text-[11px] font-semibold border border-white/10">PIX 5% OFF</span>
+          <span class="px-3 py-1 bg-white/10 text-white rounded text-[11px] font-semibold border border-white/10">VISA</span>
+          <span class="px-3 py-1 bg-white/10 text-white rounded text-[11px] font-semibold border border-white/10">MASTERCARD</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-on-surface-variant gap-4">
+      <p>&copy; 2025 Marcely Oliveira Semi-Joias Finas. Todos os direitos reservados.</p>
+      <p class="tracking-widest uppercase text-[10px]">Quiet Luxury • Alta Joalheria</p>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       DRAWER CART (SACOLA DE COMPRAS)
+       ========================================================================== -->
+  <div id="cartDrawer">
+    <div class="drawer-backdrop"></div>
+    <div class="drawer-content">
+      
+      <div class="p-6 border-b border-subtle flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <h3 class="font-serif text-xl text-primary font-medium">Sacola de Compras</h3>
+          <span class="cart-count-badge text-xs bg-secondary text-white px-2 py-0.5 rounded-full font-bold">0</span>
+        </div>
+        <button type="button" onclick="window.MarcelyApp.closeCart()" class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Fechar Sacola">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="px-6 py-3 bg-[#F6F3EE] border-b border-subtle">
+        <div class="flex justify-between items-center text-xs mb-1.5">
+          <span id="shippingProgressText" class="text-on-surface font-medium">Calculando Frete Cortesia...</span>
+          <span class="text-secondary font-bold">R$ 300,00</span>
+        </div>
+        <div class="shipping-progress-bg">
+          <div id="shippingProgressFill" class="shipping-progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div id="cartDrawerItems" class="flex-1 overflow-y-auto p-6"></div>
+
+      <div id="cartDrawerEmpty" class="flex-1 flex flex-col items-center justify-center p-8 text-center" style="display:none;">
+        <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-secondary mb-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <h4 class="font-serif text-lg text-primary">Sua sacola está vazia</h4>
+        <p class="text-xs text-on-surface-variant mt-1 max-w-xs">Descubra as criações de alta joalheria da Coleção Diamon e adicione suas peças prediletas.</p>
+        <a href="catalogo.html" onclick="window.MarcelyApp.closeCart()" class="btn-luxury-outline mt-6">
+          Explorar Catálogo
+        </a>
+      </div>
+
+      <div id="cartDrawerFooter" class="p-6 border-t border-subtle bg-white space-y-4">
+        
+        <div class="flex gap-2">
+          <input type="text" id="cartCouponInput" placeholder="Cupom (ex: MARCELY10)" class="flex-1 px-3 py-2 text-xs border border-outline-variant rounded uppercase font-semibold">
+          <button type="button" onclick="window.MarcelyApp.applyCoupon()" class="px-4 py-2 bg-surface-container text-primary hover:bg-primary hover:text-white text-xs font-semibold uppercase rounded transition-colors">
+            Aplicar
+          </button>
+        </div>
+
+        <div class="space-y-1.5 text-xs text-on-surface-variant">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="cartDrawerSubtotal" class="font-semibold text-primary">R$ 0,00</span>
+          </div>
+          <div id="cartDrawerDiscountRow" class="flex justify-between text-secondary font-medium" style="display:none;">
+            <span>Desconto de Cupom</span>
+            <span id="cartDrawerDiscount">- R$ 0,00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Frete</span>
+            <span class="text-secondary font-semibold">Cortesia (Pedido Elegível)</span>
+          </div>
+          <div class="flex justify-between pt-2 border-t border-subtle text-sm">
+            <span class="font-serif text-base text-primary font-semibold">Total</span>
+            <span id="cartDrawerTotal" class="font-serif text-lg text-primary font-semibold">R$ 0,00</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-secondary font-medium">
+            <span>Ou via Pix (5% OFF adicional):</span>
+            <span id="cartDrawerPixTotal" class="font-bold">R$ 0,00</span>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <button type="button" onclick="window.MarcelyApp.openPixCheckout()" class="w-full btn-luxury-gold py-3 text-xs tracking-wider">
+            Finalizar Compra via Pix (5% OFF)
+          </button>
+          <button type="button" onclick="window.MarcelyApp.closeCart(); window.MarcelyApp.showToast('Direcionando ao checkout criptografado...', 'info');" class="w-full btn-luxury-outline py-2.5 text-xs">
+            Pagar com Cartão (até 6x sem juros)
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CHECKOUT PIX MODAL
+       ========================================================================== -->
+  <div id="pixModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card p-6 md:p-8 space-y-6">
+      
+      <div class="flex justify-between items-start">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-secondary">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div>
+            <span class="text-[10px] font-semibold text-secondary uppercase tracking-widest">Pagamento Instantâneo</span>
+            <h3 class="font-serif text-xl text-primary font-medium">Checkout Pix Marcely</h3>
+          </div>
+        </div>
+        <button type="button" onclick="window.MarcelyApp.closePixModal()" class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Fechar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="bg-surface-container-low p-4 rounded-xl flex items-center justify-between">
+        <div>
+          <span class="text-[10px] text-on-surface-variant uppercase tracking-wider block">Valor com 5% de Desconto</span>
+          <span id="pixModalAmount" class="font-serif text-2xl font-bold text-primary">R$ 0,00</span>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] text-on-surface-variant uppercase tracking-wider block">Expira em:</span>
+          <span id="pixTimerCountdown" class="font-sans text-sm font-bold text-secondary">15:00</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center justify-center space-y-3">
+        <div class="p-3 bg-white rounded-xl shadow-md border border-subtle">
+          <canvas id="pixQrCanvas" width="220" height="220" class="block"></canvas>
+        </div>
+        <p class="text-[11px] text-on-surface-variant text-center max-w-xs">
+          Abra o app do seu banco, escolha <strong>Pagar via Pix &gt; Ler QR Code</strong> e aponte a câmera.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-[11px] font-semibold text-on-surface uppercase tracking-wider block">Chave Pix Copia e Cola</label>
+        <div class="flex gap-2">
+          <input type="text" id="pixCopiaEColaInput" readonly class="flex-1 px-3 py-2 text-xs bg-surface-container-low border border-outline-variant rounded font-mono text-on-surface-variant select-all">
+          <button type="button" onclick="window.MarcelyApp.copyPixCode()" class="btn-luxury-primary px-4 py-2 text-xs whitespace-nowrap">
+            Copiar
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-2 flex flex-col gap-2">
+        <button type="button" onclick="window.MarcelyApp.confirmPixPayment()" class="w-full btn-luxury-gold py-3 text-xs tracking-wider">
+          Já Realizei o Pagamento
+        </button>
+        <button type="button" onclick="window.MarcelyApp.closePixModal()" class="w-full text-center text-xs text-on-surface-variant hover:text-primary py-1">
+          Cancelar e Voltar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Central Interaction Script -->
+  <script src="app.js"></script>
+  <script src="concierge.js"></script>
+</body>
+</html>

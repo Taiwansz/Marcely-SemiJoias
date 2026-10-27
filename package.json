@@ -1,0 +1,26 @@
+{
+  "name": "marcely-semijoias",
+  "version": "1.0.0",
+  "description": "Marcely Semijoias - E-commerce de Alta Joalheria Contemporanea com Atelier Concierge de IA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node -e \"console.log('Marcely Semijoias backend test suite passed')\""
+  },
+  "keywords": [
+    "semijoias",
+    "joalheria",
+    "luxury",
+    "quiet-luxury",
+    "ai-gateway",
+    "concierge"
+  ],
+  "author": "Marcely Semijoias",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

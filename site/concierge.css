@@ -1,0 +1,716 @@
+/**
+ * Marcely Semijoias - Atelier Concierge
+ * Design System: Apple Liquid Glass UI & Quiet Luxury
+ * Inspirado nas diretrizes canonicas do Brand Book Marcely e Apple Human Interface Guidelines
+ */
+
+/* Importacao das fontes tipograficas de alta joalheria */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --concierge-gold: #D4AF37;
+  --concierge-gold-light: #F0D890;
+  --concierge-gold-dark: #A38020;
+  --concierge-obsidian: #0D0D0E;
+  --concierge-alabaster: #FBFBFA;
+  --concierge-warm-alabaster: #F4F1EA;
+  --concierge-stone: #787571;
+  --concierge-border-gold: rgba(212, 175, 55, 0.28);
+  --concierge-border-subtle: rgba(20, 20, 22, 0.08);
+
+  --concierge-spring: cubic-bezier(0.25, 1, 0.5, 1);
+  --concierge-spring-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --concierge-spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* -------------------------------------------------------------
+ * 1. BOTAO FLUTUANTE (TRIGGER)
+ * ------------------------------------------------------------- */
+#marcely-concierge-trigger {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px 10px 14px;
+  border-radius: 999px;
+  background: rgba(251, 251, 250, 0.88);
+  backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 28px -6px rgba(13, 13, 14, 0.18),
+    0 2px 6px 0 rgba(13, 13, 14, 0.06);
+  cursor: pointer;
+  transition: all 0.4s var(--concierge-spring);
+  user-select: none;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--concierge-obsidian);
+}
+
+#marcely-concierge-trigger:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(212, 175, 55, 0.6);
+  box-shadow:
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    0 18px 36px -8px rgba(13, 13, 14, 0.24),
+    0 4px 10px 0 rgba(212, 175, 55, 0.15);
+}
+
+#marcely-concierge-trigger:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.concierge-trigger-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0D0D0E 0%, #1A1A1E 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--concierge-gold-light);
+  box-shadow: 0 4px 10px rgba(13, 13, 14, 0.25);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.concierge-trigger-icon-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  pointer-events: none;
+}
+
+.concierge-trigger-icon {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+.concierge-trigger-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.concierge-trigger-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--concierge-obsidian);
+  line-height: 1.1;
+}
+
+.concierge-trigger-badge {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--concierge-gold-dark);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.concierge-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2E7D32;
+  box-shadow: 0 0 6px rgba(46, 125, 50, 0.5);
+  display: inline-block;
+  animation: concierge-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes concierge-glow {
+  0%, 100% { opacity: 0.7; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* -------------------------------------------------------------
+ * 2. MODAL LIQUID GLASS DO CONCIERGE
+ * ------------------------------------------------------------- */
+#marcely-concierge-panel {
+  position: fixed;
+  bottom: 86px;
+  right: 28px;
+  width: 430px;
+  max-width: calc(100vw - 36px);
+  height: 640px;
+  max-height: calc(100vh - 110px);
+  z-index: 99995;
+  display: flex;
+  flex-direction: column;
+  border-radius: 28px;
+  overflow: hidden;
+
+  /* Formula Canonica: Liquid Glass Luxury */
+  background: rgba(251, 251, 250, 0.88);
+  backdrop-filter: blur(32px) saturate(180%) contrast(102%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%) contrast(102%);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 20px 0 rgba(212, 175, 55, 0.03),
+    0 28px 56px -14px rgba(13, 13, 14, 0.32),
+    0 2px 8px 0 rgba(13, 13, 14, 0.08);
+
+  transform-origin: bottom right;
+  transition:
+    transform 0.45s var(--concierge-spring),
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--concierge-obsidian);
+}
+
+#marcely-concierge-panel.concierge-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.94);
+  pointer-events: none;
+}
+
+/* Cabecalho de Alta Joalheria */
+.concierge-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.65);
+  border-bottom: 1px solid rgba(20, 20, 22, 0.06);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.concierge-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+}
+
+.concierge-brand-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.concierge-monogram-shield {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0D0D0E 0%, #202024 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--concierge-gold-light);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.concierge-header-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.concierge-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--concierge-obsidian);
+  line-height: 1.15;
+}
+
+.concierge-subtitle {
+  font-size: 0.72rem;
+  color: var(--concierge-stone);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.concierge-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.concierge-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(20, 20, 22, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--concierge-stone);
+  cursor: pointer;
+  transition: all 0.25s var(--concierge-spring);
+}
+
+.concierge-icon-btn:hover {
+  background: #FFFFFF;
+  color: var(--concierge-obsidian);
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: scale(1.05);
+}
+
+.concierge-icon-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* -------------------------------------------------------------
+ * 3. CORPO DE MENSAGENS
+ * ------------------------------------------------------------- */
+.concierge-messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 20px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar ultra fina de luxo */
+.concierge-messages-area::-webkit-scrollbar {
+  width: 4px;
+}
+.concierge-messages-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.concierge-messages-area::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 999px;
+}
+.concierge-messages-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.6);
+}
+
+.concierge-msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 88%;
+  animation: concierge-fade-in 0.35s var(--concierge-spring);
+}
+
+@keyframes concierge-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.concierge-msg-assistant {
+  align-self: flex-start;
+}
+
+.concierge-msg-user {
+  align-self: flex-end;
+}
+
+.concierge-msg-bubble {
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  position: relative;
+  word-break: break-word;
+}
+
+.concierge-msg-assistant .concierge-msg-bubble {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  color: #141416;
+  border-bottom-left-radius: 4px;
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
+    0 4px 12px rgba(13, 13, 14, 0.04);
+}
+
+.concierge-msg-user .concierge-msg-bubble {
+  background: #0D0D0E;
+  color: #FBFBFA;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom-right-radius: 4px;
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
+    0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.concierge-msg-time {
+  font-size: 0.68rem;
+  color: var(--concierge-stone);
+  margin-top: 4px;
+  padding: 0 4px;
+}
+
+.concierge-msg-user .concierge-msg-time {
+  text-align: right;
+}
+
+/* -------------------------------------------------------------
+ * 4. CARTOES DE PRODUTOS RECOMENDADOS
+ * ------------------------------------------------------------- */
+.concierge-product-recommendations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.concierge-product-card {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 4px 14px rgba(13, 13, 14, 0.05);
+  transition: all 0.3s var(--concierge-spring);
+  text-decoration: none;
+  color: inherit;
+}
+
+.concierge-product-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 8px 20px rgba(13, 13, 14, 0.08);
+}
+
+.concierge-product-thumb {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: var(--concierge-warm-alabaster);
+  border: 1px solid rgba(20, 20, 22, 0.06);
+  flex-shrink: 0;
+}
+
+.concierge-product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.concierge-product-badge {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--concierge-gold-dark);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.concierge-product-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--concierge-obsidian);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.concierge-product-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.concierge-product-price {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--concierge-obsidian);
+}
+
+.concierge-product-pix {
+  font-size: 0.72rem;
+  color: #2E7D32;
+  font-weight: 500;
+}
+
+.concierge-product-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.concierge-btn-sm {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  user-select: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.concierge-btn-outline {
+  background: transparent;
+  color: var(--concierge-obsidian);
+  border: 1px solid rgba(20, 20, 22, 0.15);
+}
+
+.concierge-btn-outline:hover {
+  background: rgba(20, 20, 22, 0.05);
+  border-color: rgba(20, 20, 22, 0.3);
+}
+
+.concierge-btn-gold {
+  background: linear-gradient(135deg, var(--concierge-gold) 0%, var(--concierge-gold-dark) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25);
+}
+
+.concierge-btn-gold:hover {
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+  transform: translateY(-1px);
+}
+
+/* -------------------------------------------------------------
+ * 5. CHIPS DE SUGESTOES RAPIDAS
+ * ------------------------------------------------------------- */
+.concierge-suggestions-wrap {
+  padding: 0 20px 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.concierge-chip {
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  font-size: 0.75rem;
+  color: var(--concierge-obsidian);
+  cursor: pointer;
+  transition: all 0.25s var(--concierge-spring);
+  user-select: none;
+  line-height: 1.2;
+}
+
+.concierge-chip:hover {
+  background: #FFFFFF;
+  border-color: rgba(212, 175, 55, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(212, 175, 55, 0.15);
+}
+
+/* -------------------------------------------------------------
+ * 6. AREA DE INPUT E CONTROLES
+ * ------------------------------------------------------------- */
+.concierge-input-container {
+  padding: 12px 20px 18px 20px;
+  background: rgba(255, 255, 255, 0.75);
+  border-top: 1px solid rgba(20, 20, 22, 0.06);
+  flex-shrink: 0;
+}
+
+.concierge-input-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 6px 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(20, 20, 22, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s var(--concierge-spring);
+}
+
+.concierge-input-box:focus-within {
+  border-color: var(--concierge-gold);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.04),
+    0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.concierge-input-field {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.88rem;
+  color: var(--concierge-obsidian);
+  line-height: 1.4;
+  padding: 4px 0;
+}
+
+.concierge-input-field::placeholder {
+  color: #A09D98;
+}
+
+.concierge-send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #0D0D0E 0%, #202024 100%);
+  color: var(--concierge-gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s var(--concierge-spring);
+  flex-shrink: 0;
+}
+
+.concierge-send-btn:hover {
+  transform: scale(1.06);
+  background: linear-gradient(135deg, var(--concierge-gold) 0%, var(--concierge-gold-dark) 100%);
+  color: #FFFFFF;
+}
+
+.concierge-send-btn:active {
+  transform: scale(0.95);
+}
+
+.concierge-send-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.concierge-send-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Indicador de digitacao (Pulsing dots) */
+.concierge-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.concierge-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--concierge-gold);
+  opacity: 0.4;
+  animation: concierge-bounce 1.3s infinite ease-in-out;
+}
+
+.concierge-typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.concierge-typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes concierge-bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* Toast de confirmacao in-chat */
+.concierge-toast {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0D0D0E;
+  color: #FBFBFA;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  z-index: 10;
+  animation: concierge-toast-pop 2.5s forwards ease;
+  pointer-events: none;
+}
+
+@keyframes concierge-toast-pop {
+  0% { opacity: 0; transform: translate(-50%, -10px); }
+  15% { opacity: 1; transform: translate(-50%, 0); }
+  85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+
+/* -------------------------------------------------------------
+ * 7. RESPONSIVIDADE (MOBILE 390px & TABLET)
+ * ------------------------------------------------------------- */
+@media (max-width: 640px) {
+  #marcely-concierge-trigger {
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 14px 8px 10px;
+  }
+
+  .concierge-trigger-title {
+    font-size: 0.9rem;
+  }
+
+  #marcely-concierge-panel {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 85vh;
+    max-height: 85vh;
+    border-radius: 24px 24px 0 0;
+    border-bottom: none;
+  }
+
+  #marcely-concierge-panel.concierge-hidden {
+    transform: translateY(100%);
+  }
+}
