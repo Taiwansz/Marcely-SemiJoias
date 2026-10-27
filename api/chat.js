@@ -15,10 +15,10 @@ function getProductsCatalog() {
     return cachedProducts;
   }
   const possiblePaths = [
+    path.join(__dirname, '_catalog.json'),
     path.join(__dirname, '../site/products.json'),
     path.join(process.cwd(), 'site/products.json'),
-    path.join(__dirname, 'products.json'),
-    path.join(process.cwd(), 'products.json')
+    path.join(process.cwd(), '_catalog.json')
   ];
   for (const p of possiblePaths) {
     try {

@@ -1,0 +1,9 @@
+.env.local
+.git
+.gitignore
+.vercel
+node_modules
+screenshots/
+brand/raw/
+brand/ref_site/
+scripts/
