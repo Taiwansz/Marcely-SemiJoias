@@ -30,6 +30,20 @@ A marca rejeita esteticas saturadas de promocao massificada e adota o principio 
 
 ## 4. Tipografia e Voz da Marca
 
-- **Tipografia Display (Titulos e Chamadas Editoriais):** Serifas de alto contraste e elegancia classica (ex: Cormorant Garamond, Italianno ou Playfair Display calibrado).
-- **Tipografia de Suporte (Corpo, Dados Tecnicos, Checkout):** Grotesca geometrica minimalista (Inter ou Plus Jakarta Sans).
+- **Tipografia Display (Titulos e Chamadas Editoriais):** Serifas de alto contraste e elegancia classica (Bodoni Moda / Playfair Display calibrado).
+- **Tipografia de Suporte (Corpo, Dados Tecnicos, Checkout):** Grotesca geometrica minimalista (Plus Jakarta Sans / Inter).
 - **Voz Verbal:** Concisa, sofisticada, aristocratica e segura. Ausencia de superlativos vazios ("o melhor preco", "imperdivel") e foco em atributos tangiveis (quilates, milesimos de banho, ergonomia de fechos, conforto auricular).
+
+---
+
+## 5. Simbologia e Logotipia Oficial
+
+- **Monograma Principal:** Letra 'M' cursiva caligrafica fluida esculpida em ouro amarelo 18k polido com arabesco de entrada, curvas de espessura variavel e reflexo especular de joalheria.
+- **Assinatura Tipografica:** `MARCELY` em caixa alta seriada com tracking expandido (`letter-spacing: 0.25em`), ancorada pela sub-assinatura `SEMIJOIAS` em entrelinha reduzida.
+- **Fundo Canônico de Papelaria/Apresentacao:** Marfim fosco aveludado (`#FAF6EE`), harmonizado com a paleta warm alabaster do e-commerce.
+- **Ativos Disponibilizados no Ecossistema:**
+  - `site/assets/logo.png`: Imagem gerada oficial e individual do Stitch (512x512).
+  - `site/assets/logo-icon-transparent.png`: Monograma 'M' isolado em canal alfa para navegacao e header.
+  - `site/assets/logo-transparent.png`: Marca integral com transparencia para fundos dark e overlays.
+  - `site/assets/logo.svg`: Hallmark vetorial SVG com gradiente multicamada ouro 18k.
+  - `site/assets/favicon.png`: Monograma 'M' em resolucao 64x64 para aba do navegador.
