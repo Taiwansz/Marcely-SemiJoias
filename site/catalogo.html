@@ -125,15 +125,11 @@
 
       <!-- Right Actions: Mobile App Icons (< 1024px) & Desktop Pill (>= 1024px) -->
       <div class="flex items-center flex-shrink-0">
-        <!-- Mobile Top-Right Actions (Search, Concierge, Favorites) -->
+        <!-- Mobile Top-Right Actions (Search & Favorites) -->
         <div class="flex lg:hidden items-center gap-1">
           <a href="catalogo.html#catalogSearchInput" onclick="const el=document.getElementById('catalogSearchInput');if(el){el.focus();}" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Buscar">
             <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           </a>
-
-          <button type="button" onclick="window.MarcelyApp.openConciergeChat && window.MarcelyApp.openConciergeChat()" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Concierge">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
-          </button>
 
           <a href="catalogo.html" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors relative" aria-label="Favoritos" title="Meus Favoritos">
             <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>

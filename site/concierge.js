@@ -51,8 +51,8 @@
   }
 
   const ICONS = {
-    sparkle: `<svg class="concierge-trigger-icon" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z" />
+    chat: `<svg class="concierge-trigger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
     </svg>`,
     close: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -94,12 +94,12 @@
       root.id = 'marcely-concierge-root';
       root.innerHTML = `
         <!-- Botao Flutuante Trigger (Desktop) -->
-        <button id="marcely-concierge-trigger" type="button" aria-label="Abrir Concierge Marcely">
+        <button id="marcely-concierge-trigger" type="button" aria-label="Abrir Atendimento Marcely">
           <div class="concierge-trigger-icon-wrap">
-            ${ICONS.sparkle}
+            ${ICONS.chat}
           </div>
           <div class="concierge-trigger-text">
-            <span class="concierge-trigger-title">Concierge Marcely</span>
+            <span class="concierge-trigger-title">Consultoria Marcely</span>
             <span class="concierge-trigger-badge">
               <span class="concierge-pulse-dot"></span>
               Atendimento Online
