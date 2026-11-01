@@ -655,6 +655,9 @@
         if (pixTarget) obs.observe(pixTarget, { childList: true, characterData: true, subtree: true });
       }
       setTimeout(syncMobileStickyPrices, 300);
+      if (window.MarcelyApp && typeof window.MarcelyApp.initMobilePdpActionBarScroll === 'function') {
+        window.MarcelyApp.initMobilePdpActionBarScroll();
+      }
     });
   </script>
   <script src="concierge.js"></script>

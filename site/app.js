@@ -1321,6 +1321,21 @@
     const triggerTarget = document.getElementById('pdpWhatsappBtn') || document.getElementById('addToCartBtn');
     if (!triggerTarget) return;
 
+    function updatePdpBarVisibility() {
+      if (window.scrollY < 180) {
+        bar.classList.remove('is-visible');
+        return;
+      }
+      const rect = triggerTarget.getBoundingClientRect();
+      if (rect.top < 0) {
+        bar.classList.add('is-visible');
+      } else {
+        bar.classList.remove('is-visible');
+      }
+    }
+
+    window.addEventListener('scroll', updatePdpBarVisibility, { passive: true });
+
     if (window.IntersectionObserver) {
       if (window._pdpBarObserver) {
         window._pdpBarObserver.disconnect();
@@ -1330,27 +1345,14 @@
           if (entry.isIntersecting) {
             bar.classList.remove('is-visible');
           } else {
-            const rect = triggerTarget.getBoundingClientRect();
-            if (rect.top < 0) {
-              bar.classList.add('is-visible');
-            } else {
-              bar.classList.remove('is-visible');
-            }
+            updatePdpBarVisibility();
           }
         });
       }, { threshold: 0.1 });
       window._pdpBarObserver.observe(triggerTarget);
-    } else {
-      const handleScroll = () => {
-        if (window.scrollY > 420) {
-          bar.classList.add('is-visible');
-        } else {
-          bar.classList.remove('is-visible');
-        }
-      };
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      handleScroll();
     }
+
+    updatePdpBarVisibility();
   }
 
   function initAboutPage() {
