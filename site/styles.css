@@ -103,6 +103,122 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   scrollbar-width: none;
 }
 
+/* ==========================================================================
+   VIEW TRANSITIONS & SILKY PAGE NAVIGATION ENGINE
+   ========================================================================== */
+
+#pageLoadingBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, #745A2E 0%, #D4AF37 50%, #F5DEB3 100%);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.65), 0 0 4px rgba(28, 28, 25, 0.2);
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateZ(0);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+}
+
+#pageLoadingBar.is-loading {
+  opacity: 1;
+}
+
+#pageLoadingBar.is-done {
+  width: 100% !important;
+  opacity: 0;
+  transition: width 0.18s ease, opacity 0.3s ease 0.12s;
+}
+
+/* Native Cross-Document View Transitions */
+@view-transition {
+  navigation: auto;
+}
+
+header {
+  view-transition-name: main-header;
+}
+
+#mobileAppTabBar {
+  view-transition-name: mobile-app-tabbar;
+}
+
+::view-transition-old(root) {
+  animation: pageFadeOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: pageFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pageFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth Soft Page Transition Classes */
+main {
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+main.page-transition-exit {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+main.page-transition-enter {
+  animation: pageContentEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pageContentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Product Card & Interaction Tactile Response */
+.product-card,
+[id="catalogProductsGrid"] > div,
+[id="featuredProductsGrid"] > div,
+[id="relatedProductsGrid"] > div {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:active,
+[id="catalogProductsGrid"] > div:active,
+[id="featuredProductsGrid"] > div:active,
+[id="relatedProductsGrid"] > div:active {
+  transform: scale(0.985);
+}
+
 /* Fluid Scroll Reveal Micro-Animation */
 .reveal-up {
   opacity: 0;

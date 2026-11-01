@@ -1367,13 +1367,296 @@
     changeProductImage: changeProductImage,
     resetCatalogFilters: resetCatalogFilters,
     initScrollReveal: initScrollReveal,
+    navigateToPage: navigateToPage,
     showToast: showToast
   };
+
+  // ==========================================================================
+  // SILKY CLIENT-SIDE PAGE TRANSITIONS & INSTANT PREFETCH ENGINE
+  // ==========================================================================
+  const pageHtmlCache = new Map();
+  let loadingBarTimeout = null;
+  let isNavigating = false;
+
+  function ensurePageLoadingBar() {
+    let bar = document.getElementById('pageLoadingBar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'pageLoadingBar';
+      document.body.appendChild(bar);
+    }
+    return bar;
+  }
+
+  function startPageLoadingBar() {
+    const bar = ensurePageLoadingBar();
+    clearTimeout(loadingBarTimeout);
+    bar.classList.remove('is-done');
+    bar.classList.add('is-loading');
+    bar.style.width = '35%';
+    loadingBarTimeout = setTimeout(() => {
+      if (bar.classList.contains('is-loading') && !bar.classList.contains('is-done')) {
+        bar.style.width = '75%';
+      }
+    }, 120);
+  }
+
+  function finishPageLoadingBar() {
+    const bar = ensurePageLoadingBar();
+    clearTimeout(loadingBarTimeout);
+    bar.style.width = '100%';
+    bar.classList.add('is-done');
+    loadingBarTimeout = setTimeout(() => {
+      bar.classList.remove('is-loading', 'is-done');
+      bar.style.width = '0%';
+    }, 350);
+  }
+
+  function prefetchPage(url) {
+    if (!url || typeof url !== 'string') return;
+    const cleanUrl = url.split('#')[0];
+    if (!cleanUrl || pageHtmlCache.has(cleanUrl)) return;
+    try {
+      fetch(cleanUrl, { priority: 'low' })
+        .then(res => {
+          if (res.ok) return res.text();
+          throw new Error('Falha no prefetch');
+        })
+        .then(html => {
+          pageHtmlCache.set(cleanUrl, html);
+        })
+        .catch(() => {});
+    } catch (e) {}
+  }
+
+  async function navigateToPage(targetUrl, isPopState = false) {
+    if (isNavigating) return;
+    const currentFullUrl = window.location.href;
+    const cleanCurrent = currentFullUrl.split('#')[0];
+    const cleanTarget = targetUrl.split('#')[0];
+
+    const hash = targetUrl.includes('#') ? targetUrl.substring(targetUrl.indexOf('#')) : '';
+    if (cleanCurrent === cleanTarget && hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!isPopState) history.pushState(null, '', targetUrl);
+        return;
+      }
+    }
+
+    isNavigating = true;
+    startPageLoadingBar();
+
+    closeCart();
+    closeMobileMenu();
+    updateTabBarForTargetUrl(cleanTarget);
+
+    try {
+      let html = pageHtmlCache.get(cleanTarget);
+      if (!html) {
+        const response = await fetch(cleanTarget);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        html = await response.text();
+        pageHtmlCache.set(cleanTarget, html);
+      }
+
+      const parser = new DOMParser();
+      const newDoc = parser.parseFromString(html, 'text/html');
+      const newMain = newDoc.querySelector('main');
+
+      if (!newMain) {
+        throw new Error('Nenhum elemento <main> encontrado na pagina de destino');
+      }
+
+      const executeSwap = () => {
+        if (newDoc.title) {
+          document.title = newDoc.title;
+        }
+
+        const newBodyClass = newDoc.body.className || '';
+        document.body.className = newBodyClass;
+
+        const currentMain = document.querySelector('main');
+        if (currentMain) {
+          currentMain.innerHTML = newMain.innerHTML;
+          currentMain.className = newMain.className;
+        }
+
+        const existingPdpBar = document.getElementById('mobilePdpActionBar');
+        const newPdpBar = newDoc.getElementById('mobilePdpActionBar');
+        if (newPdpBar) {
+          if (!existingPdpBar) {
+            document.body.appendChild(newPdpBar.cloneNode(true));
+          } else {
+            existingPdpBar.innerHTML = newPdpBar.innerHTML;
+            existingPdpBar.className = newPdpBar.className;
+            existingPdpBar.style.display = '';
+          }
+        } else if (existingPdpBar) {
+          existingPdpBar.remove();
+        }
+
+        syncHeaderActiveNav(cleanTarget);
+        ensureMobileAppTabBar();
+        updateCartBadges();
+        updateWishlistBadges();
+
+        if (!isPopState) {
+          history.pushState({ url: targetUrl }, '', targetUrl);
+        }
+
+        if (hash) {
+          const el = document.querySelector(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+          }
+        } else {
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        reinitializePageScripts(cleanTarget);
+      };
+
+      if (document.startViewTransition) {
+        await document.startViewTransition(executeSwap).finished;
+      } else {
+        const currentMain = document.querySelector('main');
+        if (currentMain) {
+          currentMain.classList.add('page-transition-exit');
+          await new Promise(r => setTimeout(r, 140));
+          executeSwap();
+          const freshMain = document.querySelector('main');
+          if (freshMain) {
+            freshMain.classList.remove('page-transition-exit');
+            freshMain.classList.add('page-transition-enter');
+            setTimeout(() => freshMain.classList.remove('page-transition-enter'), 340);
+          }
+        } else {
+          executeSwap();
+        }
+      }
+
+    } catch (err) {
+      console.warn('[PageTransition] Fallback para navegacao tradicional:', err);
+      window.location.href = targetUrl;
+    } finally {
+      finishPageLoadingBar();
+      isNavigating = false;
+    }
+  }
+
+  function updateTabBarForTargetUrl(targetUrl) {
+    const tabBar = document.getElementById('mobileAppTabBar');
+    if (!tabBar) return;
+    const lower = (targetUrl || '').toLowerCase();
+    const isExplore = lower.includes('catalogo') || lower.includes('produto');
+    const isLookbook = !isExplore && lower.includes('sobre');
+    const isHome = !isExplore && !isLookbook;
+
+    tabBar.querySelectorAll('.mobile-tab-item').forEach(item => {
+      const href = (item.getAttribute('href') || '').toLowerCase();
+      const tabKey = (item.dataset.tab || '').toLowerCase();
+
+      const matchHome = isHome && (tabKey === 'home' || tabKey === 'inicio' || href.includes('index'));
+      const matchExplore = isExplore && (tabKey === 'explore' || tabKey === 'explorar' || tabKey === 'catalogo' || href.includes('catalogo'));
+      const matchLookbook = isLookbook && (tabKey === 'lookbook' || tabKey === 'sobre' || href.includes('sobre'));
+
+      item.classList.toggle('active', Boolean(matchHome || matchExplore || matchLookbook));
+    });
+  }
+
+  function syncHeaderActiveNav(cleanTarget) {
+    const lower = (cleanTarget || '').toLowerCase();
+    const navLinks = document.querySelectorAll('header nav a');
+    navLinks.forEach(link => {
+      const href = (link.getAttribute('href') || '').toLowerCase();
+      const isCurrent = (lower.includes('catalogo') && href.includes('catalogo') && !href.includes('cat=')) ||
+                        (lower.includes('sobre') && href.includes('sobre')) ||
+                        ((lower.includes('index') || lower.endsWith('/')) && href.includes('index'));
+      if (isCurrent) {
+        link.classList.add('font-semibold', 'text-[#1C1C19]');
+        link.classList.remove('text-[#787571]');
+      } else if (!href.includes('cat=')) {
+        link.classList.remove('font-semibold', 'text-[#1C1C19]');
+        link.classList.add('text-[#787571]');
+      }
+    });
+  }
+
+  function reinitializePageScripts(url) {
+    const lower = (url || '').toLowerCase();
+    if (lower.includes('catalogo.html') || document.getElementById('catalogProductsGrid')) {
+      initCatalogPage();
+    } else if (lower.includes('produto.html') || document.getElementById('productDetailContainer')) {
+      initProductDetailPage();
+    } else if (lower.includes('sobre.html') || document.getElementById('aboutStorySection')) {
+      initAboutPage();
+    } else {
+      initHomePage();
+    }
+    initScrollReveal();
+  }
+
+  function initSmoothPageTransitions() {
+    ensurePageLoadingBar();
+
+    document.addEventListener('pointerenter', (e) => {
+      const link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (isInternalLink(href)) prefetchPage(href);
+    }, { passive: true, capture: true });
+
+    document.addEventListener('touchstart', (e) => {
+      const link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (isInternalLink(href)) prefetchPage(href);
+    }, { passive: true, capture: true });
+
+    document.addEventListener('click', (e) => {
+      const link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!link) return;
+
+      if (link.target === '_blank' || link.hasAttribute('download')) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (e.button !== 0) return;
+
+      const href = link.getAttribute('href');
+      if (!isInternalLink(href)) return;
+
+      e.preventDefault();
+      navigateToPage(href);
+    });
+
+    window.addEventListener('popstate', () => {
+      navigateToPage(window.location.href, true);
+    });
+  }
+
+  function isInternalLink(href) {
+    if (!href || typeof href !== 'string') return false;
+    if (href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('tel:') || href.startsWith('mailto:')) return false;
+    if (href.includes('wa.me') || href.includes('whatsapp.com')) return false;
+    if (href.startsWith('http://') || href.startsWith('https://')) {
+      const origin = window.location.origin;
+      if (!href.startsWith(origin)) return false;
+    }
+    const clean = href.split('?')[0].split('#')[0].split('/').pop();
+    const valid = ['index.html', 'catalogo.html', 'produto.html', 'sobre.html', ''];
+    return valid.includes(clean);
+  }
 
   // ==========================================================================
   // GLOBAL BOOTSTRAP
   // ==========================================================================
   document.addEventListener('DOMContentLoaded', async () => {
+    initSmoothPageTransitions();
     loadStoredState();
     ensureAuxWidgets();
     updateCartBadges();
