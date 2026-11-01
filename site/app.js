@@ -1074,6 +1074,7 @@
     renderProductDetails();
     renderRelatedProducts(product);
     initScrollReveal();
+    initMobilePdpActionBarScroll();
   }
 
   function renderProductDetails() {
@@ -1313,6 +1314,45 @@
     });
   }
 
+  function initMobilePdpActionBarScroll() {
+    const bar = document.getElementById('mobilePdpActionBar');
+    if (!bar) return;
+
+    const triggerTarget = document.getElementById('pdpWhatsappBtn') || document.getElementById('addToCartBtn');
+    if (!triggerTarget) return;
+
+    if (window.IntersectionObserver) {
+      if (window._pdpBarObserver) {
+        window._pdpBarObserver.disconnect();
+      }
+      window._pdpBarObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            bar.classList.remove('is-visible');
+          } else {
+            const rect = triggerTarget.getBoundingClientRect();
+            if (rect.top < 0) {
+              bar.classList.add('is-visible');
+            } else {
+              bar.classList.remove('is-visible');
+            }
+          }
+        });
+      }, { threshold: 0.1 });
+      window._pdpBarObserver.observe(triggerTarget);
+    } else {
+      const handleScroll = () => {
+        if (window.scrollY > 420) {
+          bar.classList.add('is-visible');
+        } else {
+          bar.classList.remove('is-visible');
+        }
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+    }
+  }
+
   function initAboutPage() {
     initFaqAccordions();
     initScrollReveal();
@@ -1367,6 +1407,7 @@
     changeProductImage: changeProductImage,
     resetCatalogFilters: resetCatalogFilters,
     initScrollReveal: initScrollReveal,
+    initMobilePdpActionBarScroll: initMobilePdpActionBarScroll,
     navigateToPage: navigateToPage,
     showToast: showToast
   };
