@@ -1,28 +1,25 @@
 /**
  * Marcely Semijoias - Atelier Concierge
- * Componente Interativo de Consultoria de Alta Joalheria & Estilo
- * Conecta ao endpoint /api/chat com fallback inteligente in-browser
+ * Componente Interativo de Consultoria de Estilo & Curadoria Oficial Veridiana Semijoias
+ * Conecta ao endpoint /api/chat com fallback inteligente in-browser e fechamento direto via WhatsApp
  */
 
 (function () {
   'use strict';
 
-  // Chave de sessao para persistir o historico da conversa
   const SESSION_STORAGE_KEY = 'marcely_concierge_history_v1';
 
-  // Mensagem inicial do Atelier
   const INITIAL_MESSAGE = {
     role: 'assistant',
-    content: 'Seja bem-vinda ao Atelier Marcely. Sou sua consultora pessoal de alta joalheria. Como posso orientar sua escolha hoje? Posso sugerir composições para seu look, indicar presentes especiais com base em seu investimento ou esclarecer detalhes sobre nosso banho de 10 milésimos e garantia vitalícia.',
+    content: 'Seja bem-vinda ao Atelier Concierge Marcely. Atuo na curadoria oficial de estilo da Marcely Oliveira, Revendedora Autorizada Veridiana Semijoias. Como posso orientar sua escolha hoje? Todas as 58 pecas do catalogo contam com banho nobre de 10 a 15 milesimos de Ouro 18k ou Rodio Nobre, tecnologia hipoalergenica alema, Certificado de Garantia Oficial de Fabrica Veridiana e fechamento personalizado diretamente com a Marcely no WhatsApp.',
     time: formatCurrentTime()
   };
 
-  // Sugestoes rapidas iniciais
   const QUICK_SUGGESTIONS = [
     'Qual o melhor brinco para segundo furo?',
-    'Sugestão de presente sofisticado até R$ 350',
-    'Como funciona a garantia do banho de ouro 18k?',
-    'Quero montar um mix de colares'
+    'Sugestao de presente sofisticado ate R$ 350',
+    'Como funciona a Garantia Oficial Veridiana?',
+    'Quero montar um mix de colares e pedir no WhatsApp'
   ];
 
   function formatCurrentTime() {
@@ -53,7 +50,6 @@
     }
   }
 
-  // SVGs de Alta Precisao e Acabamento Nobre
   const ICONS = {
     sparkle: `<svg class="concierge-trigger-icon" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z" />
@@ -99,12 +95,12 @@
             <span class="concierge-trigger-title">Atelier Concierge</span>
             <span class="concierge-trigger-badge">
               <span class="concierge-pulse-dot"></span>
-              Consultora Virtual
+              Curadoria Veridiana
             </span>
           </div>
         </button>
 
-        <!-- Painel Modal Liquid Glass -->
+        <!-- Painel Modal Editorial -->
         <div id="marcely-concierge-panel" class="concierge-hidden" role="dialog" aria-modal="true" aria-label="Atelier Concierge Marcely">
           <!-- Cabecalho -->
           <div class="concierge-header">
@@ -114,7 +110,7 @@
                 <span class="concierge-title">Atelier Concierge</span>
                 <span class="concierge-subtitle">
                   <span class="concierge-pulse-dot"></span>
-                  Alta Joalheria & Estilo • Online
+                  Curadoria Oficial Veridiana • Online
                 </span>
               </div>
             </div>
@@ -138,7 +134,7 @@
                 type="text"
                 id="marcely-concierge-input"
                 class="concierge-input-field"
-                placeholder="Pergunte sobre peças, medidas, presentes..."
+                placeholder="Pergunte sobre pecas Veridiana, medidas, presentes..."
                 autocomplete="off"
               />
               <button type="submit" id="marcely-concierge-submit" class="concierge-send-btn" aria-label="Enviar mensagem">
@@ -151,7 +147,6 @@
 
       document.body.appendChild(root);
 
-      // Elementos do DOM
       this.triggerBtn = document.getElementById('marcely-concierge-trigger');
       this.panel = document.getElementById('marcely-concierge-panel');
       this.closeBtn = document.getElementById('marcely-concierge-close');
@@ -179,7 +174,6 @@
         }
       });
 
-      // Tecla Escape fecha o modal
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && this.isOpen) {
           this.close();
@@ -252,14 +246,14 @@
         ? Number(product.pix_discount_price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
         : null;
 
-      // Imagem com resolucao de caminho relativo
-      const imgSrc = product.image ? `/${product.image.replace(/^\//, '')}` : '/site/assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg';
+      const rawImg = product.image ? product.image.replace(/^\//, '') : 'assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg';
+      const imgSrc = rawImg.startsWith('assets/') ? rawImg : `/${rawImg}`;
 
       return `
         <div class="concierge-product-card" data-product-id="${this.escapeHtml(product.id)}">
-          <img class="concierge-product-thumb" src="${imgSrc}" alt="${this.escapeHtml(product.name)}" onerror="this.src='/site/assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg'" />
+          <img class="concierge-product-thumb" src="${imgSrc}" alt="${this.escapeHtml(product.name)}" onerror="this.src='assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg'" />
           <div class="concierge-product-info">
-            <span class="concierge-product-badge">${this.escapeHtml(product.badge || 'Garantia Vitalicia')}</span>
+            <span class="concierge-product-badge">${this.escapeHtml(product.badge || 'Original Veridiana')}</span>
             <div class="concierge-product-name" title="${this.escapeHtml(product.name)}">${this.escapeHtml(product.name)}</div>
             <div class="concierge-product-price-row">
               <span class="concierge-product-price">${formattedPrice}</span>
@@ -267,11 +261,11 @@
             </div>
             <div class="concierge-product-actions">
               <button type="button" class="concierge-btn-sm concierge-btn-outline concierge-action-view" data-id="${this.escapeHtml(product.id)}">
-                Ver Detalhes
+                Detalhes
               </button>
               <button type="button" class="concierge-btn-sm concierge-btn-gold concierge-action-bag" data-id="${this.escapeHtml(product.id)}" data-name="${this.escapeHtml(product.name)}" data-price="${product.price}">
                 ${ICONS.bag}
-                Adicionar
+                + Selecao
               </button>
             </div>
           </div>
@@ -280,15 +274,12 @@
     }
 
     bindProductCardActions(container) {
-      // Botoes "Ver Detalhes"
       container.querySelectorAll('.concierge-action-view').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const prodId = btn.getAttribute('data-id');
-          // Dispara evento global para o ecossistema
           window.dispatchEvent(new CustomEvent('marcely:view-product', { detail: { id: prodId } }));
 
-          // Verifica se ha pagina produto.html ou de referencia disponivel
           if (window.location.pathname.includes('produto.html')) {
             window.location.search = `?id=${encodeURIComponent(prodId)}`;
           } else {
@@ -297,7 +288,6 @@
         });
       });
 
-      // Botoes "Adicionar a Sacola"
       container.querySelectorAll('.concierge-action-bag').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -311,7 +301,7 @@
             window.dispatchEvent(new CustomEvent('marcely:add-to-cart', { detail: { product: { id: prodId, name: prodName, price: prodPrice } } }));
           }
 
-          this.showToast(`"${prodName}" adicionado à sacola`);
+          this.showToast(`"${prodName}" adicionado a Minha Selecao`);
         });
       });
     }
@@ -355,7 +345,6 @@
       this.setLoading(true);
 
       try {
-        // Envia requisicao para a API local ou Vercel Serverless
         const response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -371,7 +360,7 @@
         const data = await response.json();
         const assistantMsg = {
           role: 'assistant',
-          content: data.reply || 'Peço desculpas pela breve oscilação. Poderia repetir sua dúvida sobre nossas joias?',
+          content: data.reply || 'Houve uma breve oscilacao na conexao. Poderia repetir sua pergunta sobre nossas joias Veridiana ou chamar a Marcely diretamente no WhatsApp?',
           products: data.products || [],
           time: formatCurrentTime()
         };
@@ -383,10 +372,9 @@
       } catch (err) {
         console.warn('[Concierge Frontend] Erro ao contatar backend. Ativando resposta de contingencia local:', err);
 
-        // Fallback local elegante
         const fallbackMsg = {
           role: 'assistant',
-          content: 'Nossas peças são concebidas em liga nobre hipoalergênica com 10 milésimos de Ouro 18k e selagem nano-cerâmica de alta precisão. Caso prefira um atendimento humanizado sob medida, nossa equipe de ourivesaria e estilo está à sua disposição.',
+          content: 'Todas as 58 pecas sob curadoria de Marcely Oliveira (Revendedora Autorizada Veridiana Semijoias) possuem banho nobre de 10 a 15 milesimos de Ouro 18k ou Rodio Nobre, tecnologia hipoalergenica alema e Certificado de Garantia Oficial de Fabrica Veridiana. Voce pode adicionar suas pecas prediletas em Minha Selecao e finalizar o atendimento diretamente com a Marcely pelo WhatsApp.',
           time: formatCurrentTime(),
           products: []
         };
@@ -441,7 +429,6 @@
     }
   }
 
-  // Inicializacao quando o DOM estiver pronto
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => new MarcelyConcierge());
   } else {

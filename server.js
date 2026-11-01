@@ -221,19 +221,25 @@ app.get('*', (req, res, next) => {
 });
 
 // Inicializacao do servidor em ambiente local (ou exportacao como funcao Serverless na Vercel)
-if (require.main === module) {
-  const server = app.listen(PORT, () => {
-    console.log(`=======================================================`);
-    console.log(`  MARCELY SEMIJOIAS - ATELIER & BACKEND SERVER`);
-    console.log(`=======================================================`);
-    console.log(`  Local URL:        http://localhost:${PORT}`);
-    console.log(`  Health Check:     http://localhost:${PORT}/api/health`);
-    console.log(`  Chat Endpoint:    http://localhost:${PORT}/api/chat`);
-    console.log(`  Catalog Endpoint: http://localhost:${PORT}/api/products`);
-    console.log(`  Static Root:      ${path.join(__dirname, 'site')}`);
-    console.log(`=======================================================`);
+let server;
+if (!process.env.VERCEL) {
+  const listenPort = require.main === module ? PORT : 0;
+  server = app.listen(listenPort, () => {
+    if (require.main === module) {
+      console.log(`=======================================================`);
+      console.log(`  MARCELY SEMIJOIAS - ATELIER & BACKEND SERVER`);
+      console.log(`=======================================================`);
+      console.log(`  Local URL:        http://localhost:${PORT}`);
+      console.log(`  Health Check:     http://localhost:${PORT}/api/health`);
+      console.log(`  Chat Endpoint:    http://localhost:${PORT}/api/chat`);
+      console.log(`  Catalog Endpoint: http://localhost:${PORT}/api/products`);
+      console.log(`  Static Root:      ${path.join(__dirname, 'site')}`);
+      console.log(`=======================================================`);
+    }
   });
 }
 
-// Exporta o app Express diretamente para compatibilidade nativa com Vercel Serverless
+// Exporta o app Express mantendo compatibilidade com destructuring { app, server } da suite de testes
+app.app = app;
+app.server = server;
 module.exports = app;

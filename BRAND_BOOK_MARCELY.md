@@ -1,49 +1,61 @@
-# BRAND BOOK -- MARCELY SEMIJOIAS
+# BRAND BOOK -- MARCELY OLIVEIRA (CURADORIA & REVENDEDORA AUTORIZADA VERIDIANA SEMIJOIAS)
 
 ## 1. Declaracao de Posicionamento e Tese de Marca
 
-Marcely nao e comercio de acessorios passageiros; e joalheria contemporanea desenhada para a mulher que compreende que elegancia real nao necessita gritar. Focada em semi-joias finas com padrao de acabamento equivalente a alta joalheria, a marca combina ligas nobres hipoalergenicas, banho de 10 milesimos em ouro 18k, rodio nobre e zircônias com lapidacao brilhante 5A.
+**Curadoria Marcely Oliveira • Revendedora Autorizada Veridiana Semijoias**
 
-A marca rejeita esteticas saturadas de promocao massificada e adota o principio da *quiet luxury* (elegancia silenciosa), valorizando a precisao da forma, a pureza das linhas e a durabilidade atemporal.
+Marcely Oliveira atua como Curadora de Estilo e Revendedora Autorizada Veridiana Semijoias, apresentando uma vitrine editorial dedicada a mulheres que compreendem que elegancia real nao necessita de ostentacao ruidosa. O acervo reune 58 pecas oficiais selecionadas com rigor estetico, combinando ligas nobres 100% hipoalergenicas, banho de 10 a 15 milesimos em Ouro 18k ou Rodio Nobre, tecnologia de blindagem nano-ceramica alema (German Tech) e zirconias com lapidacao brilhante suica 5A.
+
+Em vez de um e-commerce impessoal de varejo massificado, a plataforma opera sob o modelo de **Boutique Digital & WhatsApp Concierge**: a cliente explora as 58 criacoes com precos abertos, monta sua lista em **Minha Selecao** e finaliza seu pedido diretamente com a Marcely pelo WhatsApp, garantindo consultoria de estilo individualizada, verificacao imediata de disponibilidade (pronta entrega ou encomenda oficial Veridiana) e Certificado de Garantia Oficial de Fabrica Veridiana Semijoias.
 
 ---
 
 ## 2. Pilares de Identidade & Semiotica
 
-1. **Atemporalidade Estrutural:** As pecas sobrevivem aos ciclos efemeros da moda rapida; sao concebidas como extensoes naturais da presenca pessoal.
-2. **Engenharia de Banho Nobre:** Banhos multicamadas com protecao nano-ceramica, garantindo resistencia a oxidacao e toque acetinado.
-3. **Pureza Hipoalergenica:** Rigido controle de pureza molecular, isento de niquel e metais pesados sensibilizantes.
-4. **Editorialidade Visual:** Fotografia macro focada em reflexos de luz, contraste mineral, textura de pele e sombras suaves.
+1. **Curadoria Autorizada Veridiana:** Procedencia autentica garantida, com selo oficial de fabrica Veridiana Semijoias em todas as 58 pecas do catalogo.
+2. **Engenharia de Banho Nobre (10 a 15 Milesimos):** Camadas densas de Ouro 18k e Rodio Nobre seladas com verniz nano-ceramico alemao, assegurando resistencia superior contra oxidacao e lustre espelhado duradouro.
+3. **Pureza Hipoalergenica Absoluta:** Formula 100% livre de niquel, cadmio e chumbo, projetada para conforto prolongado em peles sensiveis.
+4. **Conversao Assistida via WhatsApp Concierge:** Atendimento consultivo humano aliado ao Atelier Concierge virtual, transformando a compra em uma experiencia de personal styling sem friccoes.
 
 ---
 
-## 3. Paleta Cromatica Canonica
+## 3. Paleta Cromatica Canonica (Google Stitch Editorial Spec)
 
-- **Obsidian Deep (Fundo Nobre / Tipografia de Alto Contraste):** `#0D0D0E`
-- **Alabaster Pearl (Fundo Primario / Superficie Neutra):** `#FBFBFA`
-- **Warm Alabaster (Secoes Alternadas / Cartoes):** `#F4F1EA`
-- **Champagne Gold 18k (Acentos Nobres / Metais):** `#D4AF37`
-- **Soft Gold Highlight (Reflexo Especular):** `#F0D890`
-- **Muted Stone (Bordas Sutis / Tipografia Secundaria):** `#787571`
+- **Editorial Warm Surface (`--color-surface`):** `#FCF9F4`
+- **Surface Container Lowest (Cards Puros):** `#FFFFFF`
+- **Surface Container Low (Secoes Editoriais):** `#F6F3EE`
+- **Surface Container:** `#F0EDE9`
+- **Surface Container High:** `#EBE8E3`
+- **Primary Contrast (Botoes Nobres & CTAs WhatsApp):** `#000000`
+- **On-Surface (Tipografia Principal):** `#1C1C19`
+- **Secondary Gold-Brown (Destaques de Curadoria & Metais):** `#745A2E`
+- **On-Surface Variant (Tipografia de Suporte):** `#787571`
 
 ---
 
 ## 4. Tipografia e Voz da Marca
 
-- **Tipografia Display (Titulos e Chamadas Editoriais):** Serifas de alto contraste e elegancia classica (Bodoni Moda / Playfair Display calibrado).
-- **Tipografia de Suporte (Corpo, Dados Tecnicos, Checkout):** Grotesca geometrica minimalista (Plus Jakarta Sans / Inter).
-- **Voz Verbal:** Concisa, sofisticada, aristocratica e segura. Ausencia de superlativos vazios ("o melhor preco", "imperdivel") e foco em atributos tangiveis (quilates, milesimos de banho, ergonomia de fechos, conforto auricular).
+- **Tipografia Display (Titulos e Chamadas Editoriais):** Serifas de alto contraste e elegancia classica (`Bodoni Moda` / `Cormorant Garamond`).
+- **Tipografia Funcional (Corpo, Especificacoes, Selecao WhatsApp):** Grotesca geometrica limpa (`Plus Jakarta Sans` / `Inter`).
+- **Voz Verbal:** Concisa, aristocratica, acolhedora e segura. Proibicao absoluta de emojis Unicode em toda a interface, mensagens automaticas de WhatsApp e respostas do Atelier Concierge. Foco em atributos tangiveis: milesimos de banho, cravacao 5A, ergonomia auricular e Garantia Oficial de Fabrica Veridiana.
 
 ---
 
-## 5. Simbologia e Logotipia Oficial
+## 5. Arquitetura de Conversao WhatsApp Concierge
 
-- **Monograma Principal:** Letra 'M' cursiva caligrafica fluida esculpida em ouro amarelo 18k polido com arabesco de entrada, curvas de espessura variavel e reflexo especular de joalheria.
-- **Assinatura Tipografica:** `MARCELY` em caixa alta seriada com tracking expandido (`letter-spacing: 0.25em`), ancorada pela sub-assinatura `SEMIJOIAS` em entrelinha reduzida.
-- **Fundo Canônico de Papelaria/Apresentacao:** Marfim fosco aveludado (`#FAF6EE`), harmonizado com a paleta warm alabaster do e-commerce.
-- **Ativos Disponibilizados no Ecossistema:**
-  - `site/assets/logo.png`: Imagem gerada oficial e individual do Stitch (512x512).
-  - `site/assets/logo-icon-transparent.png`: Monograma 'M' isolado em canal alfa para navegacao e header.
-  - `site/assets/logo-transparent.png`: Marca integral com transparencia para fundos dark e overlays.
-  - `site/assets/logo.svg`: Hallmark vetorial SVG com gradiente multicamada ouro 18k.
-  - `site/assets/favicon.png`: Monograma 'M' em resolucao 64x64 para aba do navegador.
+1. **Pedido Direto por Peca (`openWhatsAppForProduct`):** A partir de qualquer card da vitrine ou da Pagina de Detalhe do Produto (PDP), a cliente aciona o WhatsApp da Marcely com mensagem estruturada contendo nome da joia, acabamento (Ouro 18k ou Rodio Nobre), tamanho/aro, codigo de referencia e valor no site (parcelado e a vista no Pix com 5% OFF).
+2. **Gaveta e Barra "Minha Selecao" (`sendSelectionToWhatsApp`):** Permite reunir multiplas pecas para compor um mix completo e enviar a lista numerada com calculo automatico de subtotal e desconto Pix diretamente para o WhatsApp da Marcely.
+3. **Consultoria de Medidas (`openWhatsAppSizeHelp`):** Canal rapido na pagina do produto para orientacao personalizada de tamanho de aro e comprimento de colares.
+
+---
+
+## 6. Simbologia e Ativos Oficiais
+
+- **Monograma Principal:** Letra 'M' caligrafica em acabamento dourado nobre.
+- **Assinatura Tipografica:** `MARCELY OLIVEIRA • CURADORIA VERIDIANA SEMIJOIAS`.
+- **Ativos no Ecossistema:**
+  - `site/assets/logo.png`
+  - `site/assets/logo-icon-transparent.png`
+  - `site/assets/logo-transparent.png`
+  - `site/assets/logo.svg`
+  - `site/assets/favicon.png`

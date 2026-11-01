@@ -1,38 +1,49 @@
 /* ==========================================================================
-   MARCELY OLIVEIRA -- SEMI-JOIAS FINAS
-   DESIGN SYSTEM & LIQUID GLASS LUXURY STYLESHEET
-   Quiet Luxury • 10-15 Milésimos Ouro 18k & Ródio Nobre • Alta Joalheria
+   MARCELY OLIVEIRA -- CURADORIA DE ESTILO & REVENDEDORA AUTORIZADA VERIDIANA
+   DESIGN SYSTEM & EDITORIAL LUXURY STYLESHEET
+   Quiet Luxury • 10-15 Milesimos Ouro 18k & Rodio Nobre • Alta Joalheria
    ========================================================================== */
 
 :root {
-  /* Brand Chromatic Tokens */
-  --color-bg-primary: #FBFBFA;
-  --color-bg-surface: #FFFFFF;
-  --color-bg-secondary: #F4F1EA;
-  --color-bg-contrast: #0D0D0E;
-  
-  --color-text-main: #141416;
-  --color-text-muted: #787571;
-  --color-text-light: #FBFBFA;
+  /* Google Stitch Canonical Editorial Tokens */
+  --color-surface: #FCF9F4;
+  --color-surface-container-low: #F6F3EE;
+  --color-surface-container: #F0EDE9;
+  --color-surface-container-high: #EBE8E3;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-on-surface: #1C1C19;
+  --color-on-surface-variant: #787571;
+  --color-secondary: #745A2E;
+  --color-primary: #000000;
 
-  --color-accent-gold: #D4AF37;
-  --color-accent-gold-light: #F0D890;
-  --color-accent-gold-dark: #A38020;
+  /* Backward Compatible Brand Chromatic Tokens */
+  --color-bg-primary: #FCF9F4;
+  --color-bg-surface: #FFFFFF;
+  --color-bg-secondary: #F6F3EE;
+  --color-bg-contrast: #000000;
+  
+  --color-text-main: #1C1C19;
+  --color-text-muted: #787571;
+  --color-text-light: #FCF9F4;
+
+  --color-accent-gold: #745A2E;
+  --color-accent-gold-light: #D4AF37;
+  --color-accent-gold-dark: #5A4522;
   --color-accent-rhodium: #B8C2CC;
 
-  --color-border-subtle: rgba(20, 20, 22, 0.08);
-  --color-border-gold: rgba(212, 175, 55, 0.25);
-  --color-border-glass: rgba(255, 255, 255, 0.45);
+  --color-border-subtle: rgba(28, 28, 25, 0.08);
+  --color-border-gold: rgba(116, 90, 46, 0.28);
+  --color-border-glass: rgba(28, 28, 25, 0.08);
 
   /* Typography */
   --font-serif: "Bodoni Moda", "Cormorant Garamond", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Elevations */
-  --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.02);
-  --shadow-card: 0 10px 30px -10px rgba(20, 20, 22, 0.05);
-  --shadow-hover: 0 20px 40px -15px rgba(20, 20, 22, 0.10);
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.06);
+  /* Stationery & Editorial Elevations */
+  --shadow-subtle: 0 2px 10px rgba(28, 28, 25, 0.03);
+  --shadow-card: 0 8px 24px -6px rgba(28, 28, 25, 0.05);
+  --shadow-hover: 0 16px 36px -10px rgba(28, 28, 25, 0.09);
+  --shadow-glass: 0 8px 24px -6px rgba(28, 28, 25, 0.05);
 
   /* Transitions */
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
@@ -52,8 +63,8 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-main);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
   overflow-x: hidden;
   margin: 0;
   padding: 0;
@@ -64,73 +75,63 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 }
 
 /* ==========================================================================
-   LIQUID GLASS SYSTEM (APPLE & EDITORIAL SPEC)
+   EDITORIAL HIGH JEWELRY SURFACES (COMPATIBLE WITH LIQUID-GLASS CLASSES)
    ========================================================================== */
 
 .liquid-glass-light {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--color-border-glass);
-  box-shadow: var(--shadow-glass);
+  background: #FCF9F4;
+  border: 1px solid rgba(28, 28, 25, 0.08);
+  box-shadow: 0 8px 24px -6px rgba(28, 28, 25, 0.05);
 }
 
 .liquid-glass-dark {
-  background: rgba(13, 13, 14, 0.82);
-  backdrop-filter: blur(20px) saturate(190%);
-  -webkit-backdrop-filter: blur(20px) saturate(190%);
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-  color: var(--color-text-light);
+  background: #1C1C19;
+  border: 1px solid rgba(116, 90, 46, 0.35);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.35);
+  color: #FCF9F4;
 }
 
 .liquid-glass-card {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(20, 20, 22, 0.06);
-  border-radius: 1rem;
-  box-shadow: var(--shadow-card);
+  background: #FFFFFF;
+  border: 1px solid rgba(28, 28, 25, 0.08);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 24px -6px rgba(28, 28, 25, 0.05);
   transition: transform var(--duration-normal) var(--ease-spring),
               box-shadow var(--duration-normal) var(--ease-spring),
               border-color var(--duration-normal) ease;
 }
 
 .liquid-glass-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-hover);
-  border-color: var(--color-border-gold);
+  border-color: rgba(116, 90, 46, 0.32);
 }
 
 .liquid-glass-gold {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(240, 216, 144, 0.05));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.08);
+  background: #F6F3EE;
+  border: 1px solid rgba(116, 90, 46, 0.25);
+  box-shadow: 0 6px 20px -4px rgba(116, 90, 46, 0.08);
 }
 
 .liquid-glass-pill {
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(20, 20, 22, 0.08);
+  background: #FFFFFF;
+  border: 1px solid rgba(28, 28, 25, 0.08);
+  box-shadow: 0 4px 12px rgba(28, 28, 25, 0.03);
   transition: all 250ms ease;
 }
 
 .liquid-glass-pill:hover,
 .liquid-glass-pill.active {
-  background: var(--color-text-main);
-  color: var(--color-bg-primary);
-  border-color: var(--color-text-main);
+  background: #000000;
+  color: #FCF9F4;
+  border-color: #000000;
 }
 
 .liquid-glass-nav {
-  background: rgba(251, 251, 250, 0.88);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(20, 20, 22, 0.05);
+  background: rgba(252, 249, 244, 0.96);
+  border-bottom: 1px solid rgba(28, 28, 25, 0.08);
+  box-shadow: 0 4px 20px -6px rgba(28, 28, 25, 0.04);
 }
 
 /* ==========================================================================
@@ -138,10 +139,10 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
    ========================================================================== */
 
 .badge-gold {
-  background: linear-gradient(135deg, #FAF3E0 0%, #F5E8C7 100%);
+  background: #F6F3EE;
   color: #745A2E;
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  font-size: 0.6875rem;
+  border: 1px solid rgba(116, 90, 46, 0.28);
+  font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 600;
@@ -150,10 +151,10 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 }
 
 .badge-rhodium {
-  background: linear-gradient(135deg, #F0F4F8 0%, #E2E8F0 100%);
-  color: #334155;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  font-size: 0.6875rem;
+  background: #F0EDE9;
+  color: #1C1C19;
+  border: 1px solid rgba(28, 28, 25, 0.15);
+  font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 600;
@@ -162,9 +163,9 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 }
 
 .badge-bestseller {
-  background: var(--color-bg-contrast);
-  color: var(--color-text-light);
-  font-size: 0.6875rem;
+  background: #000000;
+  color: #FCF9F4;
+  font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 600;
@@ -172,15 +173,25 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   border-radius: 9999px;
 }
 
-/* Gold Text Shimmer */
+.badge-veridiana {
+  background: rgba(255, 255, 255, 0.94);
+  color: #745A2E;
+  border: 1px solid rgba(116, 90, 46, 0.24);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+}
+
+/* Gold Text Accent */
 .gold-shimmer-text {
-  background: linear-gradient(120deg, #A38020 0%, #D4AF37 50%, #F0D890 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #745A2E;
 }
 
 /* ==========================================================================
-   BUTTONS & MICRO-INTERACTIONS
+   BUTTONS & WHATSAPP CONVERSION ENGINE
    ========================================================================== */
 
 .btn-luxury-primary {
@@ -189,25 +200,26 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background-color: var(--color-bg-contrast);
-  color: var(--color-text-light);
+  background-color: #000000;
+  color: #FFFFFF;
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   border-radius: 0.25rem;
-  border: 1px solid var(--color-bg-contrast);
+  border: 1px solid #000000;
   transition: all var(--duration-normal) var(--ease-spring);
   cursor: pointer;
   text-decoration: none;
 }
 
 .btn-luxury-primary:hover {
-  background-color: #27272A;
-  border-color: #27272A;
+  background-color: #745A2E;
+  border-color: #745A2E;
+  color: #FFFFFF;
   transform: translateY(-1px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(28, 28, 25, 0.12);
 }
 
 .btn-luxury-outline {
@@ -216,24 +228,24 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background-color: transparent;
-  color: var(--color-text-main);
+  background-color: #FFFFFF;
+  color: #1C1C19;
   font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   border-radius: 0.25rem;
-  border: 1px solid rgba(20, 20, 22, 0.2);
+  border: 1px solid rgba(28, 28, 25, 0.18);
   transition: all var(--duration-normal) var(--ease-spring);
   cursor: pointer;
   text-decoration: none;
 }
 
 .btn-luxury-outline:hover {
-  background-color: var(--color-bg-surface);
-  border-color: var(--color-accent-gold);
-  color: var(--color-accent-gold-dark);
+  background-color: #F6F3EE;
+  border-color: #745A2E;
+  color: #745A2E;
 }
 
 .btn-luxury-gold {
@@ -242,7 +254,7 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
-  background: linear-gradient(135deg, #D4AF37 0%, #A38020 100%);
+  background-color: #745A2E;
   color: #FFFFFF;
   font-family: var(--font-sans);
   font-size: 0.75rem;
@@ -250,27 +262,164 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   letter-spacing: 0.14em;
   text-transform: uppercase;
   border-radius: 0.25rem;
-  border: none;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  border: 1px solid #745A2E;
+  box-shadow: 0 4px 14px rgba(116, 90, 46, 0.2);
   transition: all var(--duration-normal) var(--ease-spring);
   cursor: pointer;
   text-decoration: none;
 }
 
 .btn-luxury-gold:hover {
-  background: linear-gradient(135deg, #E2BF4D 0%, #B89228 100%);
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
+  background-color: #000000;
+  border-color: #000000;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  border: 1px solid #000000;
+  transition: all var(--duration-normal) var(--ease-spring);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-whatsapp-primary:hover {
+  background-color: #745A2E;
+  border-color: #745A2E;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -4px rgba(116, 90, 46, 0.25);
+}
+
+.btn-whatsapp-selection {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.95rem 1.5rem;
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  border: 1px solid #000000;
+  box-shadow: 0 8px 24px -6px rgba(28, 28, 25, 0.18);
+  transition: all var(--duration-normal) var(--ease-spring);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-whatsapp-selection:hover {
+  background-color: #745A2E;
+  border-color: #745A2E;
+  color: #FFFFFF;
   transform: translateY(-1px);
 }
 
 /* ==========================================================================
-   DRAWER CART (SACOLA LATERAL)
+   MOBILE & DESKTOP SELECTION BAR (#mobileSelectionBar)
+   ========================================================================== */
+
+#mobileSelectionBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  background-color: rgba(252, 249, 244, 0.98);
+  border-top: 1px solid rgba(28, 28, 25, 0.12);
+  box-shadow: 0 -8px 24px -6px rgba(28, 28, 25, 0.08);
+  padding: 0.75rem 1rem;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: transform 0.3s var(--ease-spring), opacity 0.3s ease;
+}
+
+#mobileSelectionBar.active {
+  display: flex;
+}
+
+#mobileSelectionBar .selection-bar-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   FLOATING WHATSAPP CONCIERGE (#floatingWhatsappConcierge)
+   Positioned bottom-left to never collide with #conciergeToggleBtn / #marcely-concierge-trigger on bottom-right
+   ========================================================================== */
+
+#floatingWhatsappConcierge {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 44;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 1rem;
+  background-color: #FFFFFF;
+  color: #1C1C19;
+  border: 1px solid rgba(28, 28, 25, 0.12);
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px -6px rgba(28, 28, 25, 0.12);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+#floatingWhatsappConcierge:hover {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+  transform: translateY(-2px);
+}
+
+#floatingWhatsappConcierge .wa-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #745A2E;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   DRAWER CART ("MINHA SELECAO")
    ========================================================================== */
 
 #cartDrawer {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 1200;
   pointer-events: none;
   visibility: hidden;
   transition: visibility 0.3s ease;
@@ -284,9 +433,7 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 .drawer-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(13, 13, 14, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(28, 28, 25, 0.45);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -302,8 +449,9 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   bottom: 0;
   width: 100%;
   max-width: 440px;
-  background: var(--color-bg-surface);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15);
+  background: #FCF9F4;
+  box-shadow: -10px 0 40px rgba(28, 28, 25, 0.12);
+  border-left: 1px solid rgba(28, 28, 25, 0.08);
   transform: translateX(100%);
   transition: transform 0.4s var(--ease-spring);
   display: flex;
@@ -318,14 +466,14 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 .shipping-progress-bg {
   width: 100%;
   height: 4px;
-  background: var(--color-bg-secondary);
+  background: #EBE8E3;
   border-radius: 9999px;
   overflow: hidden;
 }
 
 .shipping-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #D4AF37, #A38020);
+  background: #745A2E;
   border-radius: 9999px;
   transition: width 0.4s ease;
 }
@@ -357,9 +505,7 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(13, 13, 14, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(28, 28, 25, 0.55);
 }
 
 .modal-card {
@@ -367,11 +513,11 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   z-index: 1;
   width: 100%;
   max-width: 480px;
-  background: var(--color-bg-surface);
-  border-radius: 1.25rem;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-  transform: scale(0.95);
+  background: #FFFFFF;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 50px -12px rgba(28, 28, 25, 0.25);
+  border: 1px solid rgba(28, 28, 25, 0.1);
+  transform: scale(0.96);
   transition: transform 0.3s var(--ease-spring);
   overflow: hidden;
 }
@@ -380,11 +526,10 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
   transform: scale(1);
 }
 
-/* Pix Pulse Animation */
 @keyframes pixPulse {
-  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-  70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(116, 90, 46, 0.35); }
+  70% { box-shadow: 0 0 0 10px rgba(116, 90, 46, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(116, 90, 46, 0); }
 }
 
 .pix-pulse-badge {
@@ -397,9 +542,9 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 
 #toastContainer {
   position: fixed;
-  bottom: 1.5rem;
+  top: 1.5rem;
   right: 1.5rem;
-  z-index: 120;
+  z-index: 1300;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -408,17 +553,16 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 
 .toast {
   pointer-events: auto;
-  background: rgba(13, 13, 14, 0.92);
-  color: var(--color-bg-primary);
-  backdrop-filter: blur(12px);
+  background: #1C1C19;
+  color: #FCF9F4;
   padding: 0.875rem 1.25rem;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   font-size: 0.8125rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  border-left: 3px solid var(--color-accent-gold);
+  box-shadow: 0 10px 28px rgba(28, 28, 25, 0.22);
+  border-left: 3px solid #745A2E;
   transform: translateY(20px);
   opacity: 0;
   transition: transform 0.3s var(--ease-spring), opacity 0.3s ease;
@@ -449,7 +593,7 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 }
 
 /* ==========================================================================
-   CUSTOM SCROLLBAR
+   CUSTOM SCROLLBAR & RESPONSIVE GEOMETRY GUARD
    ========================================================================== */
 
 ::-webkit-scrollbar {
@@ -458,7 +602,7 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-secondary);
+  background: #F6F3EE;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -467,7 +611,32 @@ h1, h2, h3, h4, .font-serif, .font-display-lg, .font-headline-lg, .font-headline
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-gold);
+  background: #745A2E;
+}
+
+@media (max-width: 640px) {
+  #floatingWhatsappConcierge {
+    bottom: 84px;
+    left: 16px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.65rem;
+  }
+
+  #floatingWhatsappConcierge .wa-label-extended {
+    display: none;
+  }
+
+  body.has-selection-bar #marcely-concierge-trigger,
+  body.has-selection-bar #conciergeToggleBtn {
+    bottom: 84px !important;
+  }
+}
+
+/* Hide floating widgets when Minha Selecao drawer is open */
+body:has(#cartDrawer.active) #marcely-concierge-trigger,
+body:has(#cartDrawer.active) #floatingWhatsappConcierge {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* No emoji rule guarantee */
