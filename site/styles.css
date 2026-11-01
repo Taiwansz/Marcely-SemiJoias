@@ -1007,6 +1007,32 @@ body:has(#mobileNavDrawer.active) #mobileSelectionBar {
   pointer-events: none !important;
 }
 
+/* ==========================================================================
+   CONCIERGE REFINEMENTS - LUXURY AESTHETIC
+   Expurgo de indicadores pulsantes estilo chat barato e reforco editorial
+   ========================================================================== */
+
+.concierge-pulse-dot {
+  display: none !important;
+  animation: none !important;
+}
+
+.concierge-trigger-badge {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #745A2E !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.concierge-subtitle {
+  font-size: 0.75rem !important;
+  color: #787571 !important;
+  letter-spacing: 0.02em !important;
+}
+
 /* No emoji rule guarantee */
 .no-emoji {
   font-family: inherit;

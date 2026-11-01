@@ -101,7 +101,6 @@
           <div class="concierge-trigger-text">
             <span class="concierge-trigger-title">Consultoria Marcely</span>
             <span class="concierge-trigger-badge">
-              <span class="concierge-pulse-dot"></span>
               Atendimento Online
             </span>
           </div>
@@ -116,7 +115,6 @@
               <div class="concierge-header-titles">
                 <span class="concierge-title">Concierge Marcely</span>
                 <span class="concierge-subtitle">
-                  <span class="concierge-pulse-dot"></span>
                   Marcely Semijoias • Atendimento Assistido
                 </span>
               </div>
