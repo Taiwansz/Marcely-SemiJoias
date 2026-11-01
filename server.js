@@ -1,9 +1,9 @@
 /**
  * Marcely Semijoias - Local Standalone Server & API Gateway
- * Plataforma de E-commerce de Alta Joalheria Contemporanea
+ * Plataforma Boutique Digital & Atendimento Assistido via WhatsApp
  *
  * Rotas de API:
- *   POST /api/chat         -> Atelier Concierge (Vercel AI Gateway + Motor Heuristico)
+ *   POST /api/chat         -> Concierge Marcely (Vercel AI Gateway + Motor Heuristico)
  *   GET  /api/products     -> Catalogo completo de 58 joias com filtros
  *   GET  /api/products/:id -> Detalhes de peca especifica
  *   GET  /api/health       -> Health check de infraestrutura
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 // Importa o handler serverless de chat
 const chatHandler = require('./api/chat.js');
 
-// Rota de Chat do Atelier Concierge
+// Rota de Chat do Concierge Marcely
 app.all('/api/chat', (req, res) => {
   chatHandler(req, res);
 });
@@ -151,26 +151,21 @@ app.get('*', (req, res, next) => {
     return res.sendFile(siteIndexPath);
   }
 
-  const referenceHome = path.join(__dirname, 'site', 'reference_screens', 'marcely_oliveira_-_p_gina_inicial.html');
-  if (fs.existsSync(referenceHome)) {
-    return res.sendFile(referenceHome);
-  }
-
   res.status(200).send(`
     <!DOCTYPE html>
     <html lang="pt-BR">
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Marcely Semijoias - Atelier Concierge</title>
+      <title>Marcely Semijoias</title>
       <link rel="stylesheet" href="/concierge.css">
       <style>
         body {
           margin: 0;
           padding: 40px 20px;
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-          background: #FBFBFA;
-          color: #141416;
+          background: #FCF9F4;
+          color: #1C1C19;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -198,8 +193,8 @@ app.get('*', (req, res, next) => {
           display: inline-block;
           padding: 6px 14px;
           border-radius: 999px;
-          background: rgba(212, 175, 55, 0.15);
-          color: #A38020;
+          background: rgba(116, 90, 46, 0.12);
+          color: #745A2E;
           font-size: 0.85rem;
           font-weight: 600;
           letter-spacing: 0.08em;
@@ -210,9 +205,9 @@ app.get('*', (req, res, next) => {
     </head>
     <body>
       <div class="container">
-        <span class="badge">Atelier Marcely</span>
+        <span class="badge">Marcely Semijoias</span>
         <h1>Alta Joalheria Contemporanea</h1>
-        <p>Servidor operacional com Atelier Concierge de IA conectado ao Vercel AI Gateway e catalogo de 58 pecas finas com banho de 10 milesimos em Ouro 18k e Garantia Vitalicia.</p>
+        <p>Servidor operacional com Concierge Marcely conectado ao Vercel AI Gateway e catalogo de 58 joias com banho de 10 a 15 milesimos em Ouro 18k e Garantia Oficial Veridiana Semijoias.</p>
       </div>
       <script src="/concierge.js"></script>
     </body>
@@ -227,7 +222,7 @@ if (!process.env.VERCEL) {
   server = app.listen(listenPort, () => {
     if (require.main === module) {
       console.log(`=======================================================`);
-      console.log(`  MARCELY SEMIJOIAS - ATELIER & BACKEND SERVER`);
+      console.log(`  MARCELY SEMIJOIAS - BACKEND & API SERVER`);
       console.log(`=======================================================`);
       console.log(`  Local URL:        http://localhost:${PORT}`);
       console.log(`  Health Check:     http://localhost:${PORT}/api/health`);

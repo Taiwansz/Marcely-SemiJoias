@@ -1,24 +1,24 @@
 /**
- * Marcely Semijoias - Atelier Concierge
- * Componente Interativo de Consultoria de Estilo & Curadoria Oficial Veridiana Semijoias
+ * Marcely Semijoias - Concierge Marcely
+ * Componente Interativo de Atendimento Assistido & Consultoria de Estilo
  * Conecta ao endpoint /api/chat com fallback inteligente in-browser e fechamento direto via WhatsApp
  */
 
 (function () {
   'use strict';
 
-  const SESSION_STORAGE_KEY = 'marcely_concierge_history_v1';
+  const SESSION_STORAGE_KEY = 'marcely_concierge_history_v2';
 
   const INITIAL_MESSAGE = {
     role: 'assistant',
-    content: 'Seja bem-vinda ao Atelier Concierge Marcely. Atuo na curadoria oficial de estilo da Marcely Oliveira, Revendedora Autorizada Veridiana Semijoias. Como posso orientar sua escolha hoje? Todas as 58 pecas do catalogo contam com banho nobre de 10 a 15 milesimos de Ouro 18k ou Rodio Nobre, tecnologia hipoalergenica alema, Certificado de Garantia Oficial de Fabrica Veridiana e fechamento personalizado diretamente com a Marcely no WhatsApp.',
+    content: 'Seja bem-vinda ao Concierge Marcely. Sou a assistente virtual da Marcely Semijoias, Revendedora Autorizada Veridiana Semijoias. Como posso orientar sua escolha hoje? Todas as 58 pecas do catalogo contam com banho nobre de 10 a 15 milesimos de Ouro 18k ou Rodio Nobre, tecnologia hipoalergenica alema, Garantia Oficial Veridiana Semijoias e atendimento personalizado diretamente com a Marcely no WhatsApp.',
     time: formatCurrentTime()
   };
 
   const QUICK_SUGGESTIONS = [
     'Qual o melhor brinco para segundo furo?',
     'Sugestao de presente sofisticado ate R$ 350',
-    'Como funciona a Garantia Oficial Veridiana?',
+    'Como funciona a Garantia Oficial?',
     'Quero montar um mix de colares e pedir no WhatsApp'
   ];
 
@@ -58,9 +58,6 @@
       <line x1="18" y1="6" x2="6" y2="18"></line>
       <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>`,
-    minimize: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12"></line>
-    </svg>`,
     send: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <line x1="22" y1="2" x2="11" y2="13"></line>
       <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
@@ -72,7 +69,7 @@
     </svg>`
   };
 
-  class MarcelyConcierge {
+  class MarcelyConciergeWidget {
     constructor() {
       this.isOpen = false;
       this.isLoading = false;
@@ -81,36 +78,46 @@
     }
 
     init() {
-      if (document.getElementById('marcely-concierge-root')) return;
+      if (document.getElementById('marcely-concierge-root')) {
+        this.triggerBtn = document.getElementById('marcely-concierge-trigger');
+        this.panel = document.getElementById('marcely-concierge-panel');
+        this.closeBtn = document.getElementById('marcely-concierge-close');
+        this.messagesContainer = document.getElementById('marcely-concierge-messages');
+        this.suggestionsContainer = document.getElementById('marcely-concierge-suggestions');
+        this.form = document.getElementById('marcely-concierge-form');
+        this.inputField = document.getElementById('marcely-concierge-input');
+        this.submitBtn = document.getElementById('marcely-concierge-submit');
+        return;
+      }
 
       const root = document.createElement('div');
       root.id = 'marcely-concierge-root';
       root.innerHTML = `
-        <!-- Botao Flutuante Trigger -->
-        <button id="marcely-concierge-trigger" type="button" aria-label="Abrir Consultora Virtual Marcely">
+        <!-- Botao Flutuante Trigger (Desktop) -->
+        <button id="marcely-concierge-trigger" type="button" aria-label="Abrir Concierge Marcely">
           <div class="concierge-trigger-icon-wrap">
             ${ICONS.sparkle}
           </div>
           <div class="concierge-trigger-text">
-            <span class="concierge-trigger-title">Atelier Concierge</span>
+            <span class="concierge-trigger-title">Concierge Marcely</span>
             <span class="concierge-trigger-badge">
               <span class="concierge-pulse-dot"></span>
-              Curadoria Veridiana
+              Atendimento Online
             </span>
           </div>
         </button>
 
         <!-- Painel Modal Editorial -->
-        <div id="marcely-concierge-panel" class="concierge-hidden" role="dialog" aria-modal="true" aria-label="Atelier Concierge Marcely">
+        <div id="marcely-concierge-panel" class="concierge-hidden" role="dialog" aria-modal="true" aria-label="Concierge Marcely">
           <!-- Cabecalho -->
           <div class="concierge-header">
             <div class="concierge-brand-identity">
               <div class="concierge-monogram-shield">M</div>
               <div class="concierge-header-titles">
-                <span class="concierge-title">Atelier Concierge</span>
+                <span class="concierge-title">Concierge Marcely</span>
                 <span class="concierge-subtitle">
                   <span class="concierge-pulse-dot"></span>
-                  Curadoria Oficial Veridiana • Online
+                  Marcely Semijoias • Atendimento Assistido
                 </span>
               </div>
             </div>
@@ -134,7 +141,7 @@
                 type="text"
                 id="marcely-concierge-input"
                 class="concierge-input-field"
-                placeholder="Pergunte sobre pecas Veridiana, medidas, presentes..."
+                placeholder="Pergunte sobre joias, medidas, presentes..."
                 autocomplete="off"
               />
               <button type="submit" id="marcely-concierge-submit" class="concierge-send-btn" aria-label="Enviar mensagem">
@@ -193,7 +200,7 @@
       this.isOpen = true;
       this.panel.classList.remove('concierge-hidden');
       setTimeout(() => {
-        this.inputField.focus();
+        if (this.inputField) this.inputField.focus();
         this.scrollToBottom();
       }, 100);
     }
@@ -216,7 +223,7 @@
       const msgDiv = document.createElement('div');
       msgDiv.className = `concierge-msg ${isAssistant ? 'concierge-msg-assistant' : 'concierge-msg-user'}`;
 
-      let formattedText = msg.content
+      const formattedText = msg.content
         .split('\n\n')
         .map(paragraph => `<p style="margin: 0 0 8px 0; line-height: 1.55;">${this.escapeHtml(paragraph)}</p>`)
         .join('');
@@ -253,7 +260,7 @@
         <div class="concierge-product-card" data-product-id="${this.escapeHtml(product.id)}">
           <img class="concierge-product-thumb" src="${imgSrc}" alt="${this.escapeHtml(product.name)}" onerror="this.src='assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg'" />
           <div class="concierge-product-info">
-            <span class="concierge-product-badge">${this.escapeHtml(product.badge || 'Original Veridiana')}</span>
+            <span class="concierge-product-badge">${this.escapeHtml(product.badge || 'Ouro 18k & Rodio')}</span>
             <div class="concierge-product-name" title="${this.escapeHtml(product.name)}">${this.escapeHtml(product.name)}</div>
             <div class="concierge-product-price-row">
               <span class="concierge-product-price">${formattedPrice}</span>
@@ -360,7 +367,7 @@
         const data = await response.json();
         const assistantMsg = {
           role: 'assistant',
-          content: data.reply || 'Houve uma breve oscilacao na conexao. Poderia repetir sua pergunta sobre nossas joias Veridiana ou chamar a Marcely diretamente no WhatsApp?',
+          content: data.reply || 'Houve uma breve oscilacao na conexao. Poderia repetir sua pergunta ou chamar a Marcely diretamente no WhatsApp?',
           products: data.products || [],
           time: formatCurrentTime()
         };
@@ -374,7 +381,7 @@
 
         const fallbackMsg = {
           role: 'assistant',
-          content: 'Todas as 58 pecas sob curadoria de Marcely Oliveira (Revendedora Autorizada Veridiana Semijoias) possuem banho nobre de 10 a 15 milesimos de Ouro 18k ou Rodio Nobre, tecnologia hipoalergenica alema e Certificado de Garantia Oficial de Fabrica Veridiana. Voce pode adicionar suas pecas prediletas em Minha Selecao e finalizar o atendimento diretamente com a Marcely pelo WhatsApp.',
+          content: 'Todas as 58 pecas da Marcely Semijoias (Revendedora Autorizada Veridiana Semijoias) possuem banho nobre de 10 a 15 milesimos de Ouro 18k ou Rodio Nobre, tecnologia hipoalergenica alema e Garantia Oficial Veridiana Semijoias. Voce pode adicionar suas pecas prediletas em Minha Selecao e finalizar o atendimento diretamente com a Marcely pelo WhatsApp.',
           time: formatCurrentTime(),
           products: []
         };
@@ -429,9 +436,39 @@
     }
   }
 
+  let conciergeInstance = null;
+
+  function ensureConciergeInstance() {
+    if (!conciergeInstance && document.body) {
+      conciergeInstance = new MarcelyConciergeWidget();
+    }
+    return conciergeInstance;
+  }
+
+  function openPanel() {
+    const inst = ensureConciergeInstance();
+    if (inst) inst.open();
+  }
+
+  function closePanel() {
+    const inst = ensureConciergeInstance();
+    if (inst) inst.close();
+  }
+
+  function togglePanel() {
+    const inst = ensureConciergeInstance();
+    if (inst) inst.toggle();
+  }
+
+  window.MarcelyConcierge = {
+    open: openPanel,
+    close: closePanel,
+    toggle: togglePanel
+  };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new MarcelyConcierge());
+    document.addEventListener('DOMContentLoaded', () => ensureConciergeInstance());
   } else {
-    new MarcelyConcierge();
+    ensureConciergeInstance();
   }
 })();

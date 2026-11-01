@@ -1,10 +1,9 @@
 /**
- * Marcely Semijoias - Atelier Concierge
- * Design System: Apple Liquid Glass UI & Quiet Luxury
+ * Marcely Semijoias - Concierge Marcely
+ * Design System: Organic Rounded Luxury & Native Mobile App Ergonomics
  * Inspirado nas diretrizes canonicas do Brand Book Marcely e Apple Human Interface Guidelines
  */
 
-/* Importacao das fontes tipograficas de alta joalheria */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
@@ -24,45 +23,49 @@
 }
 
 /* -------------------------------------------------------------
- * 1. BOTAO FLUTUANTE (TRIGGER)
+ * 1. BOTAO FLUTUANTE DESKTOP (TRIGGER)
  * ------------------------------------------------------------- */
 #marcely-concierge-trigger {
   position: fixed;
-  bottom: 28px;
-  right: 28px;
+  bottom: 24px;
+  right: 24px;
   z-index: 85;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 18px 10px 14px;
+  padding: 10px 18px 10px 12px;
   border-radius: 999px;
-  background: rgba(251, 251, 250, 0.88);
-  backdrop-filter: blur(28px) saturate(190%) contrast(102%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%) contrast(102%);
+  background: rgba(252, 249, 244, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(212, 175, 55, 0.35);
   box-shadow:
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
-    0 12px 28px -6px rgba(13, 13, 14, 0.18),
+    0 12px 28px -6px rgba(13, 13, 14, 0.16),
     0 2px 6px 0 rgba(13, 13, 14, 0.06);
   cursor: pointer;
-  transition: all 0.4s var(--concierge-spring);
+  transition: transform 0.35s var(--concierge-spring-snappy),
+              bottom 0.35s var(--concierge-spring-snappy),
+              opacity 0.28s ease,
+              box-shadow 0.35s var(--concierge-spring-snappy),
+              border-color 0.3s ease;
   user-select: none;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--concierge-obsidian);
 }
 
 #marcely-concierge-trigger:hover {
-  transform: translateY(-3px) scale(1.02);
-  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px) scale(1.02);
+  background: rgba(255, 255, 255, 0.97);
   border-color: rgba(212, 175, 55, 0.6);
   box-shadow:
     inset 0 1px 2px 0 rgba(255, 255, 255, 1),
-    0 18px 36px -8px rgba(13, 13, 14, 0.24),
+    0 18px 36px -8px rgba(13, 13, 14, 0.22),
     0 4px 10px 0 rgba(212, 175, 55, 0.15);
 }
 
 #marcely-concierge-trigger:active {
-  transform: translateY(-1px) scale(0.98);
+  transform: scale(0.98);
 }
 
 .concierge-trigger-icon-wrap {
@@ -74,7 +77,7 @@
   align-items: center;
   justify-content: center;
   color: var(--concierge-gold-light);
-  box-shadow: 0 4px 10px rgba(13, 13, 14, 0.25);
+  box-shadow: 0 4px 10px rgba(13, 13, 14, 0.22);
   position: relative;
   flex-shrink: 0;
 }
@@ -84,7 +87,7 @@
   position: absolute;
   inset: -2px;
   border-radius: 50%;
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.38);
   pointer-events: none;
 }
 
@@ -110,7 +113,7 @@
 }
 
 .concierge-trigger-badge {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--concierge-gold-dark);
@@ -118,6 +121,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-top: 1px;
 }
 
 .concierge-pulse-dot {
@@ -136,38 +140,36 @@
 }
 
 /* -------------------------------------------------------------
- * 2. MODAL LIQUID GLASS DO CONCIERGE
+ * 2. MODAL EDITORIAL DO CONCIERGE (#marcely-concierge-panel)
  * ------------------------------------------------------------- */
 #marcely-concierge-panel {
   position: fixed;
-  bottom: 86px;
-  right: 28px;
-  width: 430px;
-  max-width: calc(100vw - 36px);
-  height: 640px;
+  bottom: 84px;
+  right: 24px;
+  width: 420px;
+  max-width: calc(100vw - 32px);
+  height: 630px;
   max-height: calc(100vh - 110px);
-  z-index: 99995;
+  z-index: 1350;
   display: flex;
   flex-direction: column;
   border-radius: 28px;
   overflow: hidden;
 
-  /* Formula Canonica: Liquid Glass Luxury */
-  background: rgba(251, 251, 250, 0.88);
-  backdrop-filter: blur(32px) saturate(180%) contrast(102%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%) contrast(102%);
+  background: rgba(252, 249, 244, 0.96);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
   border: 1px solid rgba(212, 175, 55, 0.28);
   box-shadow:
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 0 20px 0 rgba(212, 175, 55, 0.03),
-    0 28px 56px -14px rgba(13, 13, 14, 0.32),
+    0 28px 56px -14px rgba(13, 13, 14, 0.28),
     0 2px 8px 0 rgba(13, 13, 14, 0.08);
 
   transform-origin: bottom right;
   transition:
-    transform 0.45s var(--concierge-spring),
-    opacity 0.35s ease,
-    visibility 0.35s ease;
+    transform 0.42s var(--concierge-spring-snappy),
+    opacity 0.32s ease,
+    visibility 0.32s ease;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--concierge-obsidian);
 }
@@ -175,7 +177,7 @@
 #marcely-concierge-panel.concierge-hidden {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px) scale(0.94);
+  transform: translateY(18px) scale(0.95);
   pointer-events: none;
 }
 
@@ -185,7 +187,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px 22px;
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.72);
   border-bottom: 1px solid rgba(20, 20, 22, 0.06);
   position: relative;
   flex-shrink: 0;
@@ -210,7 +212,7 @@
 .concierge-monogram-shield {
   width: 38px;
   height: 38px;
-  border-radius: 12px;
+  border-radius: 50%;
   background: linear-gradient(135deg, #0D0D0E 0%, #202024 100%);
   border: 1px solid rgba(212, 175, 55, 0.45);
   display: flex;
@@ -218,7 +220,7 @@
   justify-content: center;
   color: var(--concierge-gold-light);
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 600;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
@@ -232,7 +234,7 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.18rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   color: var(--concierge-obsidian);
   line-height: 1.15;
 }
@@ -240,7 +242,7 @@
 .concierge-subtitle {
   font-size: 0.72rem;
   color: var(--concierge-stone);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -254,11 +256,11 @@
 }
 
 .concierge-icon-btn {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1px solid rgba(20, 20, 22, 0.08);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -292,17 +294,19 @@
   scroll-behavior: smooth;
 }
 
-/* Scrollbar ultra fina de luxo */
 .concierge-messages-area::-webkit-scrollbar {
   width: 4px;
 }
+
 .concierge-messages-area::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .concierge-messages-area::-webkit-scrollbar-thumb {
   background: rgba(212, 175, 55, 0.3);
   border-radius: 999px;
 }
+
 .concierge-messages-area::-webkit-scrollbar-thumb:hover {
   background: rgba(212, 175, 55, 0.6);
 }
@@ -335,7 +339,7 @@
 
 .concierge-msg-bubble {
   padding: 14px 18px;
-  border-radius: 18px;
+  border-radius: 20px;
   font-size: 0.9rem;
   line-height: 1.55;
   letter-spacing: 0.01em;
@@ -344,23 +348,19 @@
 }
 
 .concierge-msg-assistant .concierge-msg-bubble {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.2);
   color: #141416;
-  border-bottom-left-radius: 4px;
-  box-shadow:
-    inset 0 1px 1px 0 rgba(255, 255, 255, 1),
-    0 4px 12px rgba(13, 13, 14, 0.04);
+  border-bottom-left-radius: 6px;
+  box-shadow: 0 4px 12px rgba(13, 13, 14, 0.04);
 }
 
 .concierge-msg-user .concierge-msg-bubble {
   background: #0D0D0E;
   color: #FBFBFA;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-bottom-right-radius: 4px;
-  box-shadow:
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
-    0 6px 16px rgba(0, 0, 0, 0.18);
+  border-bottom-right-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
 }
 
 .concierge-msg-time {
@@ -389,10 +389,10 @@
   display: flex;
   gap: 12px;
   padding: 10px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  box-shadow: 0 4px 14px rgba(13, 13, 14, 0.05);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(28, 28, 25, 0.08);
+  box-shadow: 0 6px 16px -4px rgba(13, 13, 14, 0.06);
   transition: all 0.3s var(--concierge-spring);
   text-decoration: none;
   color: inherit;
@@ -400,17 +400,17 @@
 
 .concierge-product-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(212, 175, 55, 0.55);
-  box-shadow: 0 8px 20px rgba(13, 13, 14, 0.08);
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 10px 22px -6px rgba(13, 13, 14, 0.09);
 }
 
 .concierge-product-thumb {
   width: 70px;
   height: 70px;
-  border-radius: 10px;
+  border-radius: 14px;
   object-fit: cover;
   background: var(--concierge-warm-alabaster);
-  border: 1px solid rgba(20, 20, 22, 0.06);
+  border: 1px solid rgba(20, 20, 22, 0.05);
   flex-shrink: 0;
 }
 
@@ -423,7 +423,7 @@
 }
 
 .concierge-product-badge {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--concierge-gold-dark);
@@ -457,7 +457,7 @@
 
 .concierge-product-pix {
   font-size: 0.72rem;
-  color: #2E7D32;
+  color: #745A2E;
   font-weight: 500;
 }
 
@@ -468,8 +468,8 @@
 }
 
 .concierge-btn-sm {
-  padding: 4px 10px;
-  border-radius: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
   font-size: 0.7rem;
   font-weight: 500;
   cursor: pointer;
@@ -494,13 +494,12 @@
 }
 
 .concierge-btn-gold {
-  background: linear-gradient(135deg, var(--concierge-gold) 0%, var(--concierge-gold-dark) 100%);
+  background: #0D0D0E;
   color: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25);
 }
 
 .concierge-btn-gold:hover {
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+  background: #745A2E;
   transform: translateY(-1px);
 }
 
@@ -516,11 +515,11 @@
 }
 
 .concierge-chip {
-  padding: 7px 12px;
+  padding: 7px 13px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(212, 175, 55, 0.24);
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   color: var(--concierge-obsidian);
   cursor: pointer;
   transition: all 0.25s var(--concierge-spring);
@@ -539,8 +538,8 @@
  * 6. AREA DE INPUT E CONTROLES
  * ------------------------------------------------------------- */
 .concierge-input-container {
-  padding: 12px 20px 18px 20px;
-  background: rgba(255, 255, 255, 0.75);
+  padding: 12px 20px calc(18px + env(safe-area-inset-bottom, 0px)) 20px;
+  background: rgba(255, 255, 255, 0.8);
   border-top: 1px solid rgba(20, 20, 22, 0.06);
   flex-shrink: 0;
 }
@@ -549,18 +548,18 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 6px 6px 14px;
+  padding: 6px 6px 6px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
+  background: #FFFFFF;
   border: 1px solid rgba(20, 20, 22, 0.12);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: all 0.3s var(--concierge-spring);
 }
 
 .concierge-input-box:focus-within {
   border-color: var(--concierge-gold);
   box-shadow:
-    inset 0 1px 2px rgba(0, 0, 0, 0.04),
+    inset 0 1px 2px rgba(0, 0, 0, 0.03),
     0 0 0 3px rgba(212, 175, 55, 0.15);
 }
 
@@ -581,8 +580,8 @@
 }
 
 .concierge-send-btn {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: none;
   background: linear-gradient(135deg, #0D0D0E 0%, #202024 100%);
@@ -597,7 +596,7 @@
 
 .concierge-send-btn:hover {
   transform: scale(1.06);
-  background: linear-gradient(135deg, var(--concierge-gold) 0%, var(--concierge-gold-dark) 100%);
+  background: #745A2E;
   color: #FFFFFF;
 }
 
@@ -616,14 +615,14 @@
   height: 14px;
 }
 
-/* Indicador de digitacao (Pulsing dots) */
+/* Indicador de digitacao */
 .concierge-typing-indicator {
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 12px 18px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(212, 175, 55, 0.2);
   width: fit-content;
   align-self: flex-start;
@@ -683,18 +682,20 @@
   100% { opacity: 0; transform: translate(-50%, -10px); }
 }
 
-/* -------------------------------------------------------------
- * 7. RESPONSIVIDADE (MOBILE 390px & TABLET)
- * ------------------------------------------------------------- */
-@media (max-width: 640px) {
-  #marcely-concierge-trigger {
-    bottom: 20px;
-    right: 20px;
-    padding: 8px 14px 8px 10px;
-  }
+/* Ocultar trigger desktop quando gavetas laterais estiverem ativas */
+body:has(#cartDrawer.active) #marcely-concierge-trigger,
+body:has(#mobileNavDrawer.active) #marcely-concierge-trigger {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
 
-  .concierge-trigger-title {
-    font-size: 0.9rem;
+/* -------------------------------------------------------------
+ * 7. RESPONSIVIDADE MOBILE & TABLET (< 1024px: NATIVE APP MODE)
+ * ------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  /* Hide floating bubble on mobile/tablet so it never covers cards or competes with the Instagram-style Bottom Tab Bar */
+  #marcely-concierge-trigger {
+    display: none !important;
   }
 
   #marcely-concierge-panel {
@@ -704,13 +705,18 @@
     left: 0;
     width: 100%;
     max-width: 100%;
-    height: 85vh;
-    max-height: 85vh;
-    border-radius: 24px 24px 0 0;
+    height: 86vh;
+    max-height: 86vh;
+    border-radius: 28px 28px 0 0;
     border-bottom: none;
+    z-index: 1350;
   }
 
   #marcely-concierge-panel.concierge-hidden {
     transform: translateY(100%);
+  }
+
+  .concierge-input-field {
+    font-size: 16px !important;
   }
 }
