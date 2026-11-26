@@ -21,7 +21,9 @@
   // ==========================================================================
   const CONFIG = {
     whatsappNumber: '5519999999999',
+    productsApiUrl: '/api/products',
     productsUrl: 'products.json',
+    adminCatalogStorageKey: 'marcely_admin_catalog_v1',
     cartStorageKey: 'marcely_cart_v1',
     wishlistStorageKey: 'marcely_wishlist_v1',
     freeShippingThreshold: 300.0,
@@ -762,17 +764,150 @@
   }
 
   // ==========================================================================
-  // DATA FETCHING & ULTRA-CLEAN ROUNDED PRODUCT CARD
+  // DATA FETCHING, ADMIN SYNC & ULTRA-CLEAN ROUNDED PRODUCT CARD
   // ==========================================================================
-  async function loadProductsData() {
+  function parseStoredAdminCatalog() {
     try {
-      const response = await fetch(CONFIG.productsUrl);
-      if (!response.ok) throw new Error('Falha ao carregar catalogo');
-      state.products = await response.json();
-      window.MarcelyProducts = state.products;
+      const raw = localStorage.getItem(CONFIG.adminCatalogStorageKey);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        const tsRaw = localStorage.getItem(CONFIG.adminCatalogStorageKey + '_updated_at');
+        return {
+          products: parsed,
+          updatedAt: tsRaw ? Number(tsRaw) || Date.parse(tsRaw) || Date.now() : Date.now()
+        };
+      }
+      if (parsed && typeof parsed === 'object') {
+        const list = Array.isArray(parsed.products)
+          ? parsed.products
+          : (Array.isArray(parsed.items) ? parsed.items : null);
+        if (list) {
+          const ts = typeof parsed.updatedAt === 'number'
+            ? parsed.updatedAt
+            : (parsed.updatedAt ? Date.parse(parsed.updatedAt) : Date.now());
+          return { products: list, updatedAt: isNaN(ts) ? Date.now() : ts };
+        }
+      }
+    } catch (e) {
+      console.warn('Erro ao ler catalogo admin do localStorage:', e);
+    }
+    return null;
+  }
+
+  function extractProductsArray(payload) {
+    if (Array.isArray(payload)) return payload;
+    if (payload && typeof payload === 'object') {
+      if (Array.isArray(payload.products)) return payload.products;
+      if (Array.isArray(payload.items)) return payload.items;
+    }
+    return null;
+  }
+
+  async function loadProductsData() {
+    // 1. Primary source of truth: /api/products (Express / Vercel API)
+    try {
+      const apiRes = await fetch(CONFIG.productsApiUrl, {
+        cache: 'no-store',
+        headers: { 'Accept': 'application/json' }
+      });
+      const contentType = (apiRes.headers.get('content-type') || '').toLowerCase();
+      if (apiRes.ok && contentType.includes('application/json')) {
+        const apiData = await apiRes.json();
+        const apiList = extractProductsArray(apiData);
+        if (apiList) {
+          state.products = apiList;
+          state.catalogSource = 'api';
+          window.MarcelyProducts = state.products;
+          updateDynamicCatalogCounts();
+          return state.products;
+        }
+      }
+    } catch (_apiErr) {
+      // Static mode fallback handled below
+    }
+
+    // 2. Static mode: check localStorage admin override & fallback to products.json
+    const localAdmin = parseStoredAdminCatalog();
+    let staticProducts = null;
+    let staticLastModified = 0;
+
+    try {
+      const response = await fetch(CONFIG.productsUrl, { cache: 'no-store' });
+      if (response.ok) {
+        const lastMod = response.headers.get('last-modified');
+        if (lastMod) {
+          const parsedMod = Date.parse(lastMod);
+          if (!isNaN(parsedMod)) staticLastModified = parsedMod;
+        }
+        const json = await response.json();
+        staticProducts = extractProductsArray(json);
+      }
     } catch (error) {
       console.warn('Aviso: Utilizando catalogo em cache interno:', error);
-      state.products = window.MarcelyProducts || [];
+    }
+
+    if (localAdmin && Array.isArray(localAdmin.products)) {
+      const useLocal = !staticProducts || localAdmin.updatedAt >= staticLastModified;
+      if (useLocal) {
+        state.products = localAdmin.products;
+        state.catalogSource = 'localStorage';
+        window.MarcelyProducts = state.products;
+        updateDynamicCatalogCounts();
+        return state.products;
+      }
+    }
+
+    state.products = staticProducts || window.MarcelyProducts || [];
+    state.catalogSource = 'static';
+    window.MarcelyProducts = state.products;
+    updateDynamicCatalogCounts();
+    return state.products;
+  }
+
+  function updateDynamicCatalogCounts() {
+    const products = Array.isArray(state.products) ? state.products : [];
+    const total = products.length;
+    if (total === 0 && !state.catalogSource) return;
+
+    const counts = {
+      all: total,
+      brincos: 0,
+      colares: 0,
+      pulseiras: 0,
+      aneis: 0,
+      ouro: 0,
+      rodio: 0
+    };
+
+    products.forEach((item) => {
+      const cat = (item.category || '').toLowerCase();
+      if (Object.prototype.hasOwnProperty.call(counts, cat)) {
+        counts[cat] += 1;
+      }
+      const metal = (item.metal || '').toLowerCase();
+      if (metal.includes('ouro')) counts.ouro += 1;
+      if (metal.includes('ródio') || metal.includes('rodio')) counts.rodio += 1;
+    });
+
+    document.querySelectorAll('[data-catalog-count]').forEach((el) => {
+      const key = (el.dataset.catalogCount || 'all').toLowerCase();
+      const val = Object.prototype.hasOwnProperty.call(counts, key) ? counts[key] : total;
+      const fmt = el.dataset.catalogCountFormat;
+      if (fmt) {
+        el.textContent = fmt.replace(/\{n\}/g, String(val));
+      } else {
+        el.textContent = String(val);
+      }
+    });
+
+    const allFilterBtn = document.querySelector('#categoryFilters [data-cat="all"]');
+    if (allFilterBtn && !allFilterBtn.hasAttribute('data-catalog-count')) {
+      allFilterBtn.textContent = `Todos (${total})`;
+    }
+
+    if (document.getElementById('catalogProductsGrid')) {
+      document.title = `Catálogo Completo (${total} Peças) | Marcely Semijoias`;
     }
   }
 
@@ -780,6 +915,7 @@
     const isGold = (prod.metal || '').toLowerCase().includes('ouro');
     const badgeClass = isGold ? 'badge-gold' : 'badge-rhodium';
     const badgeLabel = isGold ? 'Ouro 18k' : 'Rodio Nobre';
+    const isOutOfStock = prod.in_stock === false;
     const pixValue = prod.pix_discount_price || (prod.price * (1 - CONFIG.pixDiscountRate));
     const isWishlisted = state.wishlist.has(prod.id);
 
@@ -787,10 +923,11 @@
       <div class="group flex flex-col bg-white p-2.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-[#1C1C19]/[0.06] shadow-[0_8px_24px_-12px_rgba(28,28,25,0.06)] hover:shadow-[0_14px_32px_-12px_rgba(28,28,25,0.1)] transition-all duration-300 relative reveal-up">
         <div class="relative aspect-square w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#F6F3EE] mb-2.5 sm:mb-3.5">
           <a href="produto.html?id=${prod.id}" class="block w-full h-full">
-            <img src="${prod.image}" alt="${prod.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <img src="${prod.image}" alt="${prod.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${isOutOfStock ? 'opacity-70 grayscale-[20%]' : ''}">
           </a>
-          <div class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 pointer-events-none">
+          <div class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 pointer-events-none flex flex-col items-start gap-1.5">
             <span class="${badgeClass}">${badgeLabel}</span>
+            ${isOutOfStock ? '<span class="badge-out-of-stock">Esgotado</span>' : ''}
           </div>
           <button type="button" class="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-[#1C1C19] hover:text-[#745A2E] shadow-sm transition-colors" onclick="window.MarcelyApp.toggleWishlist('${prod.id}')" data-wishlist-id="${prod.id}" aria-label="Favoritar ${prod.name}" title="Favoritar">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="${isWishlisted ? '#745A2E' : 'none'}" stroke="${isWishlisted ? '#745A2E' : 'currentColor'}" stroke-width="1.75"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -805,16 +942,16 @@
             </h3>
             <div class="mt-1.5">
               <span class="font-serif text-[15px] sm:text-lg font-semibold text-[#1C1C19]">${formatBRL(prod.price)}</span>
-              <span class="block font-sans text-[11px] text-[#745A2E] font-medium">${formatBRL(pixValue)} no Pix</span>
+              <span class="block font-sans text-[11px] text-[#745A2E] font-medium">${isOutOfStock ? 'Indisponivel no momento' : formatBRL(pixValue) + ' no Pix'}</span>
             </div>
           </div>
 
           <div class="flex items-center gap-1.5 sm:gap-2 mt-3 pt-2.5 border-t border-[#1C1C19]/[0.06]">
             <button type="button" class="btn-whatsapp-primary flex-1 min-h-[42px] sm:min-h-[44px] rounded-full px-3 text-[11px] font-medium tracking-wider" onclick="window.MarcelyApp.openWhatsAppForProduct('${prod.id}')">
-              <span class="sm:hidden">Pedir</span>
-              <span class="hidden sm:inline">Pedir no WhatsApp</span>
+              <span class="sm:hidden">${isOutOfStock ? 'Encomendar' : 'Pedir'}</span>
+              <span class="hidden sm:inline">${isOutOfStock ? 'Consultar Encomenda' : 'Pedir no WhatsApp'}</span>
             </button>
-            <button type="button" class="w-[42px] h-[42px] sm:w-[44px] sm:h-[44px] rounded-full border border-[#1C1C19]/15 bg-[#FCF9F4] hover:border-[#745A2E] hover:text-[#745A2E] text-[#1C1C19] flex items-center justify-center flex-shrink-0 transition-colors" onclick="window.MarcelyApp.addToCartById('${prod.id}')" aria-label="Adicionar a Minha Selecao" title="Adicionar a Minha Selecao">
+            <button type="button" ${isOutOfStock ? 'disabled aria-disabled="true"' : ''} class="w-[42px] h-[42px] sm:w-[44px] sm:h-[44px] rounded-full border border-[#1C1C19]/15 bg-[#FCF9F4] ${isOutOfStock ? 'opacity-40 cursor-not-allowed text-[#787571]' : 'hover:border-[#745A2E] hover:text-[#745A2E] text-[#1C1C19]'} flex items-center justify-center flex-shrink-0 transition-colors" onclick="window.MarcelyApp.addToCartById('${prod.id}')" aria-label="Adicionar a Minha Selecao" title="${isOutOfStock ? 'Peca esgotada' : 'Adicionar a Minha Selecao'}">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
             </button>
           </div>
@@ -827,6 +964,8 @@
   // HOME PAGE CONTROLLER (index.html)
   // ==========================================================================
   function initHomePage() {
+    updateDynamicCatalogCounts();
+
     const featuredGrid = document.getElementById('featuredProductsGrid');
     if (!featuredGrid) {
       initScrollReveal();
@@ -834,11 +973,14 @@
     }
 
     if (!state.products || state.products.length === 0) {
-      setTimeout(initHomePage, 150);
+      if (!state.catalogSource) {
+        setTimeout(initHomePage, 150);
+      }
       return;
     }
 
-    const showcaseItems = state.products.slice(0, 8);
+    const available = state.products.filter(p => p.in_stock !== false);
+    const showcaseItems = (available.length > 0 ? available : state.products).slice(0, 8);
     featuredGrid.innerHTML = showcaseItems.map(prod => buildProductCardHtml(prod)).join('');
     initScrollReveal();
   }
@@ -856,11 +998,14 @@
   };
 
   function initCatalogPage() {
+    updateDynamicCatalogCounts();
     const grid = document.getElementById('catalogProductsGrid');
     if (!grid) return;
 
     if (!state.products || state.products.length === 0) {
-      setTimeout(initCatalogPage, 150);
+      if (!state.catalogSource) {
+        setTimeout(initCatalogPage, 150);
+      }
       return;
     }
 
@@ -868,25 +1013,29 @@
     const urlMetal = getUrlParam('metal');
     const urlSearch = getUrlParam('q');
 
-    if (urlCat) {
-      catalogState.activeCategory = urlCat.toLowerCase();
-      const categoryButtons = document.querySelectorAll('.filter-category');
-      categoryButtons.forEach(b => {
-        const isMatch = (b.dataset.cat || '').toLowerCase() === catalogState.activeCategory;
-        b.classList.toggle('bg-primary', isMatch);
-        b.classList.toggle('text-on-primary', isMatch);
-        b.classList.toggle('active', isMatch);
-        if (isMatch) {
-          b.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant', 'bg-white');
-        }
-      });
+    catalogState.activeCategory = urlCat ? urlCat.toLowerCase() : 'all';
+    catalogState.activeMetal = urlMetal ? urlMetal.toLowerCase() : 'all';
+    catalogState.searchQuery = urlSearch ? urlSearch.trim().toLowerCase() : '';
+    catalogState.currentPage = 1;
+
+    const categoryButtons = document.querySelectorAll('.filter-category');
+    categoryButtons.forEach(b => {
+      const isMatch = (b.dataset.cat || 'all').toLowerCase() === catalogState.activeCategory;
+      b.classList.toggle('bg-primary', isMatch);
+      b.classList.toggle('text-on-primary', isMatch);
+      b.classList.toggle('active', isMatch);
+      b.classList.toggle('bg-surface-container-lowest', !isMatch);
+      b.classList.toggle('text-on-surface-variant', !isMatch);
+    });
+
+    const metalSelect = document.getElementById('catalogMetalFilter');
+    if (metalSelect) {
+      metalSelect.value = ['ouro', 'rodio'].includes(catalogState.activeMetal) ? catalogState.activeMetal : 'all';
     }
-    if (urlMetal) catalogState.activeMetal = urlMetal.toLowerCase();
-    if (urlSearch) catalogState.searchQuery = urlSearch;
 
     const searchInput = document.getElementById('catalogSearchInput');
-    if (searchInput && urlSearch) {
-      searchInput.value = urlSearch;
+    if (searchInput) {
+      searchInput.value = urlSearch || '';
     }
 
     setupCatalogEventListeners();
@@ -1410,6 +1559,8 @@
     resetCatalogFilters: resetCatalogFilters,
     initScrollReveal: initScrollReveal,
     initMobilePdpActionBarScroll: initMobilePdpActionBarScroll,
+    loadProducts: loadProductsData,
+    updateDynamicCatalogCounts: updateDynamicCatalogCounts,
     navigateToPage: navigateToPage,
     showToast: showToast
   };
@@ -1633,6 +1784,7 @@
 
   function reinitializePageScripts(url) {
     const lower = (url || '').toLowerCase();
+    updateDynamicCatalogCounts();
     if (lower.includes('catalogo.html') || document.getElementById('catalogProductsGrid')) {
       initCatalogPage();
     } else if (lower.includes('produto.html') || document.getElementById('productDetailContainer')) {
@@ -1641,6 +1793,9 @@
       initAboutPage();
     } else {
       initHomePage();
+      if (window.__marcelyRing3D && typeof window.__marcelyRing3D.remount === 'function') {
+        window.__marcelyRing3D.remount();
+      }
     }
     initScrollReveal();
   }
@@ -1691,9 +1846,28 @@
       if (!href.startsWith(origin)) return false;
     }
     const clean = href.split('?')[0].split('#')[0].split('/').pop();
+    if (clean === 'admin.html') return false;
+    // Full load index.html when navigating from secondary pages so Three.js importmap boots cleanly
+    if ((clean === 'index.html' || clean === '') && !window.__marcelyRing3D) {
+      return false;
+    }
     const valid = ['index.html', 'catalogo.html', 'produto.html', 'sobre.html', ''];
     return valid.includes(clean);
   }
+
+  // Live cross-tab catalog sync when Admin modifies localStorage in static mode
+  window.addEventListener('storage', async (e) => {
+    if (e.key === CONFIG.adminCatalogStorageKey) {
+      await loadProductsData();
+      if (document.getElementById('catalogProductsGrid')) {
+        renderCatalogGrid();
+      } else if (document.getElementById('featuredProductsGrid')) {
+        initHomePage();
+      } else if (document.getElementById('productDetailContainer')) {
+        initProductDetailPage();
+      }
+    }
+  });
 
   // ==========================================================================
   // GLOBAL BOOTSTRAP

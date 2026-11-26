@@ -37,3 +37,6 @@ playwright-report/
 
 .vercel
 .env*
+
+screenshots_audit/
+*.blend1

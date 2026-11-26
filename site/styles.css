@@ -1037,3 +1037,766 @@ body:has(#mobileNavDrawer.active) #mobileSelectionBar {
 .no-emoji {
   font-family: inherit;
 }
+
+/* ==========================================================================
+   HERO 3D DE ALTA JOALHERIA (DOUBLE-BEZEL STAGE + LIVE METAL SWITCHER)
+   ========================================================================== */
+
+.hero-jewelry-section {
+  position: relative;
+  padding: 1.75rem 1rem 3rem;
+}
+
+@media (min-width: 640px) {
+  .hero-jewelry-section {
+    padding: 2.5rem 2rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-jewelry-section {
+    min-height: calc(100dvh - 80px);
+    display: flex;
+    align-items: center;
+    padding: 2.25rem 2rem 3.5rem;
+  }
+}
+
+.hero-jewelry-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.9rem;
+  border-radius: 9999px;
+  background: #F4EFE6;
+  border: 1px solid rgba(116, 90, 46, 0.22);
+  color: #745A2E;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-jewelry-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #B8913D;
+  flex-shrink: 0;
+}
+
+.hero-jewelry-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 4.15vw, 3.65rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #1C1C19;
+  font-weight: 500;
+}
+
+.hero-metal-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.hero-metal-pills {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hero-metal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.5rem 1.05rem;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(28, 28, 25, 0.12);
+  color: #1C1C19;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-spring), border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-metal-pill:hover {
+  border-color: #745A2E;
+  transform: translateY(-1px);
+}
+
+.hero-metal-pill.is-active {
+  background: #1C1C19;
+  border-color: #1C1C19;
+  color: #FCF9F4;
+  box-shadow: 0 10px 24px -10px rgba(28, 28, 25, 0.42);
+}
+
+.metal-swatch {
+  width: 15px;
+  height: 15px;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
+}
+
+.metal-swatch-gold {
+  background: linear-gradient(135deg, #B68A2B 0%, #F7E19C 52%, #D4AF37 100%);
+}
+
+.metal-swatch-rhodium {
+  background: linear-gradient(135deg, #8F99A6 0%, #F5F8FC 52%, #C4CEDB 100%);
+}
+
+/* Tactile Pill Button-in-Button CTAs */
+.hero-pill-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  min-height: 52px;
+  padding: 0.375rem 0.45rem 0.375rem 1.45rem;
+  border-radius: 9999px;
+  background: #1C1C19;
+  color: #FCF9F4;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 14px 32px -12px rgba(28, 28, 25, 0.36);
+  transition: transform 0.24s var(--ease-spring), background-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.hero-pill-primary:hover {
+  background: #745A2E;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -12px rgba(116, 90, 46, 0.44);
+}
+
+.hero-pill-primary:active {
+  transform: scale(0.98);
+}
+
+.hero-pill-orb {
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  background: #FCF9F4;
+  color: #1C1C19;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.28s var(--ease-spring), background-color 0.28s ease;
+}
+
+.hero-pill-primary:hover .hero-pill-orb {
+  transform: translateX(2px);
+  background: #FFFFFF;
+}
+
+.hero-pill-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 52px;
+  padding: 0.65rem 1.4rem;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid rgba(28, 28, 25, 0.14);
+  color: #1C1C19;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.24s var(--ease-spring), border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease;
+}
+
+.hero-pill-secondary:hover {
+  border-color: #745A2E;
+  color: #745A2E;
+  background: #F6F3EE;
+  transform: translateY(-1px);
+}
+
+/* Double-Bezel High Jewelry 3D Stage */
+.ring-stage-bezel {
+  padding: 0.65rem;
+  border-radius: 32px;
+  background: linear-gradient(160deg, #F4EFE6 0%, #E6DDD0 100%);
+  border: 1px solid rgba(28, 28, 25, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 28px 64px -26px rgba(28, 28, 25, 0.24);
+}
+
+@media (min-width: 640px) {
+  .ring-stage-bezel {
+    padding: 0.75rem;
+    border-radius: 36px;
+  }
+}
+
+.ring-stage-chamber {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: radial-gradient(ellipse 76% 66% at 50% 40%, #2C241D 0%, #171310 56%, #0D0B09 100%);
+  border: 1px solid rgba(236, 196, 106, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 240, 200, 0.14);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .ring-stage-chamber {
+    border-radius: 28px;
+  }
+}
+
+.ring-stage-viewport {
+  position: relative;
+  width: 100%;
+  height: 330px;
+}
+
+@media (min-width: 640px) {
+  .ring-stage-viewport {
+    height: 410px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ring-stage-viewport {
+    height: 445px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .ring-stage-viewport {
+    height: 475px;
+  }
+}
+
+#marcelyRingCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 2;
+}
+
+.ring-stage-fallback {
+  position: absolute;
+  inset: 14% 16%;
+  width: 68%;
+  height: 72%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 24px 36px rgba(0, 0, 0, 0.6));
+  transition: opacity 0.45s ease;
+}
+
+.ring-stage-fallback.is-loaded {
+  opacity: 0;
+}
+
+.ring-stage-topbar {
+  position: absolute;
+  top: 0.95rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.ring-stage-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(18, 15, 12, 0.68);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(236, 196, 106, 0.26);
+  color: #EBD49E;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ring-stage-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #ECC46A;
+  flex-shrink: 0;
+}
+
+.ring-stage-link {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #F6F1E8;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background-color 0.22s ease, border-color 0.22s ease;
+}
+
+@media (max-width: 480px) {
+  .ring-stage-topbar {
+    gap: 0.4rem;
+    left: 0.7rem;
+    right: 0.7rem;
+  }
+  .ring-stage-badge {
+    font-size: 0.5625rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.6rem;
+  }
+  .ring-stage-link {
+    font-size: 0.625rem;
+    padding: 0.3rem 0.65rem;
+  }
+}
+
+.ring-stage-link:hover {
+  background: rgba(236, 196, 106, 0.2);
+  border-color: rgba(236, 196, 106, 0.45);
+}
+
+.ring-stage-hud {
+  position: relative;
+  z-index: 4;
+  padding: 0.85rem 1rem 1rem;
+  background: linear-gradient(180deg, rgba(16, 13, 11, 0.82) 0%, rgba(11, 9, 8, 0.96) 100%);
+  border-top: 1px solid rgba(255, 240, 210, 0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+@media (min-width: 640px) {
+  .ring-stage-hud {
+    padding: 0.95rem 1.25rem 1.1rem;
+  }
+}
+
+.ring-preset-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  overflow-x: auto;
+}
+
+.ring-preset-btn {
+  min-height: 36px;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #D7CFC5;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+}
+
+.ring-preset-btn:hover {
+  background: rgba(255, 255, 255, 0.13);
+  color: #FFFFFF;
+}
+
+.ring-preset-btn.is-active {
+  background: #FCF9F4;
+  border-color: #FCF9F4;
+  color: #1C1C19;
+}
+
+.ring-hud-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem 1rem;
+  font-size: 0.75rem;
+  color: #B9B0A4;
+}
+
+.ring-drag-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.6875rem;
+  color: #A79E92;
+}
+
+.ring-sku-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #F4ECE1;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.ring-sku-tag strong {
+  color: #ECC46A;
+  font-weight: 600;
+}
+
+.ring-sku-tag:hover {
+  color: #ECC46A;
+}
+
+/* ==========================================================================
+   APPLE-GRADE ASYMMETRIC BENTO GRID (ACERVO MARCELY - 5 SIGNATURES)
+   ========================================================================== */
+
+.marcely-bento-section {
+  padding: 3.5rem 1rem 4.25rem;
+}
+
+@media (min-width: 640px) {
+  .marcely-bento-section {
+    padding: 5rem 2rem 5.5rem;
+  }
+}
+
+.marcely-bento-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+@media (min-width: 768px) {
+  .marcely-bento-header {
+    flex-direction: row;
+    align-items: flex-end;
+    margin-bottom: 2.75rem;
+  }
+}
+
+.marcely-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1C1C19;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(28, 28, 25, 0.24);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease, border-color 0.25s ease, gap 0.25s var(--ease-spring);
+}
+
+.marcely-arrow-link:hover {
+  color: #745A2E;
+  border-color: #745A2E;
+  gap: 0.75rem;
+}
+
+.marcely-bento-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr 1fr;
+  grid-template-rows: 310px 310px;
+  gap: 18px;
+}
+
+.marcely-bento-card {
+  position: relative;
+  border-radius: 28px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  color: #FCF9F4;
+  text-decoration: none;
+  box-shadow: 0 22px 46px -24px rgba(28, 28, 25, 0.26);
+  transition: transform 0.45s var(--ease-spring), box-shadow 0.45s var(--ease-spring);
+}
+
+.marcely-bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.marcely-bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 60px -22px rgba(28, 28, 25, 0.34);
+}
+
+.marcely-bento-hero {
+  grid-row: 1 / 3;
+  padding: 34px;
+}
+
+/* 5 Calibrated High-Jewelry Bento Colorways (Zero Violet/Purple) */
+.bento-tone-espresso {
+  background: linear-gradient(155deg, #2D231C 0%, #1F1915 48%, #120E0B 100%);
+}
+
+.bento-tone-obsidian {
+  background: linear-gradient(155deg, #1E1F22 0%, #121214 55%, #0A0A0B 100%);
+}
+
+.bento-tone-emerald {
+  background: linear-gradient(155deg, #1A3B2C 0%, #12291E 55%, #0A1811 100%);
+}
+
+.bento-tone-champagne {
+  background: linear-gradient(155deg, #F3EDE2 0%, #EAE3D5 55%, #DDD4C3 100%);
+  color: #1C1C19;
+}
+
+.bento-tone-champagne::before {
+  border-color: rgba(28, 28, 25, 0.08);
+}
+
+.bento-tone-navy {
+  background: linear-gradient(155deg, #162845 0%, #0E1A2E 55%, #08101E 100%);
+}
+
+.marcely-bento-top {
+  position: relative;
+  z-index: 3;
+  max-width: 78%;
+}
+
+.marcely-bento-hero .marcely-bento-top {
+  max-width: 100%;
+}
+
+.marcely-bento-sub {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.78;
+  margin-bottom: 0.35rem;
+}
+
+.marcely-bento-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.marcely-bento-hero .marcely-bento-title {
+  font-size: clamp(2.05rem, 2.85vw, 2.75rem);
+}
+
+.marcely-bento-media {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  transition: transform 0.65s var(--ease-spring);
+}
+
+.marcely-bento-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.46));
+}
+
+.bento-tone-champagne .marcely-bento-media img {
+  filter: drop-shadow(0 18px 26px rgba(60, 48, 34, 0.24));
+}
+
+.bento-media-ring-hero {
+  right: 8px;
+  bottom: 24px;
+  width: 82%;
+  height: 68%;
+}
+
+.bento-media-ring-hero img {
+  object-position: center bottom;
+}
+
+.bento-media-earrings {
+  right: 10px;
+  bottom: 10px;
+  width: 56%;
+  height: 72%;
+}
+
+.bento-media-necklace {
+  right: 8px;
+  bottom: 8px;
+  width: 58%;
+  height: 74%;
+}
+
+.bento-media-bracelet {
+  right: 10px;
+  bottom: 10px;
+  width: 58%;
+  height: 72%;
+}
+
+.bento-media-rhodium {
+  right: 10px;
+  bottom: 10px;
+  width: 56%;
+  height: 72%;
+}
+
+.marcely-bento-card:hover .marcely-bento-media {
+  transform: translateY(-7px) scale(1.045);
+}
+
+.marcely-bento-footer {
+  position: relative;
+  z-index: 3;
+}
+
+.marcely-bento-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 38px;
+  padding: 0.5rem 1.05rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #1C1C19;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s var(--ease-spring), background-color 0.22s ease;
+}
+
+.marcely-bento-card:hover .marcely-bento-pill {
+  background: #FFFFFF;
+  transform: scale(1.03);
+}
+
+.marcely-bento-pill-dark {
+  background: #1C1C19;
+  color: #FCF9F4;
+}
+
+.marcely-bento-card:hover .marcely-bento-pill-dark {
+  background: #745A2E;
+  color: #FFFFFF;
+}
+
+@media (max-width: 1080px) {
+  .marcely-bento-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 320px 280px 280px;
+  }
+
+  .marcely-bento-hero {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
+
+  .bento-media-ring-hero {
+    width: 44%;
+    height: 86%;
+    right: 24px;
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .marcely-bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 14px;
+  }
+
+  .marcely-bento-hero {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 330px;
+    padding: 24px;
+  }
+
+  .marcely-bento-card {
+    min-height: 248px;
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .bento-media-ring-hero {
+    width: 56%;
+    height: 68%;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .bento-media-earrings,
+  .bento-media-necklace,
+  .bento-media-bracelet,
+  .bento-media-rhodium {
+    width: 52%;
+    height: 70%;
+    right: 8px;
+    bottom: 8px;
+  }
+}
+
+/* Out-of-stock Badge for Admin Inventory Sync */
+.badge-out-of-stock {
+  background: rgba(28, 28, 25, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #F6F3EE;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px !important;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.1;
+}

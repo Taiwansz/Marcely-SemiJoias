@@ -125,20 +125,29 @@
 
       <!-- Right Actions: Mobile App Icons (< 1024px) & Desktop Pill (>= 1024px) -->
       <div class="flex items-center flex-shrink-0">
-        <!-- Mobile Top-Right Actions (Search & Favorites) -->
-        <div class="flex lg:hidden items-center gap-1">
-          <a href="catalogo.html#catalogSearchInput" onclick="const el=document.getElementById('catalogSearchInput');if(el){el.focus();}" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Buscar">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <!-- Mobile Top-Right Actions (Search, Favorites & Admin) -->
+        <div class="flex lg:hidden items-center gap-0.5">
+          <a href="catalogo.html#catalogSearchInput" onclick="const el=document.getElementById('catalogSearchInput');if(el){el.focus();}" class="w-10 h-10 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Buscar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           </a>
 
-          <a href="catalogo.html" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors relative" aria-label="Favoritos" title="Meus Favoritos">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <a href="catalogo.html" class="w-10 h-10 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors relative" aria-label="Favoritos" title="Meus Favoritos">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span class="wishlist-count-badge absolute top-1 right-1 w-4 h-4 bg-[#745A2E] text-white rounded-full flex items-center justify-center text-[9px] font-bold leading-none" style="display:none;">0</span>
+          </a>
+
+          <a href="admin.html" class="w-10 h-10 rounded-full flex items-center justify-center text-[#787571] hover:text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Admin" title="Painel Administrativo">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
           </a>
         </div>
 
-        <!-- Desktop Top-Right Actions (Favorites + Minha Seleção Pill) -->
-        <div class="hidden lg:flex items-center gap-2.5">
+        <!-- Desktop Top-Right Actions (Admin + Favorites + Minha Seleção Pill) -->
+        <div class="hidden lg:flex items-center gap-2">
+          <a href="admin.html" class="min-h-[40px] px-3.5 rounded-full border border-[#1C1C19]/10 bg-white/75 hover:border-[#745A2E] hover:text-[#745A2E] text-[#787571] text-xs font-medium inline-flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Painel Administrativo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            <span>Admin</span>
+          </a>
+
           <a href="catalogo.html" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors relative" aria-label="Favoritos" title="Meus Favoritos">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span class="wishlist-count-badge absolute top-1 right-1 w-4 h-4 bg-[#745A2E] text-white rounded-full flex items-center justify-center text-[9px] font-bold leading-none" style="display:none;">0</span>
@@ -178,7 +187,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </a>
           <a href="catalogo.html" onclick="window.MarcelyApp.closeMobileMenu()" class="min-h-[48px] px-4 rounded-2xl flex items-center justify-between text-base font-semibold text-[#1C1C19] bg-[#F0EDE9]/80 transition-colors">
-            <span>Catálogo Completo (58 Peças)</span>
+            <span data-catalog-count="all" data-catalog-count-format="Catálogo Completo ({n} Peças)">Catálogo Completo (58 Peças)</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </a>
           <a href="catalogo.html?cat=brincos" onclick="window.MarcelyApp.closeMobileMenu()" class="min-h-[48px] px-4 rounded-2xl flex items-center justify-between text-base font-medium text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors">
@@ -199,6 +208,13 @@
           </a>
           <a href="sobre.html" class="min-h-[48px] px-4 rounded-2xl flex items-center justify-between text-base font-medium text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors">
             <span>Sobre a Marca</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </a>
+          <a href="admin.html" class="min-h-[48px] px-4 rounded-2xl flex items-center justify-between text-sm font-medium text-[#745A2E] hover:bg-[#F0EDE9] transition-colors border border-[#1C1C19]/[0.06] mt-1">
+            <span class="inline-flex items-center gap-2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              <span>Admin</span>
+            </span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </a>
         </div>
@@ -355,12 +371,13 @@
           <p class="text-xs font-semibold uppercase tracking-widest text-[#1C1C19]">Navegação</p>
           <div class="grid grid-cols-2 gap-x-4 text-sm text-[#787571]">
             <a href="index.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Início</a>
-            <a href="catalogo.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Catálogo (58)</a>
+            <a href="catalogo.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors" data-catalog-count="all" data-catalog-count-format="Catálogo ({n})">Catálogo (58)</a>
             <a href="catalogo.html?cat=brincos" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Brincos</a>
             <a href="catalogo.html?cat=colares" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Colares</a>
             <a href="catalogo.html?cat=pulseiras" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Pulseiras</a>
             <a href="catalogo.html?cat=aneis" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Anéis</a>
             <a href="sobre.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Sobre</a>
+            <a href="admin.html" class="min-h-[44px] inline-flex items-center gap-1.5 text-[#745A2E] hover:text-[#1C1C19] transition-colors">Admin</a>
           </div>
         </div>
 

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="view-transition" content="same-origin">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administração do Catálogo | Marcely Semijoias</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <!-- Google Fonts (Editorial Warm Luxury: Bodoni Moda + Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Brand Book Token Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#1C1C19",
+            "secondary": "#745A2E",
+            "surface": "#FCF9F4",
+            "surface-container-low": "#F6F3EE",
+            "surface-container": "#F0EDE9",
+            "surface-container-high": "#EBE8E3",
+            "surface-container-lowest": "#FFFFFF",
+            "on-surface": "#1C1C19",
+            "on-surface-variant": "#787571",
+            "accent-gold": "#D4AF37",
+            "error": "#BA1A1A",
+            "error-container": "#FFDAD6",
+            "on-error-container": "#93000A"
+          },
+          borderRadius: {
+            "lg": "1rem",
+            "xl": "1.125rem",
+            "2xl": "1.25rem",
+            "3xl": "1.5rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            "serif": ["Bodoni Moda", "Georgia", "serif"],
+            "sans": ["Plus Jakarta Sans", "Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Brand Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Scoped Admin Console Styles (Warm Luxury Editorial, Zero Purple/Violet, Zero Emojis) -->
+  <style>
+    .admin-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1360;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.24s ease, visibility 0.24s ease;
+    }
+
+    .admin-modal.active {
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .admin-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(28, 28, 25, 0.52);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .admin-modal-dialog {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-height: calc(100vh - 2rem);
+      background: #FCF9F4;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(28, 28, 25, 0.1);
+      box-shadow: 0 28px 64px -16px rgba(28, 28, 25, 0.26);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(10px) scale(0.98);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .admin-modal.active .admin-modal-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+    .admin-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 0.625rem 0.95rem;
+      border-radius: 0.875rem;
+      border: 1px solid rgba(28, 28, 25, 0.14);
+      background: #FFFFFF;
+      color: #1C1C19;
+      font-size: 0.875rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .admin-input:focus {
+      outline: none;
+      border-color: #745A2E;
+      box-shadow: 0 0 0 3px rgba(116, 90, 46, 0.14);
+    }
+
+    .admin-chip {
+      min-height: 38px;
+      padding: 0.375rem 0.95rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(28, 28, 25, 0.1);
+      background: #FFFFFF;
+      color: #4D4540;
+      font-size: 0.75rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .admin-chip:hover {
+      border-color: #745A2E;
+      color: #1C1C19;
+    }
+
+    .admin-chip.active {
+      background: #1C1C19;
+      color: #FFFFFF;
+      border-color: #1C1C19;
+    }
+
+    .stock-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      min-height: 32px;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.16s ease, background-color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .stock-pill:active {
+      transform: scale(0.96);
+    }
+
+    .stock-pill-in {
+      background: #EDF5F0;
+      color: #21573B;
+      border: 1px solid rgba(33, 87, 59, 0.22);
+    }
+
+    .stock-pill-in:hover {
+      background: #E1EFE6;
+    }
+
+    .stock-pill-out {
+      background: #FBF0EE;
+      color: #93000A;
+      border: 1px solid rgba(147, 0, 10, 0.2);
+    }
+
+    .stock-pill-out:hover {
+      background: #F7E1DD;
+    }
+
+    .upload-dropzone {
+      border: 1.5px dashed rgba(116, 90, 46, 0.36);
+      background: #F6F3EE;
+      border-radius: 1rem;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .upload-dropzone.is-dragover {
+      border-color: #745A2E;
+      background: #EFE9DD;
+    }
+
+    /* Switch ergonomico de estoque */
+    .admin-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 44px;
+      height: 24px;
+      border-radius: 9999px;
+      background: #D0C4BE;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .admin-switch-knob {
+      width: 18px;
+      height: 18px;
+      border-radius: 9999px;
+      background: #FFFFFF;
+      transform: translateX(3px);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 6px rgba(28, 28, 25, 0.2);
+    }
+
+    input:checked + .admin-switch {
+      background: #745A2E;
+    }
+
+    input:checked + .admin-switch .admin-switch-knob {
+      transform: translateX(23px);
+    }
+
+    @media (max-width: 640px) {
+      .admin-modal {
+        padding: 0.5rem;
+        align-items: flex-end;
+      }
+
+      .admin-modal-dialog {
+        max-height: 92vh;
+        border-radius: 1.5rem 1.5rem 1rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#FCF9F4] font-sans text-[#1C1C19] antialiased overflow-x-hidden">
+
+  <!-- ==========================================================================
+       HEADER EDITORIAL CLEAN (CONSISTENTE COM A LOJA MARCELY)
+       ========================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FCF9F4]/95 backdrop-blur-xl border-b border-[#1C1C19]/[0.07]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+
+      <!-- Left: Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 min-h-[44px] whitespace-nowrap flex-shrink-0">
+        <img src="assets/logo-icon-transparent.png" alt="Marcely Semijoias" class="w-8 h-8 sm:w-9 sm:h-9 object-contain flex-shrink-0">
+        <span class="font-serif text-lg sm:text-2xl tracking-tight text-[#1C1C19]">
+          Marcely <span class="font-normal italic text-[#745A2E] text-sm sm:text-lg">Admin</span>
+        </span>
+      </a>
+
+      <!-- Center: Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Navegação Administrativa">
+        <a href="index.html" class="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-medium text-[#787571] hover:text-[#1C1C19] transition-colors">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>Voltar para Loja</span>
+        </a>
+        <a href="catalogo.html" class="min-h-[44px] inline-flex items-center text-sm font-medium text-[#787571] hover:text-[#1C1C19] transition-colors">Catálogo</a>
+        <a href="sobre.html" class="min-h-[44px] inline-flex items-center text-sm font-medium text-[#787571] hover:text-[#1C1C19] transition-colors">Sobre</a>
+        <a href="admin.html" aria-current="page" class="min-h-[44px] inline-flex items-center text-sm font-semibold text-[#1C1C19] border-b-2 border-[#745A2E]">Administração</a>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <!-- Session Lock / PIN Trigger -->
+        <button type="button" id="btnOpenPinModal" class="min-h-[40px] px-3 sm:px-3.5 rounded-full border border-[#1C1C19]/12 bg-white text-[#1C1C19] hover:border-[#745A2E] hover:text-[#745A2E] transition-colors inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider" title="Segurança e PIN de Sessão">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span class="hidden sm:inline" id="pinStatusLabel">Sessão Ativa</span>
+        </button>
+
+        <!-- Primary Create Shortcut -->
+        <button type="button" id="btnHeaderCreateProduct" class="min-h-[40px] sm:min-h-[44px] px-3.5 sm:px-5 rounded-full bg-[#1C1C19] text-white hover:bg-[#745A2E] transition-colors inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider whitespace-nowrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="hidden sm:inline">Nova Peça</span>
+          <span class="sm:hidden">Nova</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       CONTEÚDO PRINCIPAL DO PAINEL ADMINISTRATIVO
+       ========================================================================== -->
+  <main class="w-full min-h-screen pb-16 sm:pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-6 sm:pt-10 space-y-6 sm:space-y-8">
+
+      <!-- TOP EDITORIAL INTRO & PERSISTENCE STATUS -->
+      <section class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-[#1C1C19]/[0.08]">
+        <div class="space-y-2 min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center rounded-md bg-[#F0EDE9] px-3 py-1 text-[10px] font-semibold tracking-widest uppercase text-[#745A2E]">
+              Atelier Backoffice
+            </span>
+            <span id="persistenceModeBadge" class="inline-flex items-center gap-2 rounded-full bg-white border border-[#1C1C19]/10 px-3 py-1 text-[11px] font-medium text-[#4D4540]">
+              <span id="persistenceModeDot" class="w-2 h-2 rounded-full bg-[#745A2E]"></span>
+              <span id="persistenceModeText">Verificando modo de persistência...</span>
+            </span>
+          </div>
+          <h1 class="font-serif text-2xl sm:text-4xl tracking-tight text-[#1C1C19] leading-tight">
+            Gestão de Catálogo <span class="italic font-normal text-[#745A2E]">Marcely Semijoias</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-[#787571] max-w-2xl leading-relaxed">
+            Cadastre novas peças com foto, ajuste preços com cálculo automático de Pix 5% OFF, controle disponibilidade de estoque e mantenha a vitrine sincronizada em tempo real.
+          </p>
+        </div>
+
+        <!-- Secondary Utility Actions -->
+        <div class="flex flex-wrap items-center gap-2.5 flex-shrink-0">
+          <button type="button" id="btnOpenCreateProduct" class="min-h-[44px] px-5 rounded-full bg-[#1C1C19] text-white hover:bg-[#745A2E] transition-colors inline-flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wider shadow-sm">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Cadastrar Nova Peça</span>
+          </button>
+
+          <button type="button" id="btnExportJson" class="min-h-[44px] px-4 rounded-full bg-white border border-[#1C1C19]/14 text-[#1C1C19] hover:border-[#745A2E] hover:text-[#745A2E] transition-colors inline-flex items-center justify-center gap-1.5 text-xs font-semibold tracking-wide">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Exportar products.json</span>
+          </button>
+
+          <button type="button" id="btnResetLocalCatalog" class="min-h-[44px] px-4 rounded-full bg-[#F6F3EE] border border-[#1C1C19]/10 text-[#4D4540] hover:bg-[#EBE8E3] hover:text-[#1C1C19] transition-colors inline-flex items-center justify-center gap-1.5 text-xs font-medium">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            <span>Restaurar Padrão</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 4 KPI METRICS CARDS -->
+      <section aria-label="Métricas do Catálogo" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+
+        <!-- KPI 1: Total de Pecas -->
+        <article class="bg-white rounded-2xl p-4 sm:p-5 border border-[#1C1C19]/[0.08] shadow-[0_8px_24px_-12px_rgba(28,28,25,0.06)] flex flex-col justify-between gap-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-[#787571]">Total no Catálogo</span>
+            <span class="w-8 h-8 rounded-full bg-[#F6F3EE] text-[#745A2E] flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>
+            </span>
+          </div>
+          <div>
+            <p id="kpiTotalProducts" class="font-serif text-2xl sm:text-3xl font-semibold text-[#1C1C19]">0</p>
+            <p class="text-[11px] text-[#787571] mt-0.5">Peças cadastradas</p>
+          </div>
+        </article>
+
+        <!-- KPI 2: Em Estoque / Esgotadas -->
+        <article class="bg-white rounded-2xl p-4 sm:p-5 border border-[#1C1C19]/[0.08] shadow-[0_8px_24px_-12px_rgba(28,28,25,0.06)] flex flex-col justify-between gap-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-[#787571]">Disponibilidade</span>
+            <span class="w-8 h-8 rounded-full bg-[#EDF5F0] text-[#21573B] flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+          </div>
+          <div>
+            <div class="flex items-baseline gap-2 flex-wrap">
+              <p id="kpiInStockCount" class="font-serif text-2xl sm:text-3xl font-semibold text-[#1C1C19]">0</p>
+              <span id="kpiOutOfStockLabel" class="text-[11px] font-medium text-[#787571]">0 esgotadas</span>
+            </div>
+            <div class="w-full h-1.5 bg-[#F0EDE9] rounded-full mt-2 overflow-hidden">
+              <div id="kpiStockProgressBar" class="h-full bg-[#745A2E] rounded-full transition-all duration-300" style="width: 100%;"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- KPI 3: Ticket Medio -->
+        <article class="bg-white rounded-2xl p-4 sm:p-5 border border-[#1C1C19]/[0.08] shadow-[0_8px_24px_-12px_rgba(28,28,25,0.06)] flex flex-col justify-between gap-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-[#787571]">Ticket Médio</span>
+            <span class="w-8 h-8 rounded-full bg-[#F6F3EE] text-[#745A2E] flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </span>
+          </div>
+          <div>
+            <p id="kpiAverageTicket" class="font-serif text-2xl sm:text-3xl font-semibold text-[#1C1C19]">R$ 0,00</p>
+            <p id="kpiAveragePix" class="text-[11px] text-[#745A2E] font-medium mt-0.5">Média Pix: R$ 0,00</p>
+          </div>
+        </article>
+
+        <!-- KPI 4: Distribuicao por Categoria -->
+        <article class="bg-white rounded-2xl p-4 sm:p-5 border border-[#1C1C19]/[0.08] shadow-[0_8px_24px_-12px_rgba(28,28,25,0.06)] flex flex-col justify-between gap-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] sm:text-[11px] font-semibold uppercase tracking-widest text-[#787571]">Categorias</span>
+            <span class="w-8 h-8 rounded-full bg-[#F6F3EE] text-[#745A2E] flex items-center justify-center flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px]" id="kpiCategoryBreakdown">
+            <div class="flex items-center justify-between text-[#4D4540]"><span>Brincos</span><strong id="kpiCatBrincos" class="text-[#1C1C19]">0</strong></div>
+            <div class="flex items-center justify-between text-[#4D4540]"><span>Colares</span><strong id="kpiCatColares" class="text-[#1C1C19]">0</strong></div>
+            <div class="flex items-center justify-between text-[#4D4540]"><span>Pulseiras</span><strong id="kpiCatPulseiras" class="text-[#1C1C19]">0</strong></div>
+            <div class="flex items-center justify-between text-[#4D4540]"><span>Anéis</span><strong id="kpiCatAneis" class="text-[#1C1C19]">0</strong></div>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- TOOLBAR: SEARCH, CATEGORY CHIPS, STOCK STATUS & SORT -->
+      <section aria-label="Filtros do Catálogo" class="bg-white rounded-2xl p-4 sm:p-5 border border-[#1C1C19]/[0.08] shadow-[0_8px_24px_-12px_rgba(28,28,25,0.05)] space-y-4">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
+          <!-- Search Input -->
+          <div class="lg:col-span-5 relative">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#787571] pointer-events-none"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="adminSearchInput" placeholder="Buscar por nome, ref (M-...) ou metal..." class="admin-input pl-10 pr-4" autocomplete="off">
+          </div>
+
+          <!-- Stock Status Filter -->
+          <div class="lg:col-span-4 flex items-center gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Filtrar por disponibilidade">
+            <button type="button" class="admin-chip stock-filter-btn active" data-stock="all">Todos os status</button>
+            <button type="button" class="admin-chip stock-filter-btn" data-stock="in">Em estoque</button>
+            <button type="button" class="admin-chip stock-filter-btn" data-stock="out">Esgotadas</button>
+          </div>
+
+          <!-- Sort Select -->
+          <div class="lg:col-span-3">
+            <label for="adminSortSelect" class="sr-only">Ordenar peças</label>
+            <select id="adminSortSelect" class="admin-input">
+              <option value="default">Ordem do catálogo</option>
+              <option value="name-asc">Nome (A - Z)</option>
+              <option value="price-asc">Menor preço</option>
+              <option value="price-desc">Maior preço</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Category Chips & Live Result Counter -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-[#1C1C19]/[0.06]">
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5" role="group" aria-label="Filtrar por categoria">
+            <button type="button" class="admin-chip category-filter-btn active" data-category="all">Todos</button>
+            <button type="button" class="admin-chip category-filter-btn" data-category="brincos">Brincos</button>
+            <button type="button" class="admin-chip category-filter-btn" data-category="colares">Colares</button>
+            <button type="button" class="admin-chip category-filter-btn" data-category="pulseiras">Pulseiras</button>
+            <button type="button" class="admin-chip category-filter-btn" data-category="aneis">Anéis</button>
+          </div>
+
+          <p id="adminResultsCounter" class="text-xs font-medium text-[#787571] whitespace-nowrap flex-shrink-0">
+            Carregando peças...
+          </p>
+        </div>
+
+      </section>
+
+      <!-- PRODUCT LISTING: DESKTOP CLEAN TABLE + MOBILE CARDS -->
+      <section aria-label="Lista de Peças do Catálogo">
+
+        <!-- Desktop Table View (>= 768px) -->
+        <div class="hidden md:block bg-white rounded-2xl border border-[#1C1C19]/[0.08] shadow-[0_10px_30px_-14px_rgba(28,28,25,0.06)] overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#F6F3EE] border-b border-[#1C1C19]/[0.08] text-[11px] font-semibold uppercase tracking-widest text-[#787571]">
+                  <th class="py-3.5 pl-5 pr-3">Peça</th>
+                  <th class="py-3.5 px-3">Categoria &amp; Acabamento</th>
+                  <th class="py-3.5 px-3">Preço / Pix</th>
+                  <th class="py-3.5 px-3">Estoque</th>
+                  <th class="py-3.5 pl-3 pr-5 text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsTableBody" class="divide-y divide-[#1C1C19]/[0.06] text-sm">
+                <!-- Preenchido via admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Mobile Cards View (< 768px) -->
+        <div id="adminProductsMobileList" class="md:hidden space-y-3">
+          <!-- Preenchido via admin.js -->
+        </div>
+
+        <!-- Empty Search State -->
+        <div id="adminEmptyState" class="hidden bg-white rounded-2xl border border-[#1C1C19]/[0.08] p-10 text-center space-y-3">
+          <div class="w-14 h-14 mx-auto rounded-full bg-[#F6F3EE] text-[#745A2E] flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </div>
+          <h2 class="font-serif text-xl text-[#1C1C19]">Nenhuma peça encontrada</h2>
+          <p class="text-xs sm:text-sm text-[#787571] max-w-md mx-auto">
+            Ajuste os filtros de busca ou cadastre uma nova joia diretamente no catálogo.
+          </p>
+          <div class="flex flex-wrap justify-center gap-2.5 pt-2">
+            <button type="button" id="btnEmptyResetFilters" class="min-h-[42px] px-5 rounded-full border border-[#1C1C19]/15 bg-white text-[#1C1C19] hover:border-[#745A2E] text-xs font-semibold uppercase tracking-wider">
+              Limpar Filtros
+            </button>
+            <button type="button" id="btnEmptyCreateProduct" class="min-h-[42px] px-5 rounded-full bg-[#1C1C19] text-white hover:bg-[#745A2E] text-xs font-semibold uppercase tracking-wider">
+              Cadastrar Nova Peça
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       MODAL DE CADASTRO & EDIÇÃO DE PEÇA (#productFormModal)
+       ========================================================================== -->
+  <div id="productFormModal" class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal="productFormModal"></div>
+    <div class="admin-modal-dialog max-w-5xl">
+
+      <!-- Modal Header -->
+      <div class="px-5 sm:px-7 py-4 sm:py-5 bg-white border-b border-[#1C1C19]/[0.08] flex items-center justify-between gap-3 flex-shrink-0">
+        <div class="min-w-0">
+          <span id="productModalEyebrow" class="text-[10px] font-semibold uppercase tracking-widest text-[#745A2E] block">Catálogo Marcely</span>
+          <h2 id="productModalTitle" class="font-serif text-xl sm:text-2xl text-[#1C1C19] truncate">Cadastrar Nova Peça</h2>
+        </div>
+        <button type="button" data-close-modal="productFormModal" class="w-11 h-11 rounded-full flex items-center justify-center text-[#787571] hover:text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors flex-shrink-0" aria-label="Fechar janela">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Body -->
+      <form id="productForm" class="flex-1 overflow-y-auto p-5 sm:p-7" novalidate>
+        <input type="hidden" id="fieldProductId" value="">
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+
+          <!-- Left Column: Form Inputs -->
+          <div class="lg:col-span-7 space-y-4">
+
+            <!-- Nome -->
+            <div class="space-y-1.5">
+              <label for="fieldName" class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Nome da Joia *</label>
+              <input type="text" id="fieldName" required maxlength="120" placeholder="Ex: Brinco Gota Orgânica Ouro 18k" class="admin-input">
+            </div>
+
+            <!-- Categoria + Preco -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label for="fieldCategory" class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Categoria *</label>
+                <select id="fieldCategory" required class="admin-input">
+                  <option value="brincos">Brincos</option>
+                  <option value="colares">Colares</option>
+                  <option value="pulseiras">Pulseiras</option>
+                  <option value="aneis">Anéis</option>
+                </select>
+              </div>
+
+              <div class="space-y-1.5">
+                <label for="fieldPrice" class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Preço Integral (R$) *</label>
+                <input type="number" id="fieldPrice" required min="1" step="0.01" placeholder="289.00" class="admin-input">
+              </div>
+            </div>
+
+            <!-- Live Pricing Breakdown Strip -->
+            <div class="rounded-xl bg-[#F6F3EE] border border-[#745A2E]/20 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div>
+                <span class="text-[#787571]">Pix (5% OFF): </span>
+                <strong id="livePixPriceText" class="text-[#745A2E] font-semibold">R$ 0,00</strong>
+              </div>
+              <div>
+                <span class="text-[#787571]">Parcelamento: </span>
+                <strong id="liveInstallmentsText" class="text-[#1C1C19] font-semibold">6x de R$ 0.00 sem juros</strong>
+              </div>
+            </div>
+
+            <!-- Metal / Acabamento + Badge -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label for="fieldMetalPreset" class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Acabamento / Metal</label>
+                <select id="fieldMetalPreset" class="admin-input">
+                  <option value="Ouro 18k (10 milésimos)">Ouro 18k (10 milésimos)</option>
+                  <option value="Ouro 18k (15 milésimos)">Ouro 18k (15 milésimos)</option>
+                  <option value="Ródio Nobre Hipoalergênico">Ródio Nobre Hipoalergênico</option>
+                  <option value="Ouro 18k & Pérolas Naturais">Ouro 18k &amp; Pérolas Naturais</option>
+                  <option value="Ouro 18k & Ródio">Ouro 18k &amp; Ródio</option>
+                  <option value="Ouro 18k & Madrepérola">Ouro 18k &amp; Madrepérola</option>
+                  <option value="Ródio Nobre & Pérolas">Ródio Nobre &amp; Pérolas</option>
+                  <option value="__custom__">Personalizado...</option>
+                </select>
+                <input type="text" id="fieldMetalCustom" placeholder="Digite o acabamento personalizado" class="admin-input hidden mt-2">
+              </div>
+
+              <div class="space-y-1.5">
+                <label for="fieldBadge" class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Selo Editorial</label>
+                <select id="fieldBadge" class="admin-input">
+                  <option value="">Sem selo</option>
+                  <option value="Best Seller">Best Seller</option>
+                  <option value="Hipoalergênico">Hipoalergênico</option>
+                  <option value="Lançamento">Lançamento</option>
+                  <option value="Edição Limitada">Edição Limitada</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Stock Toggle -->
+            <div class="rounded-xl bg-white border border-[#1C1C19]/10 px-4 py-3 flex items-center justify-between gap-3">
+              <div>
+                <span class="text-xs font-semibold text-[#1C1C19] block">Disponível em Estoque</span>
+                <span class="text-[11px] text-[#787571]">Peças esgotadas permanecem no painel com marcação diferenciada.</span>
+              </div>
+              <label class="inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="fieldInStock" class="sr-only" checked>
+                <span class="admin-switch" aria-hidden="true"><span class="admin-switch-knob"></span></span>
+              </label>
+            </div>
+
+            <!-- Descricao Editorial -->
+            <div class="space-y-1.5">
+              <label for="fieldDescription" class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Descrição Editorial</label>
+              <textarea id="fieldDescription" rows="3" maxlength="500" placeholder="Descreva acabamento, pedras, conforto e inspiração da peça..." class="admin-input resize-y"></textarea>
+            </div>
+
+            <!-- Upload de Foto / URL -->
+            <div class="space-y-2.5">
+              <label class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Foto da Joia</label>
+
+              <div id="imageUploadDropzone" class="upload-dropzone p-4 text-center cursor-pointer">
+                <input type="file" id="fieldImageFile" accept="image/jpeg,image/png,image/webp" class="sr-only">
+                <div class="flex flex-col items-center gap-1.5">
+                  <div class="w-10 h-10 rounded-full bg-white text-[#745A2E] border border-[#745A2E]/20 flex items-center justify-center">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  </div>
+                  <p class="text-xs font-semibold text-[#1C1C19]">Clique para enviar foto ou arraste o arquivo aqui</p>
+                  <p id="uploadHelperText" class="text-[11px] text-[#787571]">JPG, PNG ou WEBP. Redimensionamento automático otimizado para vitrine (900px).</p>
+                </div>
+              </div>
+
+              <div id="uploadedFileInfo" class="hidden items-center justify-between gap-2 px-3.5 py-2 rounded-xl bg-[#EDF5F0] border border-[#21573B]/20 text-xs text-[#21573B]">
+                <span id="uploadedFileLabel" class="truncate font-medium">Nova imagem pronta para envio</span>
+                <button type="button" id="btnClearUploadedImage" class="text-[11px] font-semibold underline flex-shrink-0">Remover</button>
+              </div>
+
+              <div class="space-y-1">
+                <label for="fieldImageUrl" class="text-[11px] font-medium text-[#787571] block">Ou informe caminho/URL direta da imagem:</label>
+                <input type="text" id="fieldImageUrl" placeholder="assets/products/item_...jpg ou https://..." class="admin-input text-xs">
+              </div>
+            </div>
+
+            <!-- Inline Validation Error -->
+            <div id="productFormError" class="hidden rounded-xl bg-[#FFDAD6] border border-[#BA1A1A]/30 px-4 py-3 text-xs font-medium text-[#93000A]"></div>
+
+          </div>
+
+          <!-- Right Column: Live Storefront Card Preview -->
+          <div class="lg:col-span-5">
+            <div class="lg:sticky lg:top-0 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-semibold uppercase tracking-widest text-[#745A2E]">Preview da Vitrine</span>
+                <span class="text-[11px] text-[#787571]">Tempo real</span>
+              </div>
+
+              <div id="liveProductPreview" class="bg-white p-4 rounded-3xl border border-[#1C1C19]/[0.08] shadow-[0_12px_32px_-12px_rgba(28,28,25,0.08)] max-w-[320px] mx-auto lg:max-w-none">
+                <div class="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#F6F3EE] mb-3.5">
+                  <img id="previewImage" src="assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg" alt="Preview da Joia" class="w-full h-full object-cover">
+                  <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+                    <span id="previewMetalBadge" class="badge-gold">Ouro 18k</span>
+                    <span id="previewEditorialBadge" class="badge-bestseller hidden">Best Seller</span>
+                  </div>
+                  <div id="previewOutOfStockBanner" class="hidden absolute inset-x-0 bottom-0 bg-[#1C1C19]/85 text-[#FCF9F4] text-[10px] font-semibold uppercase tracking-widest text-center py-1.5">
+                    Peça Esgotada
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <span id="previewCategory" class="block font-sans text-[10px] uppercase tracking-[0.12em] text-[#745A2E] font-semibold">brincos</span>
+                  <h3 id="previewName" class="font-serif text-base leading-snug font-medium text-[#1C1C19] line-clamp-2">Nova Semijoia Marcely</h3>
+                  <p id="previewDescription" class="text-xs text-[#787571] line-clamp-2 leading-relaxed">Acabamento de alta joalheria com banho nobre hipoalergênico.</p>
+
+                  <div class="pt-1.5">
+                    <span id="previewPrice" class="font-serif text-lg font-semibold text-[#1C1C19]">R$ 289,00</span>
+                    <span id="previewPixPrice" class="block font-sans text-[11px] text-[#745A2E] font-medium">R$ 274,55 no Pix (5% OFF)</span>
+                    <span id="previewInstallments" class="block font-sans text-[11px] text-[#787571]">6x de R$ 48.17 sem juros</span>
+                  </div>
+
+                  <div class="pt-3 mt-2 border-t border-[#1C1C19]/[0.06]">
+                    <div class="w-full min-h-[40px] rounded-full bg-[#1C1C19] text-white text-[11px] font-medium tracking-wider uppercase flex items-center justify-center opacity-90">
+                      Pedir no WhatsApp
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+      <!-- Modal Footer -->
+      <div class="px-5 sm:px-7 py-4 bg-white border-t border-[#1C1C19]/[0.08] flex items-center justify-end gap-3 flex-shrink-0">
+        <button type="button" data-close-modal="productFormModal" class="min-h-[44px] px-5 rounded-full border border-[#1C1C19]/15 bg-white text-[#1C1C19] hover:border-[#745A2E] text-xs font-semibold uppercase tracking-wider transition-colors">
+          Cancelar
+        </button>
+        <button type="submit" form="productForm" id="btnSubmitProductForm" class="min-h-[44px] px-7 rounded-full bg-[#1C1C19] text-white hover:bg-[#745A2E] text-xs font-semibold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2">
+          <span id="btnSubmitProductLabel">Cadastrar Peça</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE CONFIRMAÇÃO DE RETIRADA (#deleteConfirmModal)
+       ========================================================================== -->
+  <div id="deleteConfirmModal" class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal="deleteConfirmModal"></div>
+    <div class="admin-modal-dialog max-w-md">
+      <div class="p-6 space-y-5">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#93000A]">Confirmação de Retirada</span>
+            <h2 id="deleteModalTitle" class="font-serif text-xl text-[#1C1C19] mt-0.5">Retirar peça do catálogo?</h2>
+          </div>
+          <button type="button" data-close-modal="deleteConfirmModal" class="w-10 h-10 rounded-full flex items-center justify-center text-[#787571] hover:bg-[#F0EDE9] hover:text-[#1C1C19]" aria-label="Fechar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white border border-[#1C1C19]/[0.08]">
+          <img id="deletePreviewImage" src="assets/products/item_ac30f328e209483a98fbcc35074b9295.jpg" alt="" class="w-16 h-16 rounded-xl object-cover bg-[#F6F3EE] flex-shrink-0">
+          <div class="min-w-0">
+            <p id="deletePreviewName" class="font-serif text-base font-medium text-[#1C1C19] truncate">Nome da Joia</p>
+            <p id="deletePreviewMeta" class="text-xs text-[#787571] mt-0.5">Ref M-... | R$ 0,00</p>
+          </div>
+        </div>
+
+        <p class="text-xs text-[#4D4540] leading-relaxed">
+          Esta peça será removida imediatamente do catálogo e deixará de aparecer na loja e na busca.
+        </p>
+
+        <div class="flex items-center justify-end gap-2.5 pt-1">
+          <button type="button" data-close-modal="deleteConfirmModal" class="min-h-[44px] px-5 rounded-full border border-[#1C1C19]/15 bg-white text-[#1C1C19] hover:border-[#745A2E] text-xs font-semibold uppercase tracking-wider transition-colors">
+            Cancelar
+          </button>
+          <button type="button" id="btnConfirmDelete" class="min-h-[44px] px-6 rounded-full bg-[#93000A] text-white hover:bg-[#1C1C19] text-xs font-semibold uppercase tracking-wider transition-colors">
+            Retirar do Catálogo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL OPCIONAL DE CONFIGURAÇÃO & BLOQUEIO POR PIN (#pinConfigModal)
+       ========================================================================== -->
+  <div id="pinConfigModal" class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="pinModalTitle" aria-hidden="true">
+    <div class="admin-modal-backdrop" data-close-modal="pinConfigModal"></div>
+    <div class="admin-modal-dialog max-w-md">
+      <div class="p-6 space-y-5">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <span class="text-[10px] font-semibold uppercase tracking-widest text-[#745A2E]">Segurança do Painel</span>
+            <h2 id="pinModalTitle" class="font-serif text-xl text-[#1C1C19] mt-0.5">PIN de Acesso Administrativo</h2>
+          </div>
+          <button type="button" data-close-modal="pinConfigModal" class="w-10 h-10 rounded-full flex items-center justify-center text-[#787571] hover:bg-[#F0EDE9] hover:text-[#1C1C19]" aria-label="Fechar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <p class="text-xs text-[#787571] leading-relaxed">
+          O painel abre diretamente para agilidade na gestão. Caso deseje proteger a tela durante o atendimento em loja, bloqueie a sessão ou defina um PIN personalizado (padrão inicial: <strong class="text-[#1C1C19]">MARCELY2026</strong>).
+        </p>
+
+        <div class="space-y-1.5">
+          <label for="fieldNewPin" class="text-xs font-semibold uppercase tracking-wider text-[#1C1C19] block">Definir Novo PIN (opcional)</label>
+          <input type="text" id="fieldNewPin" maxlength="24" placeholder="Ex: MARCELY2026" class="admin-input uppercase">
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2.5 pt-1">
+          <button type="button" id="btnLockNow" class="min-h-[44px] px-5 rounded-full border border-[#1C1C19]/15 bg-white text-[#1C1C19] hover:border-[#745A2E] text-xs font-semibold uppercase tracking-wider transition-colors">
+            Bloquear Tela Agora
+          </button>
+          <button type="button" id="btnSavePin" class="min-h-[44px] px-6 rounded-full bg-[#1C1C19] text-white hover:bg-[#745A2E] text-xs font-semibold uppercase tracking-wider transition-colors">
+            Salvar PIN
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       OVERLAY DE TELA BLOQUEADA (APENAS SE ATIVADO PELO OPERADOR)
+       ========================================================================== -->
+  <div id="pinLockOverlay" class="hidden fixed inset-0 z-[1500] bg-[#FCF9F4]/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-white rounded-3xl p-7 border border-[#1C1C19]/[0.08] shadow-xl space-y-5 text-center">
+      <img src="assets/logo-icon-transparent.png" alt="Marcely Semijoias" class="w-11 h-11 mx-auto object-contain">
+      <div class="space-y-1">
+        <span class="text-[10px] font-semibold uppercase tracking-widest text-[#745A2E]">Sessão Bloqueada</span>
+        <h2 class="font-serif text-2xl text-[#1C1C19]">Painel Marcely</h2>
+        <p class="text-xs text-[#787571]">Informe o PIN para retomar a gestão do catálogo.</p>
+      </div>
+      <form id="pinUnlockForm" class="space-y-3 text-left">
+        <input type="password" id="fieldUnlockPin" placeholder="Digite o PIN" class="admin-input text-center tracking-widest uppercase" autocomplete="off">
+        <p id="pinUnlockError" class="hidden text-xs text-[#93000A] text-center font-medium">PIN incorreto. Tente novamente.</p>
+        <button type="submit" class="w-full min-h-[46px] rounded-full bg-[#1C1C19] text-white hover:bg-[#745A2E] transition-colors text-xs font-semibold uppercase tracking-widest">
+          Desbloquear Painel
+        </button>
+      </form>
+      <a href="index.html" class="inline-block text-xs text-[#787571] hover:text-[#1C1C19] underline">Voltar para a Loja</a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER EDITORIAL PADRONIZADO
+       ========================================================================== -->
+  <footer class="w-full border-t border-[#1C1C19]/[0.08] bg-[#FCF9F4] py-8 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#787571]">
+      <p>&copy; 2026 Marcely Semijoias. Painel Administrativo de Catálogo.</p>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-[#1C1C19] transition-colors">Loja</a>
+        <a href="catalogo.html" class="hover:text-[#1C1C19] transition-colors">Catálogo</a>
+        <a href="sobre.html" class="hover:text-[#1C1C19] transition-colors">Sobre</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MOBILE BOTTOM TAB BAR (CONSISTENTE COM A LOJA)
+       ========================================================================== -->
+  <nav id="mobileAppTabBar" class="lg:hidden" aria-label="Navegação Principal Mobile">
+    <div class="mobile-app-tabbar-inner">
+      <a href="index.html" class="mobile-tab-item" data-tab="home">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/></svg>
+        <span>Início</span>
+      </a>
+      <a href="catalogo.html" class="mobile-tab-item" data-tab="catalog">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span>Catálogo</span>
+      </a>
+      <button type="button" id="btnMobileTabCreate" class="mobile-tab-item" aria-label="Cadastrar Nova Peça">
+        <span class="mobile-tab-center-pill">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </span>
+        <span>Nova Peça</span>
+      </button>
+      <a href="sobre.html" class="mobile-tab-item" data-tab="about">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>
+        <span>Sobre</span>
+      </a>
+      <a href="admin.html" class="mobile-tab-item active" data-tab="admin" aria-current="page">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Admin</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" aria-live="polite"></div>
+
+  <!-- Admin Controller Script -->
+  <script src="admin.js"></script>
+</body>
+</html>

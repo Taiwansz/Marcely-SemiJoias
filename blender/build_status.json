@@ -1,0 +1,32 @@
+{
+  "status": "success",
+  "version": "v2",
+  "blender_version": "5.3.0",
+  "elapsed_seconds": 467.26,
+  "stone_count": 69,
+  "triangles": {
+    "metal": 26048,
+    "gems": 6726,
+    "total": 32774
+  },
+  "bbox_world_units": [
+    1.9525,
+    0.7277,
+    2.1101
+  ],
+  "glb_path": "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\site\\assets\\models\\marcely_ring.glb",
+  "glb_size_bytes": 904160,
+  "glb_size_kb": 882.97,
+  "outputs": {
+    "blend": "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\blender\\marcely_ring.blend",
+    "glb": "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\site\\assets\\models\\marcely_ring.glb",
+    "gold_cutout": "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\site\\assets\\img\\ring-gold-cutout.png",
+    "rhodium_cutout": "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\site\\assets\\img\\ring-rhodium-cutout.png",
+    "renders": [
+      "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\blender\\renders\\01_ring_hero_gold.png",
+      "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\blender\\renders\\02_ring_closeup_crown.png",
+      "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\blender\\renders\\03_ring_rhodium.png",
+      "C:\\Users\\stdma\\projetos\\Marcely - SemiJoias\\blender\\renders\\04_ring_side_gallery.png"
+    ]
+  }
+}

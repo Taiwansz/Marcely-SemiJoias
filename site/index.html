@@ -7,13 +7,25 @@
   <meta name="shell-type" content="web_standard">
   <title>Marcely Semijoias | Joias em Ouro 18k &amp; Ródio Nobre</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  <meta name="description" content="Marcely Semijoias - Revendedora Autorizada Veridiana Semijoias. Peças originais com banho de 10 milésimos de Ouro 18k e Ródio Nobre, hipoalergênicas e com atendimento pessoal direto no WhatsApp.">
+  <meta name="description" content="Marcely Semijoias - Revendedora Autorizada Veridiana Semijoias. Peças originais com banho de 10 a 15 milésimos de Ouro 18k e Ródio Nobre, cravação 5A, verniz nano-cerâmico alemão e consultoria direta no WhatsApp.">
 
   <!-- Google Fonts & Material Symbols Outlined -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Local Three.js Importmap (Zero CDN Dependency) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./assets/vendor/three.module.min.js",
+        "three/addons/loaders/GLTFLoader.js": "./assets/vendor/GLTFLoader.js",
+        "three/addons/environments/RoomEnvironment.js": "./assets/vendor/RoomEnvironment.js",
+        "three/addons/utils/BufferGeometryUtils.js": "./assets/vendor/BufferGeometryUtils.js"
+      }
+    }
+  </script>
 
   <!-- Tailwind CSS CDN & Token Config (Organic Rounded Geometry) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -101,19 +113,19 @@
 <body class="bg-[#FCF9F4] font-sans text-[#1C1C19] antialiased overflow-x-hidden">
 
   <!-- ==========================================================================
-       TOP BAR CLEAN ESTILO INSTAGRAM (MOBILE APP + DESKTOP EDITORIAL)
+       TOP BAR EDITORIAL CLEAN (DESKTOP + MOBILE)
        ========================================================================== -->
   <header class="sticky top-0 z-50 bg-[#FCF9F4]/92 backdrop-blur-xl border-b border-[#1C1C19]/[0.06]">
     <div class="max-w-7xl mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
 
-      <!-- Left: Clean Brand Logo (Instagram-style left-aligned on Mobile & Desktop) -->
+      <!-- Left: Brand Logo -->
       <a href="index.html" class="flex items-center gap-2.5 min-h-[44px] whitespace-nowrap">
         <img src="assets/logo-icon-transparent.png" alt="Marcely Semijoias" class="w-8 h-8 sm:w-9 sm:h-9 object-contain flex-shrink-0">
         <span class="font-serif text-xl sm:text-2xl tracking-tight text-[#1C1C19]">Marcely <span class="font-normal italic text-[#745A2E] text-base sm:text-lg">Semijoias</span></span>
       </a>
 
-      <!-- Center: Desktop Clean Navigation -->
-      <nav class="hidden lg:flex items-center gap-8" aria-label="Navegação Principal">
+      <!-- Center: Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Navegação Principal">
         <a href="index.html" class="min-h-[44px] inline-flex items-center text-sm font-semibold text-[#1C1C19]">Início</a>
         <a href="catalogo.html" class="min-h-[44px] inline-flex items-center text-sm font-medium text-[#787571] hover:text-[#1C1C19] transition-colors">Catálogo</a>
         <a href="catalogo.html?cat=brincos" class="min-h-[44px] inline-flex items-center text-sm font-medium text-[#787571] hover:text-[#1C1C19] transition-colors">Brincos</a>
@@ -123,22 +135,31 @@
         <a href="sobre.html" class="min-h-[44px] inline-flex items-center text-sm font-medium text-[#787571] hover:text-[#1C1C19] transition-colors">Sobre</a>
       </nav>
 
-      <!-- Right Actions: Mobile App Icons (< 1024px) & Desktop Pill (>= 1024px) -->
+      <!-- Right Actions: Mobile App Icons & Desktop Pill -->
       <div class="flex items-center flex-shrink-0">
-        <!-- Mobile Top-Right Actions (Search & Favorites) -->
-        <div class="flex lg:hidden items-center gap-1">
-          <a href="catalogo.html#catalogSearchInput" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Buscar">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <!-- Mobile Top-Right Actions (Search, Favorites & Admin) -->
+        <div class="flex lg:hidden items-center gap-0.5">
+          <a href="catalogo.html#catalogSearchInput" class="w-10 h-10 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Buscar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           </a>
 
-          <a href="catalogo.html" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors relative" aria-label="Favoritos" title="Meus Favoritos">
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <a href="catalogo.html" class="w-10 h-10 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors relative" aria-label="Favoritos" title="Meus Favoritos">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span class="wishlist-count-badge absolute top-1 right-1 w-4 h-4 bg-[#745A2E] text-white rounded-full flex items-center justify-center text-[9px] font-bold leading-none" style="display:none;">0</span>
+          </a>
+
+          <a href="admin.html" class="w-10 h-10 rounded-full flex items-center justify-center text-[#787571] hover:text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors" aria-label="Admin" title="Painel Administrativo">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
           </a>
         </div>
 
-        <!-- Desktop Top-Right Actions (Favorites + Minha Seleção Pill) -->
-        <div class="hidden lg:flex items-center gap-2.5">
+        <!-- Desktop Top-Right Actions (Admin + Favorites + Minha Seleção Pill) -->
+        <div class="hidden lg:flex items-center gap-2">
+          <a href="admin.html" class="min-h-[40px] px-3.5 rounded-full border border-[#1C1C19]/10 bg-white/75 hover:border-[#745A2E] hover:text-[#745A2E] text-[#787571] text-xs font-medium inline-flex items-center gap-1.5 transition-colors whitespace-nowrap" title="Painel Administrativo">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            <span>Admin</span>
+          </a>
+
           <a href="catalogo.html" class="w-11 h-11 rounded-full flex items-center justify-center text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors relative" aria-label="Favoritos" title="Meus Favoritos">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <span class="wishlist-count-badge absolute top-1 right-1 w-4 h-4 bg-[#745A2E] text-white rounded-full flex items-center justify-center text-[9px] font-bold leading-none" style="display:none;">0</span>
@@ -178,7 +199,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </a>
           <a href="catalogo.html" class="min-h-[48px] px-4 rounded-2xl flex items-center justify-between text-base font-medium text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors">
-            <span>Catálogo Completo (58 Peças)</span>
+            <span data-catalog-count="all" data-catalog-count-format="Catálogo Completo ({n} Peças)">Catálogo Completo (58 Peças)</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </a>
           <a href="catalogo.html?cat=brincos" class="min-h-[48px] px-4 rounded-2xl flex items-center justify-between text-base font-medium text-[#1C1C19] hover:bg-[#F0EDE9] transition-colors">
@@ -201,6 +222,13 @@
             <span>Sobre a Marca</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </a>
+          <a href="admin.html" class="min-h-[48px] px-4 rounded-2xl flex items-center justify-between text-sm font-medium text-[#745A2E] hover:bg-[#F0EDE9] transition-colors border border-[#1C1C19]/[0.06] mt-1">
+            <span class="inline-flex items-center gap-2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              <span>Admin</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </a>
         </div>
       </div>
 
@@ -219,135 +247,226 @@
        ========================================================================== -->
   <main class="w-full min-h-screen">
 
-    <!-- SEÇÃO 1: HERO EDITORIAL & FOTOGRAFIA LIMPA -->
-    <section class="pt-6 pb-12 sm:py-16 px-4 sm:px-8">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <!-- ========================================================================
+         SEÇÃO 1: HERO 3D DE ALTA JOALHERIA (DOUBLE-BEZEL + BANHO AO VIVO)
+         ======================================================================== -->
+    <section class="hero-jewelry-section">
+      <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
 
-        <!-- Left Column: Concise Typography & Dual CTAs -->
-        <div class="lg:col-span-7 flex flex-col items-start gap-5 sm:gap-6">
-          <div class="inline-flex items-center rounded-md bg-[#F0EDE9] px-3.5 py-1 text-[11px] font-semibold tracking-wider uppercase text-[#745A2E]">
-            <span>Ouro 18k &amp; Ródio Nobre | Hipoalergênico</span>
+        <!-- Left Column (5 cols): Monumental Serif, Live Metal Switcher & Dual CTAs -->
+        <div class="lg:col-span-5 flex flex-col items-start gap-5 sm:gap-6">
+          <div class="hero-jewelry-eyebrow">
+            <span class="hero-jewelry-eyebrow-dot" aria-hidden="true"></span>
+            <span>ALTA JOALHERIA EM BANHO NOBRE · 10 A 15 MILÉSIMOS</span>
           </div>
 
-          <h1 class="font-serif text-3xl sm:text-5xl lg:text-[3.5rem] leading-[1.1] tracking-tight text-[#1C1C19]">
-            Semijoias em banho nobre de <span class="italic font-normal text-[#745A2E]">Ouro 18k</span> e Ródio.
+          <h1 class="hero-jewelry-title">
+            Ouro 18k e Ródio esculpidos em <span class="italic font-normal text-[#745A2E]">cada detalhe.</span>
           </h1>
 
-          <p class="text-sm sm:text-lg text-[#4D4540] max-w-xl leading-relaxed">
-            Curadoria autoral com acabamento de alta joalheria, base hipoalergênica e consultoria individual direto no WhatsApp.
+          <p class="text-sm sm:text-base text-[#4D4540] max-w-md leading-relaxed">
+            Curadoria autoral com cravação 5A, verniz nano-cerâmico alemão, garantia Veridiana e consultoria direta no WhatsApp.
           </p>
 
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto pt-1">
-            <a href="catalogo.html" class="min-h-[48px] px-8 rounded-full bg-[#1C1C19] text-white hover:bg-[#745A2E] transition-colors inline-flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest shadow-sm">
-              <span>Ver Catálogo</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <!-- Live 3D Metal Finish Switcher -->
+          <div class="hero-metal-picker">
+            <div class="flex items-center justify-between gap-2 text-xs">
+              <span class="text-[#787571]">Banho ao vivo: <strong id="ringHeroMetalLabel" class="font-semibold text-[#1C1C19]">Ouro 18k (10 milésimos)</strong></span>
+            </div>
+            <div class="hero-metal-pills" role="radiogroup" aria-label="Alternar banho no modelo 3D">
+              <button type="button" class="hero-metal-pill is-active" data-ring-metal="gold" role="radio" aria-checked="true">
+                <span class="metal-swatch metal-swatch-gold" aria-hidden="true"></span>
+                <span>Ouro 18k</span>
+              </button>
+              <button type="button" class="hero-metal-pill" data-ring-metal="rhodium" role="radio" aria-checked="false">
+                <span class="metal-swatch metal-swatch-rhodium" aria-hidden="true"></span>
+                <span>Ródio Nobre</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dual Tactile CTAs -->
+          <div class="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center lg:items-stretch xl:items-center gap-3 w-full pt-1">
+            <a href="catalogo.html" class="hero-pill-primary whitespace-nowrap">
+              <span>Explorar Catálogo</span>
+              <span class="hero-pill-orb" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
             </a>
 
-            <button type="button" onclick="window.MarcelyApp.openWhatsAppConcierge()" class="min-h-[48px] px-7 rounded-full border border-[#1C1C19]/15 bg-white text-[#1C1C19] hover:border-[#745A2E] hover:text-[#745A2E] transition-colors inline-flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" class="text-[#745A2E]"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-              <span>Chamar no WhatsApp</span>
+            <button type="button" id="heroRingWhatsappBtn" class="hero-pill-secondary whitespace-nowrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" class="text-[#745A2E] flex-shrink-0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span>Pedir no WhatsApp</span>
             </button>
           </div>
         </div>
 
-        <!-- Right Column: Clean Photographic Frame (Sem overlay sobre a joia) -->
-        <div class="lg:col-span-5">
-          <div class="rounded-2xl overflow-hidden bg-white p-3 sm:p-3.5 shadow-sm border border-[#1C1C19]/[0.06] max-w-md mx-auto lg:max-w-none">
-            <a href="produto.html?id=marcely_b69fa9a5a0ac" class="group block" aria-label="Ver detalhes do Anel Aparador Halo Cravejado">
-              <div class="aspect-[4/5] w-full overflow-hidden rounded-xl bg-[#F0EDE9]">
-                <img src="assets/products/item_b69fa9a5a0ac464380c200d133a783aa.jpg" alt="Anel Aparador Halo Cravejado Diamon - Marcely Semijoias" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+        <!-- Right Column (7 cols): Double-Bezel High Jewelry 3D Stage -->
+        <div class="lg:col-span-7 w-full">
+          <div class="ring-stage-bezel">
+            <div id="ringHeroStage" class="ring-stage-chamber">
+
+              <!-- Dedicated WebGL Viewport (Zero Text Overlap) -->
+              <div class="ring-stage-viewport">
+                <div class="ring-stage-topbar">
+                  <span class="ring-stage-badge">
+                    <span class="ring-stage-dot" aria-hidden="true"></span>
+                    <span>360° Interativo · WebGL PBR</span>
+                  </span>
+                  <a href="produto.html?id=marcely_b69fa9a5a0ac" class="ring-stage-link">
+                    <span>Ver ficha</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+
+                <img
+                  id="ringStageFallbackImg"
+                  src="./assets/img/ring-gold-cutout.png"
+                  onerror="this.onerror=null;this.src='assets/products/item_b69fa9a5a0ac464380c200d133a783aa.jpg';"
+                  alt="Anel Aparador Halo Cravejado Diamon em Ouro 18k"
+                  class="ring-stage-fallback"
+                >
+                <canvas id="marcelyRingCanvas" aria-label="Visualizador 3D interativo do Anel Aparador Halo Cravejado Diamon"></canvas>
               </div>
-              <div class="pt-3 pb-0.5 px-1 flex items-center justify-between gap-3 text-xs">
-                <span class="font-serif text-sm sm:text-base text-[#1C1C19] group-hover:text-[#745A2E] transition-colors truncate">Anel Aparador Halo Cravejado</span>
-                <span class="text-[11px] font-semibold uppercase tracking-wider text-[#745A2E] group-hover:text-[#1C1C19] inline-flex items-center gap-1 transition-colors whitespace-nowrap flex-shrink-0">
-                  <span>Ver joia</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </span>
+
+              <!-- Micro-HUD Docked Cleanly Below Ring -->
+              <div class="ring-stage-hud">
+                <div class="ring-preset-row no-scrollbar" role="group" aria-label="Ângulos de câmera do anel 3D">
+                  <button type="button" class="ring-preset-btn is-active" data-ring-preset="hero" aria-pressed="true">Hero</button>
+                  <button type="button" class="ring-preset-btn" data-ring-preset="halo" aria-pressed="false">Halo 5A</button>
+                  <button type="button" class="ring-preset-btn" data-ring-preset="gallery" aria-pressed="false">Galeria</button>
+                  <button type="button" class="ring-preset-btn" data-ring-preset="pave" aria-pressed="false">Pavê 3 Fileiras</button>
+                </div>
+
+                <div class="ring-hud-meta">
+                  <span class="ring-drag-hint">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                    <span>Arraste 360° para inspecionar</span>
+                  </span>
+                  <a href="produto.html?id=marcely_b69fa9a5a0ac" class="ring-sku-tag">
+                    <span>Anel Aparador Halo Cravejado Diamon ·</span>
+                    <strong>R$ 469,00</strong>
+                  </a>
+                </div>
               </div>
-            </a>
+
+            </div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- SEÇÃO 2: CATEGORIAS EM GRID 2X2 MOBILE / 4 COLUNAS DESKTOP -->
-    <section class="py-10 sm:py-16 px-4 sm:px-8">
-      <div class="max-w-7xl mx-auto space-y-6 sm:space-y-8">
+    <!-- ========================================================================
+         SEÇÃO 2: BENTO GRID ASSIMÉTRICO ESTILO APPLE (ACERVO MARCELY)
+         ======================================================================== -->
+    <section id="acervo" class="marcely-bento-section">
+      <div class="max-w-7xl mx-auto">
 
-        <div class="flex items-center justify-between gap-4">
-          <h2 class="font-serif text-2xl sm:text-4xl text-[#1C1C19] tracking-tight">Explore por Categoria</h2>
-          <a href="catalogo.html" class="min-h-[44px] inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#745A2E] hover:text-[#1C1C19] transition-colors whitespace-nowrap">
-            <span>Ver catálogo</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="marcely-bento-header">
+          <div>
+            <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#745A2E] mb-2.5">ACERVO MARCELY</p>
+            <h2 class="font-serif text-3xl sm:text-5xl text-[#1C1C19] leading-[1.05] tracking-tight">
+              Cinco assinaturas.<br>Um único brilho.
+            </h2>
+          </div>
+
+          <a href="catalogo.html" class="marcely-arrow-link">
+            <span data-catalog-count="all" data-catalog-count-format="Ver todas as {n} peças">Ver todas as peças</span>
+            <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-          <!-- Brincos -->
-          <a href="catalogo.html?cat=brincos" class="rounded-2xl bg-white p-3 sm:p-4 border border-[#1C1C19]/[0.06] shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col">
-            <div class="aspect-square w-full rounded-xl overflow-hidden bg-[#F0EDE9]">
-              <img src="assets/products/item_251c5296d3c24f6186e958de525d58cc.jpg" alt="Brincos Marcely Semijoias" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="marcely-bento-grid">
+
+          <!-- Card 1 (Left, 2 Rows — Espresso Joalheria #1F1915) -->
+          <a href="catalogo.html?cat=aneis" class="marcely-bento-card marcely-bento-hero bento-tone-espresso">
+            <div class="marcely-bento-top">
+              <span class="marcely-bento-sub">Cravação 5A · Ouro 18k</span>
+              <h3 class="marcely-bento-title">Anéis &amp; Solitários</h3>
             </div>
-            <div class="pt-3 pb-1 px-1.5 flex items-center justify-between gap-2">
-              <h3 class="font-serif text-base sm:text-lg text-[#1C1C19] group-hover:text-[#745A2E] transition-colors">Brincos</h3>
-              <span class="w-7 h-7 rounded-full bg-[#F6F3EE] group-hover:bg-[#1C1C19] group-hover:text-white text-[#1C1C19] flex items-center justify-center transition-colors flex-shrink-0">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
+            <div class="marcely-bento-media bento-media-ring-hero">
+              <img src="./assets/img/ring-gold-cutout.png" alt="Anel Solitário em Ouro 18k Marcely Semijoias">
+            </div>
+            <div class="marcely-bento-footer">
+              <span class="marcely-bento-pill">Explorar &rarr;</span>
             </div>
           </a>
 
-          <!-- Colares -->
-          <a href="catalogo.html?cat=colares" class="rounded-2xl bg-white p-3 sm:p-4 border border-[#1C1C19]/[0.06] shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col">
-            <div class="aspect-square w-full rounded-xl overflow-hidden bg-[#F0EDE9]">
-              <img src="assets/products/item_c8a753d1f9464a829c22b981e7ec4380.jpg" alt="Colares Marcely Semijoias" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <!-- Card 2 (Top Center — Obsidiana #121214) -->
+          <a href="catalogo.html?cat=brincos" class="marcely-bento-card bento-tone-obsidian">
+            <div class="marcely-bento-top">
+              <span class="marcely-bento-sub" data-catalog-count="brincos" data-catalog-count-format="{n} criações hipoalergênicas">30 criações hipoalergênicas</span>
+              <h3 class="marcely-bento-title">Brincos</h3>
             </div>
-            <div class="pt-3 pb-1 px-1.5 flex items-center justify-between gap-2">
-              <h3 class="font-serif text-base sm:text-lg text-[#1C1C19] group-hover:text-[#745A2E] transition-colors">Colares</h3>
-              <span class="w-7 h-7 rounded-full bg-[#F6F3EE] group-hover:bg-[#1C1C19] group-hover:text-white text-[#1C1C19] flex items-center justify-center transition-colors flex-shrink-0">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
+            <div class="marcely-bento-media bento-media-earrings">
+              <img src="./assets/img/bento-brincos-cutout.png" alt="Brincos hipoalergênicos Marcely Semijoias">
             </div>
-          </a>
-
-          <!-- Pulseiras -->
-          <a href="catalogo.html?cat=pulseiras" class="rounded-2xl bg-white p-3 sm:p-4 border border-[#1C1C19]/[0.06] shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col">
-            <div class="aspect-square w-full rounded-xl overflow-hidden bg-[#F0EDE9]">
-              <img src="assets/products/item_b42cc2ca9d7a4c7599a37c45df25d914.jpg" alt="Pulseiras Marcely Semijoias" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            </div>
-            <div class="pt-3 pb-1 px-1.5 flex items-center justify-between gap-2">
-              <h3 class="font-serif text-base sm:text-lg text-[#1C1C19] group-hover:text-[#745A2E] transition-colors">Pulseiras</h3>
-              <span class="w-7 h-7 rounded-full bg-[#F6F3EE] group-hover:bg-[#1C1C19] group-hover:text-white text-[#1C1C19] flex items-center justify-center transition-colors flex-shrink-0">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
+            <div class="marcely-bento-footer">
+              <span class="marcely-bento-pill">Explorar &rarr;</span>
             </div>
           </a>
 
-          <!-- Anéis -->
-          <a href="catalogo.html?cat=aneis" class="rounded-2xl bg-white p-3 sm:p-4 border border-[#1C1C19]/[0.06] shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col">
-            <div class="aspect-square w-full rounded-xl overflow-hidden bg-[#F0EDE9]">
-              <img src="assets/products/item_b69fa9a5a0ac464380c200d133a783aa.jpg" alt="Anéis Marcely Semijoias" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <!-- Card 3 (Top Right — Esmeralda Profundo #12291E) -->
+          <a href="catalogo.html?cat=colares" class="marcely-bento-card bento-tone-emerald">
+            <div class="marcely-bento-top">
+              <span class="marcely-bento-sub" data-catalog-count="colares" data-catalog-count-format="{n} peças em camadas">13 peças em camadas</span>
+              <h3 class="marcely-bento-title">Colares</h3>
             </div>
-            <div class="pt-3 pb-1 px-1.5 flex items-center justify-between gap-2">
-              <h3 class="font-serif text-base sm:text-lg text-[#1C1C19] group-hover:text-[#745A2E] transition-colors">Anéis</h3>
-              <span class="w-7 h-7 rounded-full bg-[#F6F3EE] group-hover:bg-[#1C1C19] group-hover:text-white text-[#1C1C19] flex items-center justify-center transition-colors flex-shrink-0">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
+            <div class="marcely-bento-media bento-media-necklace">
+              <img src="./assets/img/bento-colares-cutout.png" alt="Colares em Ouro 18k Marcely Semijoias">
+            </div>
+            <div class="marcely-bento-footer">
+              <span class="marcely-bento-pill">Explorar &rarr;</span>
             </div>
           </a>
+
+          <!-- Card 4 (Bottom Center — Champanhe Quente #EAE3D5) -->
+          <a href="catalogo.html?cat=pulseiras" class="marcely-bento-card bento-tone-champagne">
+            <div class="marcely-bento-top">
+              <span class="marcely-bento-sub" data-catalog-count="pulseiras" data-catalog-count-format="{n} peças · fecho de precisão">14 peças · fecho de precisão</span>
+              <h3 class="marcely-bento-title">Pulseiras</h3>
+            </div>
+            <div class="marcely-bento-media bento-media-bracelet">
+              <img src="./assets/img/bento-pulseiras-cutout.png" alt="Pulseiras de precisão Marcely Semijoias">
+            </div>
+            <div class="marcely-bento-footer">
+              <span class="marcely-bento-pill marcely-bento-pill-dark">Explorar &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 5 (Bottom Right — Marinho Joalheria #0E1A2E) -->
+          <a href="catalogo.html?metal=rodio" class="marcely-bento-card bento-tone-navy">
+            <div class="marcely-bento-top">
+              <span class="marcely-bento-sub">Verniz alemão · brilho platinado</span>
+              <h3 class="marcely-bento-title">Ródio Nobre</h3>
+            </div>
+            <div class="marcely-bento-media bento-media-rhodium">
+              <img src="./assets/img/ring-rhodium-cutout.png" alt="Anel em Ródio Nobre Marcely Semijoias">
+            </div>
+            <div class="marcely-bento-footer">
+              <span class="marcely-bento-pill">Explorar &rarr;</span>
+            </div>
+          </a>
+
         </div>
 
       </div>
     </section>
 
-    <!-- SEÇÃO 3: PEÇAS EM DESTAQUE (2 COLUNAS NO CELULAR / 4 NO DESKTOP) -->
+    <!-- ========================================================================
+         SEÇÃO 3: PEÇAS EM DESTAQUE DINÂMICAS (#featuredProductsGrid)
+         ======================================================================== -->
     <section class="py-10 sm:py-16 px-4 sm:px-8">
       <div class="max-w-7xl mx-auto space-y-6 sm:space-y-8">
 
-        <div class="flex items-center justify-between gap-3">
-          <h2 class="font-serif text-2xl sm:text-4xl text-[#1C1C19] tracking-tight">Peças em Destaque</h2>
+        <div class="flex items-end justify-between gap-3">
+          <div>
+            <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#745A2E] mb-1.5">CURADORIA EM TEMPO REAL</p>
+            <h2 class="font-serif text-2xl sm:text-4xl text-[#1C1C19] tracking-tight">Peças em Destaque</h2>
+          </div>
           <a href="catalogo.html" class="min-h-[44px] px-4 sm:px-5 rounded-full border border-[#1C1C19]/15 bg-white text-[#1C1C19] hover:bg-[#1C1C19] hover:text-white transition-colors inline-flex items-center gap-1.5 text-xs font-medium whitespace-nowrap">
-            <span>Ver todas (58)</span>
+            <span data-catalog-count="all" data-catalog-count-format="Ver todas ({n})">Ver todas (58)</span>
           </a>
         </div>
 
@@ -358,7 +477,9 @@
       </div>
     </section>
 
-    <!-- SEÇÃO 4: ATENDIMENTO PESSOAL & QUALIDADE -->
+    <!-- ========================================================================
+         SEÇÃO 4: CONSULTORIA INDIVIDUAL & GARANTIA VERIDIANA
+         ======================================================================== -->
     <section class="px-4 sm:px-8 my-8 sm:my-16">
       <div class="max-w-7xl mx-auto bg-[#F6F3EE] rounded-2xl sm:rounded-3xl p-6 sm:p-12 border border-[#1C1C19]/[0.05]">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -434,7 +555,7 @@
             <span class="font-serif text-xl tracking-tight text-[#1C1C19]">Marcely <span class="font-normal italic text-[#745A2E] text-base">Semijoias</span></span>
           </a>
           <p class="text-xs sm:text-sm text-[#787571] max-w-sm leading-relaxed">
-            Semijoias com banho de 10 milésimos de Ouro 18k e Ródio Nobre, acabamento hipoalergênico e atendimento pessoal no WhatsApp.
+            Semijoias com banho de 10 a 15 milésimos de Ouro 18k e Ródio Nobre, acabamento hipoalergênico e atendimento pessoal no WhatsApp.
           </p>
           <p class="text-xs text-[#745A2E] font-medium">
             Revendedora Autorizada Veridiana Semijoias | Garantia Oficial
@@ -446,12 +567,13 @@
           <p class="text-xs font-semibold uppercase tracking-widest text-[#1C1C19]">Navegação</p>
           <div class="grid grid-cols-2 gap-x-4 text-sm text-[#787571]">
             <a href="index.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Início</a>
-            <a href="catalogo.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Catálogo (58)</a>
+            <a href="catalogo.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors" data-catalog-count="all" data-catalog-count-format="Catálogo ({n})">Catálogo (58)</a>
             <a href="catalogo.html?cat=brincos" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Brincos</a>
             <a href="catalogo.html?cat=colares" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Colares</a>
             <a href="catalogo.html?cat=pulseiras" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Pulseiras</a>
             <a href="catalogo.html?cat=aneis" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Anéis</a>
             <a href="sobre.html" class="min-h-[44px] inline-flex items-center hover:text-[#1C1C19] transition-colors">Sobre</a>
+            <a href="admin.html" class="min-h-[44px] inline-flex items-center gap-1.5 text-[#745A2E] hover:text-[#1C1C19] transition-colors">Admin</a>
           </div>
         </div>
 
@@ -518,7 +640,7 @@
         </div>
         <h4 class="font-serif text-lg text-[#1C1C19]">Sua seleção está vazia</h4>
         <p class="text-xs text-[#787571] mt-1.5 max-w-xs leading-relaxed">
-          Explore as 58 semijoias do catálogo e adicione suas favoritas para enviar em 1 clique pelo WhatsApp da Marcely.
+          Explore as <span data-catalog-count="all">58</span> semijoias do catálogo e adicione suas favoritas para enviar em 1 clique pelo WhatsApp da Marcely.
         </p>
         <a href="catalogo.html" onclick="window.MarcelyApp.closeCart()" class="mt-6 min-h-[44px] px-6 rounded-full border border-[#1C1C19]/15 bg-white text-[#1C1C19] hover:bg-[#1C1C19] hover:text-white transition-colors inline-flex items-center justify-center text-xs font-semibold uppercase tracking-wider">
           Explorar Catálogo
@@ -673,8 +795,9 @@
     </div>
   </nav>
 
-  <!-- Central Interaction Script & Concierge -->
+  <!-- Central Interaction Script, High-Jewelry 3D Ring Engine & Concierge -->
   <script src="app.js"></script>
+  <script type="module" src="ring3d.js"></script>
   <script src="concierge.js"></script>
 </body>
 </html>
