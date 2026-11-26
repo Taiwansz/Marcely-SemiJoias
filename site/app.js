@@ -804,8 +804,69 @@
     return null;
   }
 
+  let cachedServerCrudSupport = null;
+
+  async function detectServerCrudSupport() {
+    if (cachedServerCrudSupport !== null) return cachedServerCrudSupport;
+    try {
+      const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timer = ctrl ? setTimeout(() => ctrl.abort(), 1600) : null;
+      const res = await fetch('/api/health', {
+        cache: 'no-store',
+        headers: { 'Accept': 'application/json' },
+        signal: ctrl ? ctrl.signal : undefined,
+      });
+      if (timer) clearTimeout(timer);
+      if (res.ok) {
+        const data = await res.json();
+        cachedServerCrudSupport = Boolean(data && data.admin_crud === true);
+        return cachedServerCrudSupport;
+      }
+    } catch (_err) {
+      // Static or offline mode
+    }
+    cachedServerCrudSupport = false;
+    return false;
+  }
+
   async function loadProductsData() {
-    // 1. Primary source of truth: /api/products (Express / Vercel API)
+    const serverCrudEnabled = await detectServerCrudSupport();
+    const localAdmin = parseStoredAdminCatalog();
+
+    // 1. Live Express CRUD backend (writes directly to disk): API is primary source of truth
+    if (serverCrudEnabled) {
+      try {
+        const apiRes = await fetch(CONFIG.productsApiUrl, {
+          cache: 'no-store',
+          headers: { 'Accept': 'application/json' }
+        });
+        const contentType = (apiRes.headers.get('content-type') || '').toLowerCase();
+        if (apiRes.ok && contentType.includes('application/json')) {
+          const apiData = await apiRes.json();
+          const apiList = extractProductsArray(apiData);
+          if (apiList) {
+            state.products = apiList;
+            state.catalogSource = 'api';
+            window.MarcelyProducts = state.products;
+            updateDynamicCatalogCounts();
+            return state.products;
+          }
+        }
+      } catch (_apiErr) {
+        // Fallback below
+      }
+    }
+
+    // 2. Static / Vercel serverless read-only mode: honor localStorage admin edits immediately
+    if (localAdmin && Array.isArray(localAdmin.products)) {
+      state.products = localAdmin.products;
+      state.catalogSource = 'localStorage';
+      window.MarcelyProducts = state.products;
+      updateDynamicCatalogCounts();
+      return state.products;
+    }
+
+    // 3. Read-only /api/products or static products.json baseline
     try {
       const apiRes = await fetch(CONFIG.productsApiUrl, {
         cache: 'no-store',
@@ -824,38 +885,18 @@
         }
       }
     } catch (_apiErr) {
-      // Static mode fallback handled below
+      // Fallback to static JSON below
     }
 
-    // 2. Static mode: check localStorage admin override & fallback to products.json
-    const localAdmin = parseStoredAdminCatalog();
     let staticProducts = null;
-    let staticLastModified = 0;
-
     try {
       const response = await fetch(CONFIG.productsUrl, { cache: 'no-store' });
       if (response.ok) {
-        const lastMod = response.headers.get('last-modified');
-        if (lastMod) {
-          const parsedMod = Date.parse(lastMod);
-          if (!isNaN(parsedMod)) staticLastModified = parsedMod;
-        }
         const json = await response.json();
         staticProducts = extractProductsArray(json);
       }
     } catch (error) {
       console.warn('Aviso: Utilizando catalogo em cache interno:', error);
-    }
-
-    if (localAdmin && Array.isArray(localAdmin.products)) {
-      const useLocal = !staticProducts || localAdmin.updatedAt >= staticLastModified;
-      if (useLocal) {
-        state.products = localAdmin.products;
-        state.catalogSource = 'localStorage';
-        window.MarcelyProducts = state.products;
-        updateDynamicCatalogCounts();
-        return state.products;
-      }
     }
 
     state.products = staticProducts || window.MarcelyProducts || [];

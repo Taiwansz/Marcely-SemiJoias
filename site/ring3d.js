@@ -672,6 +672,7 @@ export function createMarcelyRing3D({ canvas, stageEl } = {}) {
 
   function dispose() {
     disposed = true;
+    window.__marcelyRing3dReady = false;
     if (rafId !== null) cancelAnimationFrame(rafId);
     if (resizeObserver) resizeObserver.disconnect();
     else window.removeEventListener('resize', syncSize);
