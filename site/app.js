@@ -1717,18 +1717,27 @@
       };
 
       if (document.startViewTransition) {
-        await document.startViewTransition(executeSwap).finished;
+        try {
+          const vt = document.startViewTransition(executeSwap);
+          if (vt && vt.ready) vt.ready.catch(() => {});
+          if (vt && vt.finished) vt.finished.catch(() => {});
+          if (vt && vt.updateCallbackDone) {
+            await vt.updateCallbackDone;
+          }
+        } catch (_vtErr) {
+          executeSwap();
+        }
       } else {
         const currentMain = document.querySelector('main');
         if (currentMain) {
           currentMain.classList.add('page-transition-exit');
-          await new Promise(r => setTimeout(r, 140));
+          await new Promise(r => setTimeout(r, 120));
           executeSwap();
           const freshMain = document.querySelector('main');
           if (freshMain) {
             freshMain.classList.remove('page-transition-exit');
             freshMain.classList.add('page-transition-enter');
-            setTimeout(() => freshMain.classList.remove('page-transition-enter'), 340);
+            setTimeout(() => freshMain.classList.remove('page-transition-enter'), 300);
           }
         } else {
           executeSwap();
@@ -1785,11 +1794,21 @@
   function reinitializePageScripts(url) {
     const lower = (url || '').toLowerCase();
     updateDynamicCatalogCounts();
-    if (lower.includes('catalogo.html') || document.getElementById('catalogProductsGrid')) {
+    const isHomeDest = !document.getElementById('catalogProductsGrid')
+      && !document.getElementById('productDetailContainer')
+      && !document.getElementById('aboutStorySection');
+
+    if (!isHomeDest && window.__marcelyRing3D && typeof window.__marcelyRing3D.dispose === 'function') {
+      try {
+        window.__marcelyRing3D.dispose();
+      } catch (_) {}
+    }
+
+    if (lower.includes('catalogo') || document.getElementById('catalogProductsGrid')) {
       initCatalogPage();
-    } else if (lower.includes('produto.html') || document.getElementById('productDetailContainer')) {
+    } else if (lower.includes('produto') || document.getElementById('productDetailContainer')) {
       initProductDetailPage();
-    } else if (lower.includes('sobre.html') || document.getElementById('aboutStorySection')) {
+    } else if (lower.includes('sobre') || document.getElementById('aboutStorySection')) {
       initAboutPage();
     } else {
       initHomePage();
@@ -1845,13 +1864,19 @@
       const origin = window.location.origin;
       if (!href.startsWith(origin)) return false;
     }
-    const clean = href.split('?')[0].split('#')[0].split('/').pop();
-    if (clean === 'admin.html') return false;
-    // Full load index.html when navigating from secondary pages so Three.js importmap boots cleanly
-    if ((clean === 'index.html' || clean === '') && !window.__marcelyRing3D) {
+    const clean = href.split('?')[0].split('#')[0].split('/').pop().toLowerCase();
+    if (clean === 'admin.html' || clean === 'admin') return false;
+    // Full load Home when navigating from secondary pages so Three.js importmap boots cleanly
+    if ((clean === 'index.html' || clean === 'index' || clean === '') && !window.__marcelyRing3D) {
       return false;
     }
-    const valid = ['index.html', 'catalogo.html', 'produto.html', 'sobre.html', ''];
+    const valid = [
+      'index.html', 'index',
+      'catalogo.html', 'catalogo',
+      'produto.html', 'produto',
+      'sobre.html', 'sobre',
+      '',
+    ];
     return valid.includes(clean);
   }
 

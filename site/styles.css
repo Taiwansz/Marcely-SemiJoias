@@ -1384,6 +1384,16 @@ body:has(#mobileNavDrawer.active) #mobileSelectionBar {
     font-size: 0.625rem;
     padding: 0.3rem 0.65rem;
   }
+  .ring-preset-row {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    overflow-x: visible;
+  }
+  .ring-preset-btn {
+    min-height: 32px;
+    padding: 0.3rem 0.65rem;
+    font-size: 0.65rem;
+  }
 }
 
 .ring-stage-link:hover {
